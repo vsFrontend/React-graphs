@@ -1,22 +1,20 @@
 import React from "react";
 import { DESCENT_OF_HEAD } from "../../utils"
 import {
-    ResponsiveContainer,
-    XAxis,
-    YAxis,
-    Legend,
-    Tooltip,
-    CartesianGrid,
-    LineChart,
-    Line,
-  } from "recharts";
-
-  
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  Legend,
+  Tooltip,
+  CartesianGrid,
+  LineChart,
+  Line,
+} from "recharts";
 
 const DescentOfHead = () => {
   return (
     <>
-      <h2 className="heading">Descent of head </h2>
+      <h2 className="heading">Descent of head</h2>
       <ResponsiveContainer width="100%" aspect={3}>
         <LineChart
           width={730}

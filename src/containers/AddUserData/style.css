@@ -1,0 +1,14 @@
+.form-container{
+  width: 90%;
+  margin: auto;
+  margin-top: 30px;
+  padding: 10px;
+}
+
+.date-calander-container{
+  display: flex;
+}
+
+.add-form-main-heading{
+  font-weight: 800;
+}

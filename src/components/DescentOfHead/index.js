@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { DESCENT_OF_HEAD } from "../../utils"
 import {
   ResponsiveContainer,
@@ -12,41 +12,51 @@ import {
 } from "recharts";
 
 const DescentOfHead = () => {
+
+  const [barChartData, setBardChartData] = useState([]);
+
+  useEffect(() => {
+    const result = localStorage.getItem("MyData") || "{}";
+    const checkData = JSON.parse(result);
+    const convertToArray = Object.values(checkData);
+
+    const array = [] ;
+
+    array.push(convertToArray);
+
+    
+   
+    setBardChartData(convertToArray);
+  }, []);
   return (
     <>
-      <h2 className="heading">Descent of head</h2>
+      <h2 className="heading">Descent of head </h2>
+      {console.log("sadsad", barChartData)}
       <ResponsiveContainer width="100%" aspect={3}>
         <LineChart
           width={730}
           height={250}
-          data={DESCENT_OF_HEAD}
+          data={barChartData}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid />
-          <XAxis dataKey="min" interval={"preserveStartEnd"} />
+          <XAxis />
           <YAxis
             ticks={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-            domain={[0, 10]}
-            dataKey="value"
-            interval={"preserveStartEnd"}
           />
           <Tooltip />
           <Legend />
           <Line
             type="monotone"
-            dataKey="value"
+            dataKey="CDilation"
             stopColor="#3cb371"
             strokeWidth={4}
           />
-          <Line
-            type="monotone"
-            dataKey="max"
-            stopColor="#3cb371"
-            strokeWidth={4}
-          />
+         
         </LineChart>
       </ResponsiveContainer>
     </>
   );
 };
+
 export default DescentOfHead;

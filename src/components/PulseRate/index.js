@@ -3,36 +3,26 @@ import ReactApexChart from "react-apexcharts";
 
 const PulseRate = () => {
   
-  const [mdBP, setMdbp] = useState([]);
-  const [msBP, setMsBp] = useState([]);
+  const [pulse, setPulse] = useState([]);
 
   useEffect(() => {
     let getData = [];
-    let getMsBpData = []
+    
     const result = localStorage.getItem("MyData") || "{}";
     const checkData = JSON.parse(result);
 
     const convertToArray = Object.values(checkData);
     convertToArray.map(item => {
-      getData.push(item.MdBP);
+      getData.push(item.Mpulse);
     });
 
-    convertToArray.map(item => {
-      getMsBpData.push(item.MsBP);
-    });
-
-    setMdbp(getData);
-    setMsBp(getMsBpData);
+    setPulse(getData);
   }, []);
 
  const series = [
     {
-      name: "Hig - BP",
-      data: mdBP
-    },
-    {
-      name: "Low - BP",
-      data: msBP
+      name: "Pulse Rate",
+      data: pulse
     },
     {
       data:
@@ -73,7 +63,7 @@ const PulseRate = () => {
 
   return (
     <div>
-      <h2 className="heading">Fetal Heart Rate</h2>
+       <h2 className="heading">Fetal Pulse Rate </h2>
       <ReactApexChart 
         options={options} 
         series={series} 

@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import { DESCENT_OF_HEAD } from "../../utils"
 import {
   ResponsiveContainer,
   XAxis,
@@ -19,19 +18,14 @@ const DescentOfHead = () => {
     const result = localStorage.getItem("MyData") || "{}";
     const checkData = JSON.parse(result);
     const convertToArray = Object.values(checkData);
-
     const array = [] ;
 
     array.push(convertToArray);
-
-    
-   
     setBardChartData(convertToArray);
   }, []);
   return (
     <>
       <h2 className="heading">Descent of head </h2>
-      {console.log("sadsad", barChartData)}
       <ResponsiveContainer width="100%" aspect={3}>
         <LineChart
           width={730}

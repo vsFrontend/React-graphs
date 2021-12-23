@@ -21,15 +21,15 @@ const PulseRate = () => {
       getData.push(item.Mpulse);
       lengthData.push(item.PcLength)
     });
+    // convertToArray.map(item => {
+    //   lengthData.push(item.PcLength)
+    // });
     
     if (lengthData.includes(4)){
       setActionLine(true)
     }
-    let checkActionData = lengthData.findIndex(a => a === 4);
-    nullArray = new Array(checkActionData).fill(null);
-    convertToArray.map(item => {
-      lengthData.push(item.PcLength)
-    });
+    let actionLineIndex = lengthData.findIndex(a => a === 4);
+    nullArray = new Array(actionLineIndex).fill(null);
     setPulse(getData);
     setLength(lengthData);
     setNullArrayData(nullArray);
@@ -52,7 +52,6 @@ const PulseRate = () => {
   } : {}];
 
   const optionsSet = {
-
     chart: {
       height: 350,
       type: 'line',
@@ -170,7 +169,6 @@ const PulseRate = () => {
   return (
     <div>
       <h2 className="heading">Fetal Pulse Rate </h2>
-      {/* {console.log("nul", actionLine)} */}
       <ReactApexChart
         options={optionsSet}
         series={seriesSet}

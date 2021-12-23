@@ -22,7 +22,14 @@ const DateInputs = ({handleChange}) => {
           <Col md={4}>
             <div>Time </div></Col>
           <Col>
-            <TimePicker onChange={e => handleChange("selectedTime", moment(e).format("HH:mm")) } use12Hours={true} defaultValue={moment('12:08', format)} format={format} />
+            <TimePicker
+              onChange={e => handleChange("selectedTime", moment(e).format("HH:mm"))}
+              inputReadOnly
+              hourStep={1}
+              minuteStep={30}
+              format={format}
+              use12Hours={false}
+            />
           </Col>
         </Row>
       </Col>

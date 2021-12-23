@@ -55,7 +55,6 @@ const AddUserData = () => {
       ...userData,
       [inputName]: inputValue
     });
-    console.log("userda", userData);
   }
 
   const saveUserData = async () => {
@@ -65,11 +64,11 @@ const AddUserData = () => {
     try {
       let myPrevData = await localStorage.getItem("MyData") || "{}"
       myPrevData = JSON.parse(myPrevData)
-      if (myPrevData[`${userData.selectedDate} ${userData.selectedTime}`]) {
-        alert("Please change Date or time")
-        return
-      }
-      myPrevData[`${userData.selectedDate} ${userData.selectedTime}`] = userData;
+      // if (myPrevData[`${userData.selectedDate} ${userData.selectedTime}`]) {
+      //   alert("Please change Date or time")
+      //   return
+      // }
+      myPrevData[userData.selectedTime] = userData;
       localStorage.setItem("MyData", JSON.stringify(myPrevData));
       alert("Save successfully");
       setUserData(

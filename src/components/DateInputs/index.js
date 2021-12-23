@@ -6,7 +6,7 @@ const DateInputs = ({handleChange}) => {
   const format = 'HH:mm';
   return (
     <Row>
-      <Col md={6}>
+      {/* <Col md={6}>
         <Row align="middle">
           <Col md={4}>
             <div>Date :</div>
@@ -15,12 +15,12 @@ const DateInputs = ({handleChange}) => {
             <DatePicker onChange={e => handleChange("selectedDate", moment(e).format("DD MM YYYY"))} />
           </Col>
         </Row>
-      </Col>
+      </Col> */}
 
       <Col md={6}>
         <Row align="middle">
           <Col md={4}>
-            <div>Time :</div></Col>
+            <div>Time </div></Col>
           <Col>
             <TimePicker onChange={e => handleChange("selectedTime", moment(e).format("HH:mm")) } use12Hours={true} defaultValue={moment('12:08', format)} format={format} />
           </Col>

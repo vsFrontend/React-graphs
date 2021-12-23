@@ -7,6 +7,7 @@ const xAxisLabels = ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:0
 const PulseRate = () => {
   const [cDilationData, setCDilationData] = useState(initialNullArray);
   const [length, setLength] = useState(initialNullArray);
+  const [position, setPosition] = useState(initialNullArray);
 
   const [actionLine, setActionLine] = useState(false);
   const [actionLineData, setActionLineData] = useState([]);
@@ -15,6 +16,7 @@ const PulseRate = () => {
   const getAllData = async () => {
     let cDilation = [...cDilationData];
     let lengthData = [...length];
+    let positionData = [...position];
     let actionLinePoints = [];
     let hourAgoArray = [];
     const result = await localStorage.getItem("MyData") || "{}";
@@ -23,19 +25,21 @@ const PulseRate = () => {
     Object.keys(checkData).map(item => {
       const selectedIndex = xAxisLabels.findIndex(label => item === label)
       cDilation[selectedIndex] = checkData[item].CDilation;
+      positionData[selectedIndex] = checkData[item]?.position;
       lengthData[selectedIndex] = checkData[item].PcLength;
     });
 
     if (cDilation?.includes(4)) {
       setActionLine(true)
     }
-    let actionLineIndex = cDilation?.findIndex(a => a === 4);
+    let actionLineIndex = cDilation?.findIndex(dilationPoint => dilationPoint === 4);
     if (actionLineIndex !== -1) {
       actionLinePoints = new Array(actionLineIndex || 1)?.fill(null);
       let twoHourAgoIndex = actionLineIndex + 4;
       hourAgoArray = new Array(twoHourAgoIndex || 1).fill(null);
     }
     setCDilationData(cDilation);
+    setPosition(positionData);
     setLength(lengthData);
     setActionLineData(actionLinePoints);
     setHourAgoData(hourAgoArray);
@@ -45,6 +49,14 @@ const PulseRate = () => {
     getAllData();
   }, [actionLineData?.length]);
 
+  const annotationObj = {};
+  xAxisLabels.map((item, index) => {
+    annotationObj[item] = {
+      dilation: cDilationData[index],
+      presentation: position[index],
+    }
+  });
+
   const seriesSet = [
     {
       name: 'Chart',
@@ -52,21 +64,21 @@ const PulseRate = () => {
       data: initialNullArray,
     },
     {
-      name: 'Dilation',
+      name: 'Cervical Dilation',
       type: 'line',
       data: cDilationData
     }, {
-      name: 'Length',
+      name: 'Cervical Length',
       type: 'line',
       data: length
     }
     , actionLine ? {
-      name: 'Action',
+      name: 'Action Line',
       type: 'line',
       data: [...actionLineData, 4, 5, 6, 7, 8, 9, 10]
     } : {},
     actionLine ? {
-      name: "Alert",
+      name: "Alert Line",
       type: 'line',
       data: [...hourAgoData, 4, 5, 6, 7, 8, 9, 10]
     } : {},
@@ -86,19 +98,17 @@ const PulseRate = () => {
       curve: ['straight', 'straight', 'stepline', 'straight', 'straight']
     },
     annotations: {
-      // position: 'front' ,
-      points: cDilationData.map((item, i) => {
+      points: Object.keys(annotationObj).map(item => {
         return (
           {
-            x: item,
-            y: item,
-
-            images: {
-              path: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
-              width: 20,
-              height: 20,
-              // offsetX: item * 100,
-              // offsetY:item * 100,
+            x: annotationObj[item].dilation ? item : 0,
+            y: annotationObj[item].dilation,
+            marker: {
+              size: 0
+            },
+            image: {
+              path: annotationObj[item].presentation,
+              offsetY: 10
             }
           }
         )
@@ -118,12 +128,15 @@ const PulseRate = () => {
       },
     },
     xaxis: {
+      title: {
+        text: 'Time Intervals (24hr)',
+      },
       type: 'categories',
       categories: xAxisLabels,
     },
     yaxis: {
       title: {
-        text: 'Centimeter',
+        text: 'Cervical Dilation (Centimeters)',
       },
       min: 0,
       max: 10
@@ -137,7 +150,6 @@ const PulseRate = () => {
             return y.toFixed(0) + " points";
           }
           return y;
-
         }
       }
     }
@@ -145,7 +157,7 @@ const PulseRate = () => {
 
   return (
     <div>
-      <h2 className="heading">Fetal Pulse Rate </h2>
+      <h2 className="heading">Progress of Labour</h2>
       <ReactApexChart
         options={optionsSet}
         series={seriesSet}

@@ -50,10 +50,12 @@ const AddUserData = () => {
   });
 
   const handleChange = (inputName, inputValue) => {
+   
     setUserData({
       ...userData,
       [inputName]: inputValue
-    })
+    });
+    console.log("userda", userData);
   }
 
   const saveUserData = async () => {
@@ -91,7 +93,7 @@ const AddUserData = () => {
           Fhrpattren: '',
           Fhrvariability: '',
           Fliquior: '',
-          PcLength: '',
+          PcLength: 0,
           Pcfrequency: '',
           Pcduration: '',
           Fengaged: false,
@@ -278,7 +280,8 @@ const AddUserData = () => {
         </Col>
 
         <Col md={6}>
-          <InputData value={userData.Pclength} type="number" onChange={e => handleChange("Pclength", parseInt(e.target.value))} title="CLength" placeholder="CLength" />
+       
+          <InputData value={userData.PcLength} type="number"  onChange={e => handleChange("PcLength", parseInt(e.target.value))} title="CLength" placeholder="CLength" />
         </Col>
 
       </Row>

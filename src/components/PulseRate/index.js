@@ -21,11 +21,6 @@ const PulseRate = () => {
     
     convertToArray.map(item => {
       getData.push(item.CDilation);
-      // timeAxis.push(item.selectedTime)
-      // lengthData.push(item.PcLength)
-    });
-
-    convertToArray?.map(item => {
       lengthData.push(item.PcLength);
     });
 

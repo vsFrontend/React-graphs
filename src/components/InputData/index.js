@@ -12,7 +12,7 @@ const InputData = ({title, subTitle, placeholder, onChange, type, value}) => {
           <div className="heading-input">{title}: <span className="sub-title-heaidng">{subTitle}</span> </div>
         </Col>
         <Col md={14}>
-          <Input value={value} type={type} onChange={onChange} placeholder={placeholder} />
+          <Input  value={value} type={type} onChange={onChange} placeholder={placeholder} />
         </Col>
       </Row>
     </div>

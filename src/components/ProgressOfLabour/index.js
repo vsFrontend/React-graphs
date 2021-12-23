@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
+import { positions } from '../../utils/constants';
 
 const initialNullArray = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null];
 const xAxisLabels = ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '24:00'];
 
-const PulseRate = () => {
+const ProgressOfLabour = () => {
   const [cDilationData, setCDilationData] = useState(initialNullArray);
   const [length, setLength] = useState(initialNullArray);
   const [position, setPosition] = useState(initialNullArray);
@@ -53,7 +54,7 @@ const PulseRate = () => {
   xAxisLabels.map((item, index) => {
     annotationObj[item] = {
       dilation: cDilationData[index],
-      presentation: position[index],
+      position: position[index],
     }
   });
 
@@ -86,7 +87,6 @@ const PulseRate = () => {
 
   const optionsSet = {
     chart: {
-      height: 350,
       type: 'line',
       stacked: false,
       zoom: {
@@ -94,8 +94,11 @@ const PulseRate = () => {
       }
     },
     stroke: {
-      width: [4, 6, 5, 5, 3],
+      width: [4, 6, 6, 3, 3],
       curve: ['straight', 'straight', 'stepline', 'straight', 'straight']
+    },
+    legend: {
+      position: 'top'
     },
     annotations: {
       points: Object.keys(annotationObj).map(item => {
@@ -107,7 +110,9 @@ const PulseRate = () => {
               size: 0
             },
             image: {
-              path: annotationObj[item].presentation,
+              path: positions.find(singlePosition => singlePosition.name === annotationObj[item].position)?.image,
+              width: 30,
+              height: 30,
               offsetY: 10
             }
           }
@@ -134,13 +139,23 @@ const PulseRate = () => {
       type: 'categories',
       categories: xAxisLabels,
     },
-    yaxis: {
-      title: {
-        text: 'Cervical Dilation (Centimeters)',
+    yaxis: [
+      {
+        title: {
+          text: 'Cervical Dilation (Centimeters)',
+        },
+        min: 0,
+        max: 10,
       },
-      min: 0,
-      max: 10
-    },
+      {
+        opposite: true,
+        title: {
+          text: 'Cervical Dilation (Centimeters)',
+        },
+        min: 0,
+        max: 10,
+      }
+    ],
     tooltip: {
       shared: true,
       intersect: false,
@@ -161,11 +176,10 @@ const PulseRate = () => {
       <ReactApexChart
         options={optionsSet}
         series={seriesSet}
-        type="line"
-        height={350}
+        height={400}
       />
     </div>
   )
 };
 
-export default PulseRate;
+export default ProgressOfLabour;

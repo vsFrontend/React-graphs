@@ -5,6 +5,7 @@ import { Radio, Select, Row, Col, Input, Button } from 'antd';
 import { DateInputs, InputData } from '../../components'
 
 import './style.css';
+import { positions } from "../../utils/constants";
 
 const { Option } = Select;
 const { TextArea } = Input
@@ -45,11 +46,13 @@ const AddUserData = () => {
     EconentrationDM: 0,
     otherNotes: '',
     CDilation: 0,
+    position: 'OA',
     min: 100,
     max: 180
   });
 
   const handleChange = (inputName, inputValue) => {
+    console.log(inputName, inputValue)
    
     setUserData({
       ...userData,
@@ -70,7 +73,6 @@ const AddUserData = () => {
       // }
       myPrevData[userData.selectedTime] = userData;
       localStorage.setItem("MyData", JSON.stringify(myPrevData));
-      alert("Save successfully");
       setUserData(
         {
           selectedDate: '',
@@ -279,8 +281,15 @@ const AddUserData = () => {
         </Col>
 
         <Col md={6}>
-       
           <InputData value={userData.PcLength} type="number"  onChange={e => handleChange("PcLength", parseInt(e.target.value))} title="CLength" placeholder="CLength" />
+        </Col>
+
+        <Col md={4}>
+          <Select onChange={e => handleChange('position', e)} value={userData.position} style={{ width: '100%' }} >
+            {positions?.map((position, index) => (
+              <Option key={index} value={position.value}>{position.name}</Option>
+            ))}
+          </Select>
         </Col>
 
       </Row>

@@ -55,7 +55,9 @@ const HeartRate = () => {
       curve: ['straight', 'straight', 'straight']
     },
     legend: {
-      position: 'top'
+      position: 'top',
+      showForNullSeries: false,
+      showForSingleSeries: false
     },
    
     grid: {

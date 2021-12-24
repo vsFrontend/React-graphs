@@ -50,7 +50,9 @@ const PulseRate = () => {
       curve: ['straight', 'straight']
     },
     legend: {
-      position: 'top'
+      position: 'top',
+      showForNullSeries: false,
+      showForSingleSeries: false
     },
    
     grid: {

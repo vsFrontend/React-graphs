@@ -1,35 +1,46 @@
 import React, { useState, useEffect } from "react";
-import {initialNullArray, xAxisLabels} from '../../utils/constants'
 import ReactApexChart from "react-apexcharts";
 
+import {initialNullArray, xAxisLabels} from '../../utils/constants'
+
 const Contractions = () => {
-  const [barChartData, setBardChartData] = useState([]);
+  const [barChartData, setBardChartData] = useState(initialNullArray);
+  const [gradientColor, setGradientColor] = useState(false)
 
   const getAllData = async () => {
     let barChartDataValue = [...barChartData];
-    
     const result = await localStorage.getItem("MyData") || "{}";
     const checkData = JSON.parse(result);
     
     Object.keys(checkData).map(item => {
       const selectedIndex = xAxisLabels.findIndex(label => item === label)
       barChartDataValue[selectedIndex] = checkData[item].Pcfrequency;
-      
     });
+    
     setBardChartData(barChartDataValue);
   }
 
+  const filteredBarChartData = barChartData?.filter(barChartRecord => barChartRecord !== null)
+
   useEffect(() => {
     getAllData();
-  }, [])
+    barChartData.map(item => {
+      if (item === 5) {
+        setGradientColor(true)
+      } else {
+        setGradientColor(false)
+      }
+    })
+  }, []);
+
+  
 
   const series = [{
     data: initialNullArray
   },{
+    name: 'Frequency',
     data: barChartData
   }];
-
-
 
   const options = {
     chart: {
@@ -46,6 +57,12 @@ const Contractions = () => {
       enabled: false
     },
 
+    legend: {
+      enabled: false,
+      showForNullSeries: false,
+      showForSingleSeries: false
+    },
+
     grid: {
       borderColor: 'gray',
       xaxis: {
@@ -59,6 +76,8 @@ const Contractions = () => {
         }
       },
     },
+    colors:['#000'],
+    
     xaxis: {
       categories: xAxisLabels,
     },
@@ -68,43 +87,13 @@ const Contractions = () => {
     }
   };
 
-  useEffect(() => {
-    const result = localStorage.getItem("MyData") || "{}";
-    const checkData = JSON.parse(result);
-    const convertToArray = Object.values(checkData);
-
-    const array = [];
-    convertToArray.map(item => {
-      if (item.Pcfrequency > 40) {
-        array.push({ 'high': item.Pcfrequency })
-      } else {
-        array.push({ 'low': item.Pcfrequency })
-      }
-    });;
-    setBardChartData(array);
-  }, []);
+  
 
   return (
     <>
       <h2 className="heading">Contraction per 10 minute</h2>
-
-
+      {console.log("filter", filteredBarChartData)}
       <ReactApexChart options={options} series={series} type="bar" height={350} />
-
-      {/* <ResponsiveContainer width="100%" aspect="2">
-        <BarChart stackOffset="sign" width={730} height={250} data={barChartData}>
-          <CartesianGrid />
-          <XAxis />
-          <Tooltip />
-          <YAxis
-            tickCount={80}
-            domain={[1, 100]}
-            interval={"preserveStartEnd"}
-          />
-          <Bar dataKey="low" fill={"green"} />
-          <Bar dataKey="high" fill={"gray"} />
-        </BarChart>
-      </ResponsiveContainer> */}
     </>
   );
 };

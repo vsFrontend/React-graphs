@@ -126,8 +126,8 @@ const AddUserData = () => {
         </Col>
         <Col>
           <Select onChange={(e) => handleChange("Mcondition", e)} defaultValue="normal" style={{ width: 120 }}>
-            <Option value="normal">Noraml</Option>
-            <Option value="notnormal">Not normal</Option>
+            <Option value="normal">Normal</Option>
+            <Option value="notnormal">Not Normal</Option>
             <Option value="high">High</Option>
           </Select>
         </Col>
@@ -187,15 +187,15 @@ const AddUserData = () => {
             </Col>
             <Col md={14}>
               <Row align="middle" gutter={[7, 6]}>
-                <Col md={11}>
-                  <Input value={userData.MsBP} onChange={e => handleChange("MsBP", parseInt(e.target.value))} type="number" />
+                <Col md={24}>
+                  <Input style={{width: '100%'}} value={userData.MdBP} onChange={e => handleChange("MdBP", parseInt(e.target.value))} type="number" />
 
                 </Col>
-                <Col md={1}>
-                  <div>/</div>
+                <Col md={24}>
+                  <div style={{textAlign: 'center'}}>/</div>
                 </Col>
-                <Col md={11}>
-                  <Input value={userData.MdBP} onChange={e => handleChange("MdBP", parseInt(e.target.value))} type="number" />
+                <Col md={24}>
+                  <Input style={{width: '100%'}} value={userData.MsBP} onChange={e => handleChange("MsBP", parseInt(e.target.value))} type="number" />
                 </Col>
               </Row>
             </Col>

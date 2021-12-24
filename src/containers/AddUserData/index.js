@@ -62,15 +62,15 @@ const AddUserData = () => {
 
   const saveUserData = async () => {
     handleChange("min", parseInt(100));
-    handleChange("max", parseInt(180))
+    handleChange("max", parseInt(180));
 
     try {
       let myPrevData = await localStorage.getItem("MyData") || "{}"
       myPrevData = JSON.parse(myPrevData)
-      // if (myPrevData[`${userData.selectedDate} ${userData.selectedTime}`]) {
-      //   alert("Please change Date or time")
-      //   return
-      // }
+      if (myPrevData[`${userData.selectedDate} ${userData.selectedTime}`]) {
+        alert("Data for this time already exists.")
+        return
+      }
       myPrevData[userData.selectedTime] = userData;
       localStorage.setItem("MyData", JSON.stringify(myPrevData));
       setUserData(
@@ -256,8 +256,8 @@ const AddUserData = () => {
 
         <Col md={4}>
           <Select onChange={e => handleChange('Fliquior', e)} defaultValue="normal" style={{ width: '100%' }} >
-            <Option value="normal">Noraml</Option>
-            <Option value="notnormal">Not normal</Option>
+            <Option value="normal">Normal</Option>
+            <Option value="notnormal">Not Normal</Option>
             <Option value="high">High</Option>
           </Select>
         </Col>
@@ -277,11 +277,15 @@ const AddUserData = () => {
         </Col>
 
         <Col md={6}>
-          <InputData value={userData.CDilation} onChange={e => handleChange("CDilation", parseInt(e.target.value))} type="number" subTitle="cm" title="CDilation" placeholder="CDilation" />
+          <InputData value={userData.CDilation} onChange={e => handleChange("CDilation", parseInt(e.target.value))} type="number" subTitle="cm" title="CDilation" placeholder="CDilation" min={0} max={10} />
         </Col>
 
         <Col md={6}>
-          <InputData value={userData.PcLength} type="number"  onChange={e => handleChange("PcLength", parseInt(e.target.value))} title="CLength" placeholder="CLength" />
+          <InputData value={userData.PcLength} type="number"  onChange={e => handleChange("PcLength", parseInt(e.target.value))} title="CLength" placeholder="CLength" min={0} max={10} />
+        </Col>
+
+        <Col md={3}>
+          <div>Position: </div>
         </Col>
 
         <Col md={4}>

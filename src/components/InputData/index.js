@@ -1,10 +1,9 @@
 import React from "react";
 import { Col, Row, Input } from 'antd';
-
 import './style.css';
 
 
-const InputData = ({title, subTitle, placeholder, onChange, type, value}) => {
+const InputData = ({title, subTitle, placeholder, onChange, type, value, ...rest }) => {
   return (
     <div>
       <Row gutter={[10,10]} align="middle">
@@ -12,7 +11,7 @@ const InputData = ({title, subTitle, placeholder, onChange, type, value}) => {
           <div className="heading-input">{title}: <span className="sub-title-heaidng">{subTitle}</span> </div>
         </Col>
         <Col md={14}>
-          <Input  value={value} type={type} onChange={onChange} placeholder={placeholder} />
+          <Input  value={value} type={type} onChange={onChange} placeholder={placeholder} {...rest} />
         </Col>
       </Row>
     </div>

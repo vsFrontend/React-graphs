@@ -5,7 +5,6 @@ import {initialNullArray, xAxisLabels} from '../../utils/constants'
 
 const Contractions = () => {
   const [barChartData, setBardChartData] = useState(initialNullArray);
-  const [gradientColor, setGradientColor] = useState(false)
 
   const getAllData = async () => {
     let barChartDataValue = [...barChartData];
@@ -20,20 +19,9 @@ const Contractions = () => {
     setBardChartData(barChartDataValue);
   }
 
-  const filteredBarChartData = barChartData?.filter(barChartRecord => barChartRecord !== null)
-
   useEffect(() => {
     getAllData();
-    barChartData.map(item => {
-      if (item === 5) {
-        setGradientColor(true)
-      } else {
-        setGradientColor(false)
-      }
-    })
   }, []);
-
-  
 
   const series = [{
     data: initialNullArray
@@ -87,12 +75,9 @@ const Contractions = () => {
     }
   };
 
-  
-
   return (
     <>
       <h2 className="heading">Contraction per 10 minute</h2>
-      {console.log("filter", filteredBarChartData)}
       <ReactApexChart options={options} series={series} type="bar" height={350} />
     </>
   );

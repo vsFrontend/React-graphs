@@ -62,8 +62,11 @@ const AddUserData = () => {
 
   const saveUserData = async () => {
     handleChange("min", parseInt(100));
-    handleChange("max", parseInt(180))
+    handleChange("max", parseInt(180));
 
+    if (userData.selectedTime === "") {
+      return alert("Please select time");
+    }
     try {
       let myPrevData = await localStorage.getItem("MyData") || "{}"
       myPrevData = JSON.parse(myPrevData)

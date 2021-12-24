@@ -70,6 +70,9 @@ const Contractions = () => {
       categories: xAxisLabels,
     },
     yaxis: {
+      title: {
+        text: 'Contractions'
+      },
       min: 0,
       max: 100,
     }
@@ -77,9 +80,15 @@ const Contractions = () => {
 
   return (
     <>
-      <h2 className="heading">Contraction per 10 minute</h2>
-      <ReactApexChart options={options} series={series} type="bar" height={350} />
+      <h2 className="heading">Contraction Per 10 Minute</h2>
+      <ReactApexChart
+        type="bar"
+        options={options}
+        series={series}
+        height={400}
+      />
     </>
   );
 };
+
 export default Contractions;

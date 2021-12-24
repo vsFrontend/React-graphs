@@ -62,9 +62,6 @@ const AddUserData = () => {
     handleChange("min", parseInt(100));
     handleChange("max", parseInt(180));
 
-    if (userData.selectedTime === "") {
-      return alert("Please select time");
-    }
     try {
       let myPrevData = await localStorage.getItem("MyData") || "{}"
       myPrevData = JSON.parse(myPrevData);
@@ -202,14 +199,13 @@ const AddUserData = () => {
             <Col md={14}>
               <Row align="middle" gutter={[7, 6]}>
                 <Col md={24}>
-                  <Input style={{width: '100%'}} value={userData.MdBP} onChange={e => handleChange("MdBP", parseInt(e.target.value))} type="number" />
-
+                  <Input style={{width: '100%'}} value={userData.MsBP} onChange={e => handleChange("MsBP", parseInt(e.target.value))} type="number" />
                 </Col>
                 <Col md={24}>
                   <div style={{textAlign: 'center'}}>/</div>
                 </Col>
                 <Col md={24}>
-                  <Input style={{width: '100%'}} value={userData.MsBP} onChange={e => handleChange("MsBP", parseInt(e.target.value))} type="number" />
+                  <Input style={{width: '100%'}} value={userData.MdBP} onChange={e => handleChange("MdBP", parseInt(e.target.value))} type="number" />
                 </Col>
               </Row>
             </Col>

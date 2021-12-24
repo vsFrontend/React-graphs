@@ -84,16 +84,8 @@ const HeartRate = () => {
           text: 'Blood pressure',
         },
         min: 0,
-        max: 400,
+        max: 200,
       },
-      {
-        opposite: true,
-        title: {
-          text: 'Blood pressure',
-        },
-        min: 0,
-        max: 400,
-      }
     ],
     tooltip: {
       shared: true,

@@ -27,13 +27,18 @@ const ProgressOfLabour = () => {
       lengthData[selectedIndex] = checkData[item].PcLength;
     });
 
-    if (cDilation?.includes(4)) {
-      setActionLine(true)
+    if (cDilation.some(dilation => dilation >= 4)) {
+      setActionLine(true);
     }
-    let actionLineIndex = cDilation?.findIndex(dilationPoint => dilationPoint === 4);
-    if (actionLineIndex !== -1) {
-      actionLinePoints = new Array(actionLineIndex || 1)?.fill(null);
-      let twoHourAgoIndex = actionLineIndex + 4;
+
+    const cDilationFilterdData = 
+    cDilation.filter(dilation => dilation >= 4 || dilation === null);
+    const checkDilationIndex = 
+    cDilationFilterdData.findIndex(dilation => dilation !== null && dilation >= 4);
+
+    if (checkDilationIndex !== -1) {
+      actionLinePoints = new Array(checkDilationIndex || 1)?.fill(null);
+      let twoHourAgoIndex = checkDilationIndex + 4;
       hourAgoArray = new Array(twoHourAgoIndex || 1).fill(null);
     }
     setCDilationData(cDilation);
@@ -162,7 +167,7 @@ const ProgressOfLabour = () => {
   return (
     <div>
       <h2 className="heading">Progress of Labour</h2>
-      {console.log("length", cDilationData, length)}
+      
       <ReactApexChart
         options={optionsSet}
         series={seriesSet}

@@ -64,7 +64,7 @@ const Contractions = () => {
     },
     yaxis: {
       min: 0,
-      max: 200,
+      max: 100,
     }
   };
 

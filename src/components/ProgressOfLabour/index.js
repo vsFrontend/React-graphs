@@ -95,7 +95,9 @@ const ProgressOfLabour = () => {
       curve: ['straight', 'straight', 'stepline', 'straight', 'straight']
     },
     legend: {
-      position: 'top'
+      position: 'top',
+      showForNullSeries: false,
+      showForSingleSeries: false
     },
     annotations: {
       points: Object.keys(annotationObj).map(item => {

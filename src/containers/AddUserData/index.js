@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Radio, Select, Row, Col, Input, Button } from 'antd';
-
+import { Radio, Select, Row, Col, Input, Button, notification } from 'antd';
 import { DateInputs, InputData } from '../../components'
-
-import './style.css';
 import { positions } from "../../utils/constants";
+import './style.css';
 
 const { Option } = Select;
-const { TextArea } = Input
+const { TextArea } = Input;
 
 const AddUserData = () => {
   const navigate = useNavigate();
@@ -66,11 +64,24 @@ const AddUserData = () => {
 
     try {
       let myPrevData = await localStorage.getItem("MyData") || "{}"
-      myPrevData = JSON.parse(myPrevData)
+      myPrevData = JSON.parse(myPrevData);
+
+      if (!userData.selectedTime) {
+        notification.warning({
+          message: 'Alert',
+          description: 'Please enter time.',
+        });
+        return;
+      }
+
       if (myPrevData[`${userData.selectedDate} ${userData.selectedTime}`]) {
-        alert("Data for this time already exists.")
+        notification.warning({
+          message: 'Alert',
+          description: 'Data for this time already exists.',
+        });
         return
       }
+
       myPrevData[userData.selectedTime] = userData;
       localStorage.setItem("MyData", JSON.stringify(myPrevData));
       setUserData(
@@ -345,7 +356,6 @@ const AddUserData = () => {
         </Col>
 
       </Row>
-
 
       <Row align="middle" style={{ marginTop: 20 }}>
         <Col md={4}>

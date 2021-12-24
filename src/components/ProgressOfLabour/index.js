@@ -139,23 +139,13 @@ const ProgressOfLabour = () => {
       type: 'categories',
       categories: xAxisLabels,
     },
-    yaxis: [
-      {
-        title: {
-          text: 'Cervical Dilation (Centimeters)',
-        },
-        min: 0,
-        max: 10,
+    yaxis: {
+      title: {
+        text: 'Cervical Dilation (Centimeters)',
       },
-      {
-        opposite: true,
-        title: {
-          text: 'Cervical Dilation (Centimeters)',
-        },
-        min: 0,
-        max: 10,
-      }
-    ],
+      min: 0,
+      max: 10,
+    },
     tooltip: {
       shared: true,
       intersect: false,

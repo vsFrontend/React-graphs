@@ -153,7 +153,7 @@ const ProgressOfLabour = () => {
     },
     yaxis: {
       title: {
-        text: 'Cervical Dilation (Centimeters)',
+        text: 'Centimeters',
       },
       min: 0,
       max: 10,

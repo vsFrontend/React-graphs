@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Radio, Select, Row, Col, Input, Button, notification } from 'antd';
 import { DateInputs, InputData } from '../../components'
-import { positions } from "../../utils/constants";
+import { cDilationData, cLength, positions, aboveBrimsData } from "../../utils/constants";
 import './style.css';
 
 const { Option } = Select;
@@ -51,7 +51,7 @@ const AddUserData = () => {
 
   const handleChange = (inputName, inputValue) => {
     console.log(inputName, inputValue)
-   
+
     setUserData({
       ...userData,
       [inputName]: inputValue
@@ -84,6 +84,15 @@ const AddUserData = () => {
 
       myPrevData[userData.selectedTime] = userData;
       localStorage.setItem("MyData", JSON.stringify(myPrevData));
+
+      if (userData.MsBP > 220){
+        notification.warning({
+          message: 'Alert',
+          description: 'Blood pressure must be less then or equal to 220',
+        });
+        return
+      }
+
       setUserData(
         {
           selectedDate: '',
@@ -199,13 +208,13 @@ const AddUserData = () => {
             <Col md={14}>
               <Row align="middle" gutter={[7, 6]}>
                 <Col md={24}>
-                  <Input style={{width: '100%'}} value={userData.MsBP} onChange={e => handleChange("MsBP", parseInt(e.target.value))} type="number" />
+                  <Input style={{ width: '100%' }} value={userData.MsBP} onChange={e => handleChange("MsBP", parseInt(e.target.value))} type="number" />
                 </Col>
                 <Col md={24}>
-                  <div style={{textAlign: 'center'}}>/</div>
+                  <div style={{ textAlign: 'center' }}>/</div>
                 </Col>
                 <Col md={24}>
-                  <Input style={{width: '100%'}} value={userData.MdBP} onChange={e => handleChange("MdBP", parseInt(e.target.value))} type="number" />
+                  <Input style={{ width: '100%' }} value={userData.MdBP} onChange={e => handleChange("MdBP", parseInt(e.target.value))} type="number" />
                 </Col>
               </Row>
             </Col>
@@ -259,11 +268,9 @@ const AddUserData = () => {
       <Row style={{ marginTop: 20 }} align="middle">
 
         <Col md={1} ></Col>
-
         <Col md={2}>
           <div>Liquor</div>
         </Col>
-
         <Col md={4}>
           <Select onChange={e => handleChange('Fliquior', e)} defaultValue="normal" style={{ width: '100%' }} >
             <Option value="normal">Normal</Option>
@@ -271,8 +278,6 @@ const AddUserData = () => {
             <Option value="high">High</Option>
           </Select>
         </Col>
-
-
       </Row>
 
       <Row align="middle" style={{ marginTop: 20 }}>
@@ -287,13 +292,34 @@ const AddUserData = () => {
         </Col>
 
         <Col md={6}>
-          <InputData value={userData.CDilation} onChange={e => handleChange("CDilation", parseInt(e.target.value))} type="number" subTitle="cm" title="CDilation" placeholder="CDilation" min={0} max={10} />
+          <Row>
+            <Col md={10}>
+              <div>CDilation: </div>
+            </Col>
+            <Col md={14}>
+              <Select onChange={e => handleChange('CDilation', e)} value={userData.CDilation} style={{ width: '100%' }} title="CDilation">
+                {cDilationData?.map((position, index) => (
+                  <Option key={index} value={position.number}>{position.number}</Option>
+                ))}
+              </Select>
+            </Col>
+          </Row>
         </Col>
 
         <Col md={6}>
-          <InputData value={userData.PcLength} type="number"  onChange={e => handleChange("PcLength", parseInt(e.target.value))} title="CLength" placeholder="CLength" min={0} max={3} />
+          <Row>
+            <Col md={10}>
+              <div>CLength: </div>
+            </Col>
+            <Col md={14}>
+              <Select onChange={e => handleChange('PcLength', e)} value={userData.PcLength} style={{ width: '100%' }} title="CLength">
+                {cLength?.map((position, index) => (
+                  <Option key={index} value={position.number}>{position.number}</Option>
+                ))}
+              </Select>
+            </Col>
+          </Row>
         </Col>
-
       </Row>
 
       <Row style={{ marginTop: 20 }} align="middle" gutter={[6, 6]}>
@@ -308,21 +334,26 @@ const AddUserData = () => {
         <Col md={6}>
           <InputData value={userData.Pcduration} type="number" onChange={e => handleChange("Pcduration", parseInt(e.target.value))} subTitle="sec" title="Duration" placeholder="Duration" />
         </Col>
-
       </Row>
 
       <Row style={{ marginTop: 20 }} align="middle" gutter={[6, 6]}>
         <Col md={3}>
-          <div>Presentation Part</div>
+          <div>Presenting Part</div>
         </Col>
 
-        <Col md={3}>
-          <div>Position: </div>
-          <Select onChange={e => handleChange('position', e)} value={userData.position} style={{ width: '100%' }} title="Position">
-            {positions?.map((position, index) => (
-              <Option key={index} value={position.value}>{position.name}</Option>
-            ))}
-          </Select>
+        <Col md={6}>
+          <Row>
+            <Col md={10}>
+              <div>Position: </div>
+            </Col>
+            <Col md={14}>
+              <Select onChange={e => handleChange('position', e)} value={userData.position} style={{ width: '100%' }} title="Position">
+                {positions?.map((position, index) => (
+                  <Option key={index} value={position.value}>{position.name}</Option>
+                ))}
+              </Select>
+            </Col>
+          </Row>
         </Col>
       </Row>
 
@@ -346,7 +377,18 @@ const AddUserData = () => {
         </Col>
 
         <Col md={6}>
-          <InputData value={userData.Pfheadfifths} type="number" onChange={e => handleChange("Pfheadfifths", parseInt(e.target.value))} subTitle="fifth" title="Above brims" placeholder="Above brims" min={0} max={5} />
+          <Row>
+            <Col md={10}>
+              <div>Above brims: </div>
+            </Col>
+            <Col md={14}>
+              <Select onChange={e => handleChange('Pfheadfifths', e)} value={userData.Pfheadfifths} style={{ width: '100%' }} title="Pfheadfifths">
+                {aboveBrimsData?.map((position, index) => (
+                  <Option key={index} value={position.number}>{position.number}</Option>
+                ))}
+              </Select>
+            </Col>
+          </Row>
         </Col>
 
         <Col md={6}>
@@ -415,4 +457,4 @@ const AddUserData = () => {
   )
 }
 
-export default AddUserData
+export default AddUserData;

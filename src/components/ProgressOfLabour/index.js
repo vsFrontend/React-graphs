@@ -113,7 +113,6 @@ const ProgressOfLabour = () => {
       showForSingleSeries: false
     },
     annotations: {
-      position: 'back',
       points: Object.keys(annotationObj).map(item => {
         return (
           {

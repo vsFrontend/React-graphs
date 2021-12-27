@@ -5,6 +5,7 @@ import { positions, initialNullArray, xAxisLabels } from '../../utils/constants'
 const ProgressOfLabour = () => {
   const [cDilationData, setCDilationData] = useState(initialNullArray);
   const [length, setLength] = useState(initialNullArray);
+  const [aboveBrim, setAboveBrimData] = useState(initialNullArray);
   const [position, setPosition] = useState(initialNullArray);
 
   const [actionLine, setActionLine] = useState(false);
@@ -14,6 +15,7 @@ const ProgressOfLabour = () => {
   const getAllData = async () => {
     let cDilation = [...cDilationData];
     let lengthData = [...length];
+    let aboveBrimData = [...aboveBrim];
     let positionData = [...position];
     let actionLinePoints = [];
     let hourAgoArray = [];
@@ -23,6 +25,7 @@ const ProgressOfLabour = () => {
     Object.keys(checkData).map(item => {
       const selectedIndex = xAxisLabels.findIndex(label => item === label)
       cDilation[selectedIndex] = checkData[item].CDilation;
+      aboveBrimData[selectedIndex] = checkData[item]?.Pfheadfifths;
       positionData[selectedIndex] = checkData[item]?.position;
       lengthData[selectedIndex] = checkData[item].PcLength;
     });
@@ -42,6 +45,7 @@ const ProgressOfLabour = () => {
       hourAgoArray = new Array(twoHourAgoIndex || 1).fill(null);
     }
     setCDilationData(cDilation);
+    setAboveBrimData(aboveBrimData);
     setPosition(positionData);
     setLength(lengthData);
     setActionLineData(actionLinePoints);
@@ -55,7 +59,7 @@ const ProgressOfLabour = () => {
   const annotationObj = {};
   xAxisLabels.map((item, index) => {
     annotationObj[item] = {
-      dilation: cDilationData[index],
+      aboveBrim: aboveBrim[index],
       position: position[index],
     }
   });
@@ -72,16 +76,21 @@ const ProgressOfLabour = () => {
       data: cDilationData
     }, {
       name: 'Cervical Length',
-      type: 'line',
+      type: 'bar',
       data: length
-    }
-    , actionLine ? {
-      name: 'Action Line',
+    },
+    {
+      name: 'Fetal Head',
+      type: 'line',
+      data: aboveBrim
+    },
+    actionLine ? {
+      name: 'Alert Line',
       type: 'line',
       data: [...actionLineData, 4, 5, 6, 7, 8, 9, 10]
     } : {},
     actionLine ? {
-      name: "Alert Line",
+      name: "Action Line",
       type: 'line',
       data: [...hourAgoData, 4, 5, 6, 7, 8, 9, 10]
     } : {},
@@ -89,15 +98,14 @@ const ProgressOfLabour = () => {
 
   const optionsSet = {
     chart: {
-      type: 'line',
       stacked: false,
       zoom: {
         enabled: false,
       }
     },
     stroke: {
-      width: [4, 6, 6, 3, 3],
-      curve: ['straight', 'straight', 'stepline', 'straight', 'straight']
+      width: [4, 6, 0, 4, 3, 3],
+      curve: ['straight', 'straight', 'straight', 'straight', 'straight', 'straight']
     },
     legend: {
       position: 'top',
@@ -105,18 +113,19 @@ const ProgressOfLabour = () => {
       showForSingleSeries: false
     },
     annotations: {
+      position: 'back',
       points: Object.keys(annotationObj).map(item => {
         return (
           {
-            x: annotationObj[item].dilation ? item : 0,
-            y: annotationObj[item].dilation,
+            x: annotationObj[item].aboveBrim ? item : 0,
+            y: annotationObj[item].aboveBrim,
             marker: {
-              size: 0
+              size: 1
             },
             image: {
               path: positions.find(singlePosition => singlePosition.name === annotationObj[item].position)?.image,
-              width: 30,
-              height: 30,
+              width: 25,
+              height: 25,
               offsetY: 10
             }
           }
@@ -151,10 +160,11 @@ const ProgressOfLabour = () => {
       max: 10,
     },
     tooltip: {
-      shared: true,
-      intersect: false,
+      enabledOnSeries: [1, 2, 3],
+      shared: false,
+      intersect: true,
       y: {
-        formatter: function (y, x) {
+        formatter: y => {
           if (y) {
             return y.toFixed(0) + " points";
           }

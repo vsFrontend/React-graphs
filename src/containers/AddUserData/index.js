@@ -291,19 +291,7 @@ const AddUserData = () => {
         </Col>
 
         <Col md={6}>
-          <InputData value={userData.PcLength} type="number"  onChange={e => handleChange("PcLength", parseInt(e.target.value))} title="CLength" placeholder="CLength" min={0} max={10} />
-        </Col>
-
-        <Col md={3}>
-          <div>Position: </div>
-        </Col>
-
-        <Col md={4}>
-          <Select onChange={e => handleChange('position', e)} value={userData.position} style={{ width: '100%' }} >
-            {positions?.map((position, index) => (
-              <Option key={index} value={position.value}>{position.name}</Option>
-            ))}
-          </Select>
+          <InputData value={userData.PcLength} type="number"  onChange={e => handleChange("PcLength", parseInt(e.target.value))} title="CLength" placeholder="CLength" min={0} max={3} />
         </Col>
 
       </Row>
@@ -323,6 +311,20 @@ const AddUserData = () => {
 
       </Row>
 
+      <Row style={{ marginTop: 20 }} align="middle" gutter={[6, 6]}>
+        <Col md={3}>
+          <div>Presentation Part</div>
+        </Col>
+
+        <Col md={3}>
+          <div>Position: </div>
+          <Select onChange={e => handleChange('position', e)} value={userData.position} style={{ width: '100%' }} title="Position">
+            {positions?.map((position, index) => (
+              <Option key={index} value={position.value}>{position.name}</Option>
+            ))}
+          </Select>
+        </Col>
+      </Row>
 
       <Row style={{ marginTop: 20 }} align="middle" gutter={[6, 6]}>
         <Col md={3}>
@@ -344,7 +346,7 @@ const AddUserData = () => {
         </Col>
 
         <Col md={6}>
-          <InputData value={userData.Pfheadfifths} type="number" onChange={e => handleChange("Pfheadfifths", parseInt(e.target.value))} subTitle="fifth" title="Above brims" placeholder="Above brims" />
+          <InputData value={userData.Pfheadfifths} type="number" onChange={e => handleChange("Pfheadfifths", parseInt(e.target.value))} subTitle="fifth" title="Above brims" placeholder="Above brims" min={0} max={5} />
         </Col>
 
         <Col md={6}>

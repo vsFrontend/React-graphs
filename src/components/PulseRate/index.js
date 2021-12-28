@@ -8,7 +8,8 @@ const PulseRate = () => {
 
 
   const [msBpData, setMsBpData] = useState(initialNullArray);
-  const [mdBpData, setMdBpData] = useState(initialNullArray);  
+  const [mdBpData, setMdBpData] = useState(initialNullArray);
+  const [isCountArray, setCountArray] = useState(false);
   const getAllData = async () => {
     let msBpDataValue = [...msBpData];
     let mdBpDataValue = [...mdBpData]
@@ -21,7 +22,13 @@ const PulseRate = () => {
       mdBpDataValue[selectedIndex] = checkData[item].MdBP;
     });
     setMsBpData(msBpDataValue);
-    setMdBpData(mdBpDataValue)
+    setMdBpData(mdBpDataValue);
+
+    let filteredArray = [];
+    filteredArray = msBpDataValue.filter(item => item !== null);
+    if (filteredArray.length > 1) {
+      setCountArray(true)
+    }
   }
 
   useEffect(() => {
@@ -105,6 +112,7 @@ const PulseRate = () => {
       },
     ],
     tooltip: {
+      enabled: isCountArray ? true : false,
       shared: true,
       intersect: false,
       y: {
@@ -121,6 +129,7 @@ const PulseRate = () => {
   return (
     <div>
       <h2 className="heading">Maternal Condition</h2>
+      {console.log("isCountArray", isCountArray)}
       <ReactApexChart
         options={optionsSet}
         series={seriesSet}

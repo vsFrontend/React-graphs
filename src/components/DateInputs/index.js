@@ -6,16 +6,16 @@ const DateInputs = ({handleChange}) => {
   const format = 'HH:mm';
   return (
     <Row>
-      {/* <Col md={6}>
+      <Col md={6}>
         <Row align="middle">
           <Col md={4}>
             <div>Date :</div>
           </Col>
           <Col>
-            <DatePicker onChange={e => handleChange("selectedDate", moment(e).format("DD MM YYYY"))} />
+            <DatePicker />
           </Col>
         </Row>
-      </Col> */}
+      </Col>
 
       <Col md={6}>
         <Row align="middle">

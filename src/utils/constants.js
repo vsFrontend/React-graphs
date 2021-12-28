@@ -6,7 +6,16 @@ export const positions = [
   { name: 'ROA', value: 'ROA', image: '/assets/images/positions/ROA.png' },
   { name: 'ROP', value: 'ROP', image: '/assets/images/positions/ROP.png' },
   { name: 'LOA', value: 'LOA', image: '/assets/images/positions/LOA.png' },
-  { name: 'LOP', value: 'LOP', image: '/assets/images/positions/LOP.png' }
+  { name: 'LOP', value: 'LOP', image: '/assets/images/positions/LOP.png' },
+  { name: 'LP',  value: 'LP', image: '/assets/images/positions/dryclean.png'}
+];
+
+export const ociputData = [
+  { name: 'Occiput', value: 'Occiput', },
+  { name: 'Brow', value: 'Brow', },
+  { name: 'Face', value: 'Face',  },
+  { name: 'Arm', value: 'Arm',  },
+  { name: 'Breech', value: 'Breech',  },
 ];
 
 export const cDilationData = [

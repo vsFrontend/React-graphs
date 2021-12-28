@@ -48,7 +48,14 @@ const Contractions = () => {
     legend: {
       enabled: false,
       showForNullSeries: false,
-      showForSingleSeries: false
+      showForSingleSeries: false,
+      
+      onItemClick: {
+        toggleDataSeries: false
+      },
+      onItemHover: {
+        highlightDataSeries: false
+      },
     },
 
     grid: {

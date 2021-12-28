@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Radio, Select, Row, Col, Input, Button, notification } from 'antd';
 import { DateInputs, InputData } from '../../components'
-import { cDilationData, cLength, positions, aboveBrimsData } from "../../utils/constants";
+import { cDilationData, cLength, positions, aboveBrimsData, ociputData } from "../../utils/constants";
 import './style.css';
 
 const { Option } = Select;
@@ -10,6 +10,7 @@ const { TextArea } = Input;
 
 const AddUserData = () => {
   const navigate = useNavigate();
+  const [isEnabledPosition, setEnabledPostion] = useState(false);
 
   const [userData, setUserData] = useState({
     selectedDate: '',
@@ -20,22 +21,22 @@ const AddUserData = () => {
     Usfh: '',
     Umultiple: false,
     Mtemp: 0,
-    Mpulse: 0,
-    MsBP: 0,
-    MdBP: 0,
-    MRR: 0,
+    Mpulse: null,
+    MsBP: null,
+    MdBP: null,
+    MRR: null,
     MUvolume: 0,
     MUprotein: '',
     MUktones: '',
-    Fhr: 0,
+    Fhr: null,
     Fhrpattren: '',
     Fhrvariability: '',
     Fliquior: '',
-    PcLength: 0,
-    Pcfrequency: 0,
-    Pcduration: 0,
+    PcLength: null,
+    Pcfrequency: null,
+    Pcduration: null,
     Fengaged: false,
-    Pfheadfifths: 0,
+    Pfheadfifths: null,
     Pfheadmoduling: 0,
     Pfheadposition: '',
     PoxytonicUL: 0,
@@ -45,13 +46,13 @@ const AddUserData = () => {
     otherNotes: '',
     CDilation: 0,
     position: 'OA',
+    presenting: 'Occiput',
     min: 100,
     max: 180
   });
 
   const handleChange = (inputName, inputValue) => {
-    console.log(inputName, inputValue)
-
+    console.log(inputName, inputValue);
     setUserData({
       ...userData,
       [inputName]: inputValue
@@ -85,7 +86,7 @@ const AddUserData = () => {
       myPrevData[userData.selectedTime] = userData;
       localStorage.setItem("MyData", JSON.stringify(myPrevData));
 
-      if (userData.MsBP > 220){
+      if (userData.MsBP > 220) {
         notification.warning({
           message: 'Alert',
           description: 'Blood pressure must be less then or equal to 220',
@@ -103,14 +104,14 @@ const AddUserData = () => {
           Usfh: '',
           Umultiple: false,
           Mtemp: '',
-          Mpulse: '',
+          Mpulse: null,
           MsBP: '',
           MdBP: '',
           MRR: '',
           MUvolume: '',
           MUprotein: '',
           MUktones: '',
-          Fhr: '',
+          Fhr: null,
           Fhrpattren: '',
           Fhrvariability: '',
           Fliquior: '',
@@ -118,7 +119,7 @@ const AddUserData = () => {
           Pcfrequency: '',
           Pcduration: '',
           Fengaged: false,
-          Pfheadfifths: '',
+          Pfheadfifths: null,
           Pfheadmoduling: '',
           Pfheadposition: '',
           PoxytonicUL: '',
@@ -127,6 +128,7 @@ const AddUserData = () => {
           EconentrationDM: '',
           otherNotes: '',
           CDilation: '',
+          presenting: '',
           min: 100,
           max: 180
         }
@@ -137,18 +139,31 @@ const AddUserData = () => {
     }
   }
 
+  useEffect(() => {
+    if (userData.presenting === "Occiput") {
+      handleChange('position', 'OA')
+      setEnabledPostion(false);
+    } else {
+      setEnabledPostion(true);
+      handleChange('position', 'LP')
+    }
+  }, [userData.presenting])
+
   return (
     <div className="form-container">
+      {console.log("userData.presenting", userData.presenting)}
       <DateInputs handleChange={handleChange} />
       <Row align="middle" style={{ marginTop: 20 }}>
         <Col md={4}>
-          <div className="add-form-main-heading">Meternal Condition</div>
+          <div className="add-form-main-heading">Maternal Condition</div>
         </Col>
         <Col>
-          <Select onChange={(e) => handleChange("Mcondition", e)} defaultValue="normal" style={{ width: 120 }}>
+          <Select onChange={(e) => handleChange("Mcondition", e)} defaultValue="normal" style={{ width: 350 }}>
             <Option value="normal">Normal</Option>
-            <Option value="notnormal">Not Normal</Option>
-            <Option value="high">High</Option>
+            <Option value="notnormal">Excessive anxiety</Option>
+            <Option value="serve">Severe, continuous pain</Option>
+            <Option value="dehydration">Dehydration</Option>
+            <Option value="dehydration">Marked pallor of the face and mucous membranes</Option>
           </Select>
         </Col>
       </Row>
@@ -202,18 +217,18 @@ const AddUserData = () => {
         </Col>
         <Col md={4}>
           <Row align="middle">
-            <Col md={10}>
+            <Col md={4}>
               <div>BP</div>
             </Col>
-            <Col md={14}>
+            <Col md={20}>
               <Row align="middle" gutter={[7, 6]}>
-                <Col md={24}>
+                <Col md={11}>
                   <Input style={{ width: '100%' }} value={userData.MsBP} onChange={e => handleChange("MsBP", parseInt(e.target.value))} type="number" />
                 </Col>
-                <Col md={24}>
+                <Col md={1}>
                   <div style={{ textAlign: 'center' }}>/</div>
                 </Col>
-                <Col md={24}>
+                <Col md={11}>
                   <Input style={{ width: '100%' }} value={userData.MdBP} onChange={e => handleChange("MdBP", parseInt(e.target.value))} type="number" />
                 </Col>
               </Row>
@@ -258,7 +273,7 @@ const AddUserData = () => {
         </Col>
 
         <Col md={4}>
-          <InputData value={userData.Fhrpattren} onChange={e => handleChange('Fhrpattren', e.target.value)} title="Pattren" placeholder="Pattren" />
+          <InputData value={userData.Fhrpattren} onChange={e => handleChange('Fhrpattren', e.target.value)} title="Pattern" placeholder="Pattern" />
         </Col>
         <Col md={4}>
           <InputData value={userData.Fhrvariability} onChange={e => handleChange('Fhrvariability', e.target.value)} title="Variablility" placeholder="Variablility" />
@@ -282,7 +297,7 @@ const AddUserData = () => {
 
       <Row align="middle" style={{ marginTop: 20 }}>
         <Col md={4}>
-          <div className="add-form-main-heading">Progress of labour</div>
+          <div className="add-form-main-heading">Progress of Labour</div>
         </Col>
       </Row>
 
@@ -342,24 +357,40 @@ const AddUserData = () => {
         </Col>
 
         <Col md={6}>
-          <Row>
-            <Col md={10}>
-              <div>Position: </div>
-            </Col>
-            <Col md={14}>
-              <Select onChange={e => handleChange('position', e)} value={userData.position} style={{ width: '100%' }} title="Position">
-                {positions?.map((position, index) => (
-                  <Option key={index} value={position.value}>{position.name}</Option>
-                ))}
-              </Select>
-            </Col>
-          </Row>
+          <Select onChange={e => handleChange('presenting', e)} value={userData.presenting} style={{ width: '100%' }} title="Presenting">
+            {ociputData?.map((position, index) => (
+              <Option key={index} value={position.value}>{position.name}</Option>
+            ))}
+          </Select>
+        </Col>
+
+        <Col md={6}>
+          <Select disabled={isEnabledPosition} onChange={e => console.log("sasa", e)} value={userData.position} style={{ width: '100%' }} title="Position">
+            {positions?.map((position, index) => (
+              <Option key={index} value={position.value}>{position.name}</Option>
+            ))}
+          </Select>
+        </Col>
+      </Row>
+
+      <Row style={{ marginTop: 20 }} align="middle" gutter={[6, 6]}>
+        <Col md={6}>
+          <Col md={10}>
+            <div>Position: </div>
+          </Col>
+          <Col md={14}>
+            <Select onChange={e => handleChange('presenting', e)} value={userData.presenting} style={{ width: '100%' }} title="Presenting">
+              {ociputData?.map((position, index) => (
+                <Option key={index} value={position.value}>{position.name}</Option>
+              ))}
+            </Select>
+          </Col>
         </Col>
       </Row>
 
       <Row style={{ marginTop: 20 }} align="middle" gutter={[6, 6]}>
         <Col md={3}>
-          <div>Fetal Head</div>
+          <div>Fetal Condition</div>
         </Col>
 
         <Col md={5}>
@@ -379,7 +410,7 @@ const AddUserData = () => {
         <Col md={6}>
           <Row>
             <Col md={10}>
-              <div>Above brims: </div>
+              <div>Above brim: </div>
             </Col>
             <Col md={14}>
               <Select onChange={e => handleChange('Pfheadfifths', e)} value={userData.Pfheadfifths} style={{ width: '100%' }} title="Pfheadfifths">
@@ -410,7 +441,7 @@ const AddUserData = () => {
       <Row style={{ marginTop: 20 }} align="middle" gutter={[6, 6]}>
         <Col md={1}></Col>
         <Col md={3}>
-          <div>Oxytonic</div>
+          <div>Oxytocin</div>
         </Col>
 
         <Col md={6}>

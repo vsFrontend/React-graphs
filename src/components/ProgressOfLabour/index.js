@@ -21,7 +21,7 @@ const ProgressOfLabour = () => {
     let hourAgoArray = [];
     const result = await localStorage.getItem("MyData") || "{}";
     const checkData = JSON.parse(result);
-    
+
     Object.keys(checkData).map(item => {
       const selectedIndex = xAxisLabels.findIndex(label => item === label)
       cDilation[selectedIndex] = checkData[item].CDilation;
@@ -34,10 +34,10 @@ const ProgressOfLabour = () => {
       setActionLine(true);
     }
 
-    const cDilationFilterdData = 
-    cDilation.filter(dilation => dilation >= 4 || dilation === null);
-    const checkDilationIndex = 
-    cDilationFilterdData.findIndex(dilation => dilation !== null && dilation >= 4);
+    const cDilationFilterdData =
+      cDilation.filter(dilation => dilation >= 4 || dilation === null);
+    const checkDilationIndex =
+      cDilationFilterdData.findIndex(dilation => dilation !== null && dilation >= 4);
 
     if (checkDilationIndex !== -1) {
       actionLinePoints = new Array(checkDilationIndex || 1)?.fill(null);
@@ -80,7 +80,7 @@ const ProgressOfLabour = () => {
       data: length
     },
     {
-      name: 'Fetal Head',
+      name: 'Presenting Part',
       type: 'line',
       data: aboveBrim
     },
@@ -103,14 +103,36 @@ const ProgressOfLabour = () => {
         enabled: false,
       }
     },
+
     stroke: {
       width: [4, 6, 0, 4, 3, 3],
+      colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#000000'],
       curve: ['straight', 'straight', 'straight', 'straight', 'straight', 'straight']
     },
+    colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#000000'],
+    
     legend: {
       position: 'top',
+      width: 0,
+      height: 0,
+
       showForNullSeries: false,
-      showForSingleSeries: false
+      showForSingleSeries: false,
+      onItemClick: {
+        toggleDataSeries: false
+      },
+      onItemHover: {
+        highlightDataSeries: false
+      },
+      formatter: function (seriesName, opts) {
+        console.log("[seriesName]", [seriesName])
+        if (seriesName === "Presenting Part") {
+          return [`<img style="height: 20px; width: 20px;" src="/assets/images/positions/OA.png" />`, seriesName,]
+        }
+        else {
+          return [seriesName]
+        }
+      }
     },
     annotations: {
       points: Object.keys(annotationObj).map(item => {
@@ -173,10 +195,12 @@ const ProgressOfLabour = () => {
     }
   };
 
+
+  
   return (
     <div>
       <h2 className="heading">Progress of Labour</h2>
-      
+
       <ReactApexChart
         options={optionsSet}
         series={seriesSet}

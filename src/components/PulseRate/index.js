@@ -6,18 +6,22 @@ import { initialNullArray, xAxisLabels } from '../../utils/constants';
 
 const PulseRate = () => {
 
-  const [pulseRate, setPulseRate] = useState(initialNullArray);  
-  const getAllData = async () => {
-    let pulseData = [...pulseRate];
 
+  const [msBpData, setMsBpData] = useState(initialNullArray);
+  const [mdBpData, setMdBpData] = useState(initialNullArray);  
+  const getAllData = async () => {
+    let msBpDataValue = [...msBpData];
+    let mdBpDataValue = [...mdBpData]
     const result = await localStorage.getItem("MyData") || "{}";
     const checkData = JSON.parse(result);
     
     Object.keys(checkData).map(item => {
       const selectedIndex = xAxisLabels.findIndex(label => item === label)
-      pulseData[selectedIndex] = checkData[item].Mpulse;
+      msBpDataValue[selectedIndex] = checkData[item].MsBP;
+      mdBpDataValue[selectedIndex] = checkData[item].MdBP;
     });
-    setPulseRate(pulseData);
+    setMsBpData(msBpDataValue);
+    setMdBpData(mdBpDataValue)
   }
 
   useEffect(() => {
@@ -31,10 +35,20 @@ const PulseRate = () => {
       data: initialNullArray,
     },
     {
-      name: 'Pulse Rate',
+      name: 'Pulse',
       type: 'line',
-      data: pulseRate
-    }
+      data: msBpData
+    },
+    {
+      name: 'High BP',
+      type: 'bar',
+      data: mdBpData
+    }, 
+    // {
+    //   name: 'Low BP',
+    //   type: 'bar',
+    //   data: mdBpData
+    // }
   ];
 
   const optionsSet = {
@@ -46,13 +60,19 @@ const PulseRate = () => {
       }
     },
     stroke: {
-      width: [0, 6],
-      curve: ['straight', 'straight']
+      width: [0, 6, 6],
+      curve: ['straight', 'straight', 'straight']
     },
     legend: {
       position: 'top',
       showForNullSeries: false,
-      showForSingleSeries: false
+      showForSingleSeries: false,
+      onItemClick: {
+        toggleDataSeries: false
+      },
+      onItemHover: {
+        highlightDataSeries: false
+      },
     },
    
     grid: {
@@ -78,10 +98,10 @@ const PulseRate = () => {
     yaxis: [
       {
         title: {
-          text: 'Pulse Rate',
+          text: 'Pulse and BP',
         },
         min: 0,
-        max: 140,
+        max: 220,
       },
     ],
     tooltip: {
@@ -100,14 +120,14 @@ const PulseRate = () => {
 
   return (
     <div>
-      <h2 className="heading">Pulse Rate</h2>
+      <h2 className="heading">Meternal Condition</h2>
       <ReactApexChart
         options={optionsSet}
         series={seriesSet}
         height={400}
       />
     </div>
-  )
+  );
 };
 
 export default PulseRate;

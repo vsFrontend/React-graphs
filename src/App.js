@@ -19,10 +19,11 @@ const ChartsRecord = () => {
       <Link style={{fontSize: '18px', color: 'white', background: 'blue', padding: '7px', paddingLeft: '15px', paddingRight: '15px', borderRadius: '7px'}} title="Add Record" to="/add-data" >Add Data</Link>
       
       </div>
-    <HeartRate />
+    <PulseRate />
     <ProgressOfLabour />
     <Contractions />
-    <PulseRate />
+  
+    <HeartRate />
     </div>
   )
 }

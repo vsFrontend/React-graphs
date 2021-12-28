@@ -3,21 +3,19 @@ import ReactApexChart from "react-apexcharts";
 import { initialNullArray, xAxisLabels } from '../../utils/constants';
 
 const HeartRate = () => {
-  const [msBpData, setMsBpData] = useState(initialNullArray);
-  const [mdBpData, setMdBpData] = useState(initialNullArray);  
+
+  const [pulseRate, setPulseRate] = useState(initialNullArray);
   const getAllData = async () => {
-    let msBpDataValue = [...msBpData];
-    let mdBpDataValue = [...mdBpData]
+    let pulseData = [...pulseRate];
+
     const result = await localStorage.getItem("MyData") || "{}";
     const checkData = JSON.parse(result);
-    
+
     Object.keys(checkData).map(item => {
       const selectedIndex = xAxisLabels.findIndex(label => item === label)
-      msBpDataValue[selectedIndex] = checkData[item].MsBP;
-      mdBpDataValue[selectedIndex] = checkData[item].MdBP;
+      pulseData[selectedIndex] = checkData[item].Fhr;
     });
-    setMsBpData(msBpDataValue);
-    setMdBpData(mdBpDataValue)
+    setPulseRate(pulseData);
   }
 
   useEffect(() => {
@@ -31,14 +29,9 @@ const HeartRate = () => {
       data: initialNullArray,
     },
     {
-      name: 'High BP',
+      name: 'bpm',
       type: 'line',
-      data: msBpData
-    },
-    {
-      name: 'Low BP',
-      type: 'line',
-      data: mdBpData
+      data: pulseRate
     }
   ];
 
@@ -51,15 +44,21 @@ const HeartRate = () => {
       }
     },
     stroke: {
-      width: [0, 6, 6],
-      curve: ['straight', 'straight', 'straight']
+      width: [0, 6],
+      curve: ['straight', 'straight']
     },
     legend: {
       position: 'top',
       showForNullSeries: false,
-      showForSingleSeries: false
+      showForSingleSeries: false,
+      onItemClick: {
+        toggleDataSeries: false
+      },
+      onItemHover: {
+        highlightDataSeries: false
+      },
     },
-   
+
     grid: {
       borderColor: 'gray',
       xaxis: {
@@ -83,10 +82,10 @@ const HeartRate = () => {
     yaxis: [
       {
         title: {
-          text: 'Blood Pressure',
+          text: 'bpm',
         },
         min: 0,
-        max: 220,
+        max: 140,
       },
     ],
     tooltip: {
@@ -105,14 +104,14 @@ const HeartRate = () => {
 
   return (
     <div>
-      <h2 className="heading">Fetal Heart Rate</h2>
+      <h2 className="heading">Fetal Conditon</h2>
       <ReactApexChart
         options={optionsSet}
         series={seriesSet}
         height={400}
       />
     </div>
-  );
+  )
 };
 
 export default HeartRate;

@@ -37,10 +37,10 @@ const AddUserData = () => {
     Pcduration: null,
     Fengaged: false,
     Pfheadfifths: null,
-    Pfheadmoduling: 0,
+    Pfheadmoduling: null,
     Pfheadposition: '',
-    PoxytonicUL: 0,
-    PoxytonicDM: 0,
+    PoxytonicUL: null,
+    PoxytonicDM: null,
     EconentrationUL: 0,
     EconentrationDM: 0,
     otherNotes: '',
@@ -364,28 +364,15 @@ const AddUserData = () => {
           </Select>
         </Col>
 
-        <Col md={6}>
+        {isEnabledPosition ? null : <Col md={6}>
           <Select disabled={isEnabledPosition} onChange={e => console.log("sasa", e)} value={userData.position} style={{ width: '100%' }} title="Position">
             {positions?.map((position, index) => (
               <Option key={index} value={position.value}>{position.name}</Option>
             ))}
           </Select>
-        </Col>
-      </Row>
+        </Col> }
 
-      <Row style={{ marginTop: 20 }} align="middle" gutter={[6, 6]}>
-        <Col md={6}>
-          <Col md={10}>
-            <div>Position: </div>
-          </Col>
-          <Col md={14}>
-            <Select onChange={e => handleChange('presenting', e)} value={userData.presenting} style={{ width: '100%' }} title="Presenting">
-              {ociputData?.map((position, index) => (
-                <Option key={index} value={position.value}>{position.name}</Option>
-              ))}
-            </Select>
-          </Col>
-        </Col>
+        
       </Row>
 
       <Row style={{ marginTop: 20 }} align="middle" gutter={[6, 6]}>

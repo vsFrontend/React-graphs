@@ -120,7 +120,7 @@ const PulseRate = () => {
 
   return (
     <div>
-      <h2 className="heading">Meternal Condition</h2>
+      <h2 className="heading">Maternal Condition</h2>
       <ReactApexChart
         options={optionsSet}
         series={seriesSet}

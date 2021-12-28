@@ -52,7 +52,6 @@ const AddUserData = () => {
   });
 
   const handleChange = (inputName, inputValue) => {
-    console.log(inputName, inputValue);
     setUserData({
       ...userData,
       [inputName]: inputValue
@@ -151,7 +150,6 @@ const AddUserData = () => {
 
   return (
     <div className="form-container">
-      {console.log("userData.presenting", userData.presenting)}
       <DateInputs handleChange={handleChange} />
       <Row align="middle" style={{ marginTop: 20 }}>
         <Col md={4}>
@@ -365,7 +363,7 @@ const AddUserData = () => {
         </Col>
 
         {isEnabledPosition ? null : <Col md={6}>
-          <Select disabled={isEnabledPosition} onChange={e => console.log("sasa", e)} value={userData.position} style={{ width: '100%' }} title="Position">
+          <Select disabled={isEnabledPosition} onChange={e => handleChange('position', e)} value={userData.position} style={{ width: '100%' }} title="Position">
             {positions?.map((position, index) => (
               <Option key={index} value={position.value}>{position.name}</Option>
             ))}

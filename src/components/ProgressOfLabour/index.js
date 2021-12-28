@@ -125,7 +125,6 @@ const ProgressOfLabour = () => {
         highlightDataSeries: false
       },
       formatter: function (seriesName, opts) {
-        console.log("[seriesName]", [seriesName])
         if (seriesName === "Presenting Part") {
           return [`<img style="height: 20px; width: 20px;" src="/assets/images/positions/OA.png" />`, seriesName,]
         }

@@ -5,6 +5,7 @@ import { initialNullArray, xAxisLabels } from '../../utils/constants';
 const HeartRate = () => {
 
   const [pulseRate, setPulseRate] = useState(initialNullArray);
+  const [arrayCount, setArrayCount] = useState(false);
   const getAllData = async () => {
     let pulseData = [...pulseRate];
 
@@ -16,6 +17,12 @@ const HeartRate = () => {
       pulseData[selectedIndex] = checkData[item].Fhr;
     });
     setPulseRate(pulseData);
+
+    let getCountData = [];
+    getCountData = pulseData?.filter(item => item !== null);
+    if (getCountData.length > 1){
+      setArrayCount(true)
+    }
   }
 
   useEffect(() => {
@@ -88,7 +95,9 @@ const HeartRate = () => {
         max: 140,
       },
     ],
+
     tooltip: {
+      enabled:  arrayCount ? true : false,
       shared: true,
       intersect: false,
       y: {

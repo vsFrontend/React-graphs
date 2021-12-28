@@ -5,8 +5,6 @@ import { initialNullArray, xAxisLabels } from '../../utils/constants';
 
 
 const PulseRate = () => {
-
-
   const [msBpData, setMsBpData] = useState(initialNullArray);
   const [mdBpData, setMdBpData] = useState(initialNullArray);
   const [pulseRateData, setPulseRateData] = useState(initialNullArray);
@@ -34,6 +32,13 @@ const PulseRate = () => {
       setCountArray(true)
     }
   }
+
+  const annotationObj = {};
+  xAxisLabels.map((item, index) => {
+    annotationObj[item] = {
+      msBpDataIndex: msBpData[index]
+    }
+  });
 
   useEffect(() => {
     getAllData();
@@ -86,6 +91,27 @@ const PulseRate = () => {
         highlightDataSeries: false
       },
     },
+
+    annotations: {
+      points: Object.keys(annotationObj).map(item => {
+        return (
+          {
+            x: annotationObj[item].msBpDataIndex ? item : 0,
+            y: annotationObj[item].msBpDataIndex,
+            marker: {
+              size: 1
+            },
+            image: {
+              path: '/assets/images/positions/directionalarrow.png',
+              width: 25,
+              height: 40,
+              offsetY: 0,
+            }
+          }
+        )
+      }),
+      
+    },
    
     grid: {
       borderColor: 'gray',
@@ -117,6 +143,7 @@ const PulseRate = () => {
       },
     ],
     tooltip: {
+      enabledOnSeries: [1,2,3,4],
       enabled: isCountArray ? true : false,
       shared: true,
       intersect: false,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 
-import {initialNullArray, xAxisLabels} from '../../utils/constants'
+import { initialNullArray, xAxisLabels } from '../../utils/constants'
 
 const Contractions = () => {
   const [barChartData, setBardChartData] = useState(initialNullArray);
@@ -10,12 +10,12 @@ const Contractions = () => {
     let barChartDataValue = [...barChartData];
     const result = await localStorage.getItem("MyData") || "{}";
     const checkData = JSON.parse(result);
-    
+
     Object.keys(checkData).map(item => {
       const selectedIndex = xAxisLabels.findIndex(label => item === label)
       barChartDataValue[selectedIndex] = checkData[item].Pcfrequency;
     });
-    
+
     setBardChartData(barChartDataValue);
   }
 
@@ -25,7 +25,7 @@ const Contractions = () => {
 
   const series = [{
     data: initialNullArray
-  },{
+  }, {
     name: 'Frequency',
     data: barChartData
   }];
@@ -49,7 +49,7 @@ const Contractions = () => {
       enabled: false,
       showForNullSeries: false,
       showForSingleSeries: false,
-      
+
       onItemClick: {
         toggleDataSeries: false
       },
@@ -71,8 +71,8 @@ const Contractions = () => {
         }
       },
     },
-    colors:['#000'],
-    
+    colors: ['#000'],
+
     xaxis: {
       categories: xAxisLabels,
     },
@@ -82,7 +82,26 @@ const Contractions = () => {
       },
       min: 0,
       max: 100,
-    }
+    },
+    fill: {
+      type: 'pattern',
+      colors: [function ({
+        value,
+        seriesIndex,
+        w
+      }) {
+
+        if (value > 30) {
+          return '#000'
+        } else {
+          return '#808080'
+        }
+      }],
+      opacity: 1,
+      pattern: {
+        style: ['circles', 'circles']
+      }
+    },
   };
 
   return (

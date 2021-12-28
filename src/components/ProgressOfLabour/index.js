@@ -152,6 +152,8 @@ const ProgressOfLabour = () => {
         )
       })
     },
+
+    
     grid: {
       borderColor: 'gray',
       xaxis: {
@@ -179,6 +181,27 @@ const ProgressOfLabour = () => {
       min: 0,
       max: 10,
     },
+    markers: {
+      size: [0, 7],
+      colors: undefined,
+      strokeColors: '#fff',
+      strokeWidth: 2,
+      strokeOpacity: 0.9,
+      strokeDashArray: 0,
+      fillOpacity: 1,
+     
+      shape: ["","square"],
+      radius: 0,
+      offsetX: 0,
+      offsetY: 0,
+      onClick: undefined,
+      onDblClick: undefined,
+      showNullDataPoints: false,
+      hover: {
+        size: undefined,
+        sizeOffset: 3
+      }
+  },
     tooltip: {
       enabledOnSeries: [1, 2, 3],
       shared: false,

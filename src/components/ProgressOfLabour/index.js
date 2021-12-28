@@ -106,10 +106,10 @@ const ProgressOfLabour = () => {
 
     stroke: {
       width: [4, 6, 0, 4, 3, 3],
-      colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#000000'],
+      colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#FF0000'],
       curve: ['straight', 'straight', 'straight', 'straight', 'straight', 'straight']
     },
-    colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#000000'],
+    colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#FF0000'],
     
     legend: {
       position: 'top',

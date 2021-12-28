@@ -41,10 +41,10 @@ const AddUserData = () => {
     Pfheadposition: '',
     PoxytonicUL: null,
     PoxytonicDM: null,
-    EconentrationUL: 0,
-    EconentrationDM: 0,
+    EconentrationUL: null,
+    EconentrationDM: null,
     otherNotes: '',
-    CDilation: 0,
+    CDilation: null,
     position: 'OA',
     presenting: 'Occiput',
     min: 100,
@@ -393,7 +393,7 @@ const AddUserData = () => {
         </Col>
 
         <Col md={6}>
-          <Row>
+          <Row align="middle">
             <Col md={10}>
               <div>Above brim: </div>
             </Col>

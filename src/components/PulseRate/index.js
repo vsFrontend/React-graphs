@@ -9,10 +9,12 @@ const PulseRate = () => {
 
   const [msBpData, setMsBpData] = useState(initialNullArray);
   const [mdBpData, setMdBpData] = useState(initialNullArray);
+  const [pulseRateData, setPulseRateData] = useState(initialNullArray);
   const [isCountArray, setCountArray] = useState(false);
   const getAllData = async () => {
     let msBpDataValue = [...msBpData];
-    let mdBpDataValue = [...mdBpData]
+    let mdBpDataValue = [...mdBpData];
+    let pulseRateValue = [...pulseRateData];
     const result = await localStorage.getItem("MyData") || "{}";
     const checkData = JSON.parse(result);
     
@@ -20,9 +22,11 @@ const PulseRate = () => {
       const selectedIndex = xAxisLabels.findIndex(label => item === label)
       msBpDataValue[selectedIndex] = checkData[item].MsBP;
       mdBpDataValue[selectedIndex] = checkData[item].MdBP;
+      pulseRateValue[selectedIndex] = checkData[item].Mpulse;
     });
     setMsBpData(msBpDataValue);
     setMdBpData(mdBpDataValue);
+    setPulseRateData(pulseRateValue);
 
     let filteredArray = [];
     filteredArray = msBpDataValue.filter(item => item !== null);
@@ -44,18 +48,19 @@ const PulseRate = () => {
     {
       name: 'Pulse',
       type: 'line',
-      data: msBpData
+      data: pulseRateData
     },
     {
       name: 'High BP',
-      type: 'bar',
-      data: mdBpData
+      type: 'line',
+      data: msBpData
     }, 
-    // {
-    //   name: 'Low BP',
-    //   type: 'bar',
-    //   data: mdBpData
-    // }
+    {
+      name: 'Low BP',
+      type: 'line',
+      data: mdBpData
+    },
+    
   ];
 
   const optionsSet = {
@@ -67,8 +72,8 @@ const PulseRate = () => {
       }
     },
     stroke: {
-      width: [0, 6, 6],
-      curve: ['straight', 'straight', 'straight']
+      width: [0, 6, 6, 6],
+      curve: ['straight', 'straight', 'straight', 'straight']
     },
     legend: {
       position: 'top',
@@ -129,7 +134,6 @@ const PulseRate = () => {
   return (
     <div>
       <h2 className="heading">Maternal Condition</h2>
-      {console.log("isCountArray", isCountArray)}
       <ReactApexChart
         options={optionsSet}
         series={seriesSet}

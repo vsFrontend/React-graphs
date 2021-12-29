@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import React, { useEffect, useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
 import { positions, initialNullArray, xAxisLabels } from '../../utils/constants';
 
 const ProgressOfLabour = () => {
@@ -19,28 +19,30 @@ const ProgressOfLabour = () => {
     let positionData = [...position];
     let actionLinePoints = [];
     let hourAgoArray = [];
-    const result = await localStorage.getItem("MyData") || "{}";
+    const result = (await localStorage.getItem('MyData')) || '{}';
     const checkData = JSON.parse(result);
 
-    Object.keys(checkData).map(item => {
-      const selectedIndex = xAxisLabels.findIndex(label => item === label)
+    Object.keys(checkData).map((item) => {
+      const selectedIndex = xAxisLabels.findIndex((label) => item === label);
       cDilation[selectedIndex] = checkData[item].CDilation;
       aboveBrimData[selectedIndex] = checkData[item]?.Pfheadfifths;
       positionData[selectedIndex] = checkData[item]?.position;
       lengthData[selectedIndex] = checkData[item].PcLength;
     });
 
-    if (cDilation.some(dilation => dilation >= 4)) {
+    if (cDilation.some((dilation) => dilation >= 4)) {
       setActionLine(true);
     }
 
-    const cDilationFilterdData =
-      cDilation.filter(dilation => dilation >= 4 || dilation === null);
-    const checkDilationIndex =
-      cDilationFilterdData.findIndex(dilation => dilation !== null && dilation >= 4);
+    const cDilationFilterdData = cDilation.filter((dilation) => dilation >= 4 || dilation === null);
+    let checkDilationIndex = cDilationFilterdData.findIndex((dilation) => dilation !== null && dilation >= 4);
+
+    console.log('checkDilationIndex', checkDilationIndex);
+
+    const checkDilationIndexIncrease = checkDilationIndex + 1;
 
     if (checkDilationIndex !== -1) {
-      actionLinePoints = new Array(checkDilationIndex || 1)?.fill(null);
+      actionLinePoints = new Array(checkDilationIndexIncrease || 1)?.fill(null);
       let twoHourAgoIndex = checkDilationIndex + 4;
       hourAgoArray = new Array(twoHourAgoIndex || 1).fill(null);
     }
@@ -50,7 +52,7 @@ const ProgressOfLabour = () => {
     setLength(lengthData);
     setActionLineData(actionLinePoints);
     setHourAgoData(hourAgoArray);
-  }
+  };
 
   useEffect(() => {
     getAllData();
@@ -61,7 +63,7 @@ const ProgressOfLabour = () => {
     annotationObj[item] = {
       aboveBrim: aboveBrim[index],
       position: position[index],
-    }
+    };
   });
 
   const seriesSet = [
@@ -73,59 +75,75 @@ const ProgressOfLabour = () => {
     {
       name: 'Cervical Dilation',
       type: 'line',
-      data: cDilationData
-    }, {
+      data: cDilationData,
+    },
+    {
       name: 'Cervical Length',
       type: 'bar',
-      data: length
+      data: length,
     },
     {
       name: 'Presenting Part',
       type: 'line',
-      data: aboveBrim
+      data: aboveBrim,
     },
-    actionLine ? {
-      name: 'Alert Line',
-      type: 'line',
-      data: [...actionLineData, 4, 5, 6, 7, 8, 9, 10]
-    } : {},
-    actionLine ? {
-      name: "Action Line",
-      type: 'line',
-      data: [...hourAgoData, 4, 5, 6, 7, 8, 9, 10]
-    } : {},
+    actionLine
+      ? {
+          name: 'Alert Line',
+          type: 'line',
+          data: [...actionLineData, 4, 5, 6, 7, 8, 9, 10],
+        }
+      : {},
+    actionLine
+      ? {
+          name: 'Action Line',
+          type: 'line',
+          data: [...hourAgoData, 4, 5, 6, 7, 8, 9, 10],
+        }
+      : {},
   ];
 
   const optionsSet = {
     chart: {
       stacked: false,
+
       zoom: {
         enabled: false,
-      }
+      },
+      animations: {
+        enabled: false,
+      },
     },
 
     stroke: {
       width: [4, 6, 0, 0, 3, 3],
-      colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#FF0000'],
-      curve: ['straight', 'straight', 'straight', 'straight', 'straight', 'straight']
+      colors: ['#57AB27', '#808080', '#D9B91B', '#0A17B8', '#000000', '#FF0000'],
+      curve: ['straight', 'straight', 'straight', 'straight', 'straight', 'straight'],
     },
 
-    colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#FF0000'],
+    colors: ['#57AB27', '#808080', '#D9B91B', '#0A17B8', '#000000', '#FF0000'],
     dataLabels: {
       enabled: true,
       enabledOnSeries: [1],
+      offsetY: 1,
+      offsetX: 0,
       style: {
-        colors: ['#fff']
+        colors: ['transparent'],
+        fontSize: '16px',
       },
       background: {
         enabled: true,
-        foreColor: '#000',
+        foreColor: '#0000FF',
+        padding: 0,
+        borderRadius: 0,
+        borderWidth: 0,
+        borderColor: 'transparent',
       },
       formatter: function (val) {
         if (val === null) {
-          return ''
+          return '';
         } else {
-          return 'x'
+          return 'x';
         }
       },
     },
@@ -136,53 +154,50 @@ const ProgressOfLabour = () => {
       showForNullSeries: false,
       showForSingleSeries: false,
       onItemClick: {
-        toggleDataSeries: false
+        toggleDataSeries: false,
       },
       onItemHover: {
-        highlightDataSeries: false
+        highlightDataSeries: false,
       },
       markers: {
-        fillColors: ['#57AB27', '#57AB27', '#D9B91B', '#FFFFFF'],
+        fillColors: ['#57AB27', '#808080', '#D9B91B', '#FFFFFF'],
       },
       formatter: function (seriesName, opts) {
-        if (seriesName === "Presenting Part") {
-          return [`<img style="height: 20px; width: 20px;" src="/assets/images/positions/OP.png" />`, seriesName]
+        if (seriesName === 'Presenting Part') {
+          return [`<img style="height: 20px; width: 20px;" src="/assets/images/positions/OP.png" />`, seriesName];
+        } else {
+          return [seriesName];
         }
-        else {
-          return [seriesName]
-        }
-      }
+      },
     },
     annotations: {
-      points: Object.keys(annotationObj).map(item => {
-        return (
-          {
-            x: annotationObj[item].aboveBrim ? item : null,
-            y: annotationObj[item].aboveBrim,
-            marker: {
-              size: 1
-            },
-            image: {
-              path: positions.find(singlePosition => singlePosition.name === annotationObj[item].position)?.image,
-              width: 25,
-              height: 25,
-              offsetY: 10
-            }
-          }
-        )
-      })
+      points: Object.keys(annotationObj).map((item) => {
+        return {
+          x: annotationObj[item].aboveBrim ? item : null,
+          y: annotationObj[item].aboveBrim,
+          marker: {
+            size: 1,
+          },
+          image: {
+            path: positions.find((singlePosition) => singlePosition.name === annotationObj[item].position)?.image,
+            width: 25,
+            height: 25,
+            offsetY: 10,
+          },
+        };
+      }),
     },
     grid: {
       borderColor: 'gray',
       xaxis: {
         lines: {
-          show: true
-        }
+          show: true,
+        },
       },
       yaxis: {
         lines: {
-          show: true
-        }
+          show: true,
+        },
       },
     },
     xaxis: {
@@ -200,14 +215,14 @@ const ProgressOfLabour = () => {
       max: 10,
     },
     markers: {
-      size: [0, 7],
+      size: [0, 0],
       colors: undefined,
       strokeColors: '#fff',
-      strokeWidth: 2,
-      strokeOpacity: 0.9,
+      strokeWidth: 0,
+      strokeOpacity: 0,
       strokeDashArray: 0,
-      fillOpacity: 1,
-      shape: ["", "square"],
+      fillOpacity: 0,
+      shape: ['', 'square'],
       radius: 0,
       offsetX: 0,
       offsetY: 0,
@@ -216,34 +231,30 @@ const ProgressOfLabour = () => {
       showNullDataPoints: false,
       hover: {
         size: undefined,
-        sizeOffset: 3
-      }
+        // sizeOffset: 3,
+      },
     },
     tooltip: {
       enabledOnSeries: [0, 1, 2, 3],
       shared: false,
       intersect: true,
       y: {
-        formatter: y => {
+        formatter: (y) => {
           if (y) {
-            return y.toFixed(0) + " points";
+            return y.toFixed(0) + ' points';
           }
           return y;
-        }
-      }
-    }
+        },
+      },
+    },
   };
 
   return (
     <div>
       <h2 className="heading">Progress of Labour</h2>
-      <ReactApexChart
-        options={optionsSet}
-        series={seriesSet}
-        height={400}
-      />
+      <ReactApexChart options={optionsSet} series={seriesSet} height={400} />
     </div>
-  )
+  );
 };
 
 export default ProgressOfLabour;

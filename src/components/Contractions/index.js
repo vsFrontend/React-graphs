@@ -1,48 +1,62 @@
-import React, { useState, useEffect } from "react";
-import ReactApexChart from "react-apexcharts";
+import React, { useState, useEffect } from 'react';
+import ReactApexChart from 'react-apexcharts';
 
-import { initialNullArray, xAxisLabels } from '../../utils/constants'
+import { initialNullArray, xAxisLabels } from '../../utils/constants';
 
 const Contractions = () => {
   const [barChartData, setBardChartData] = useState(initialNullArray);
 
   const getAllData = async () => {
     let barChartDataValue = [...barChartData];
-    const result = await localStorage.getItem("MyData") || "{}";
+    const result = (await localStorage.getItem('MyData')) || '{}';
     const checkData = JSON.parse(result);
 
-    Object.keys(checkData).map(item => {
-      const selectedIndex = xAxisLabels.findIndex(label => item === label)
+    Object.keys(checkData).map((item) => {
+      const selectedIndex = xAxisLabels.findIndex((label) => item === label);
       barChartDataValue[selectedIndex] = checkData[item].Pcfrequency;
     });
 
     setBardChartData(barChartDataValue);
-  }
+  };
 
   useEffect(() => {
     getAllData();
   }, []);
 
-  const series = [{
-    data: initialNullArray
-  }, {
-    name: 'Frequency',
-    data: barChartData
-  }];
+  const series = [
+    // {
+    //   data: initialNullArray,
+    // },
+    {
+      name: 'Frequency',
+      data: barChartData,
+    },
+  ];
 
   const options = {
     chart: {
       type: 'bar',
-      height: 350
+      // height: 350,
+      width: '100%',
     },
     plotOptions: {
       bar: {
         borderRadius: 4,
         horizontal: false,
-      }
+        width: 100,
+      },
+    },
+
+    stroke: {
+      show: true,
+      // curve: 'smooth',
+      // lineCap: 'butt',
+      colors: undefined,
+      width: 1,
+      // dashArray: 0,
     },
     dataLabels: {
-      enabled: false
+      enabled: false,
     },
 
     legend: {
@@ -51,10 +65,10 @@ const Contractions = () => {
       showForSingleSeries: false,
 
       onItemClick: {
-        toggleDataSeries: false
+        toggleDataSeries: false,
       },
       onItemHover: {
-        highlightDataSeries: false
+        highlightDataSeries: false,
       },
     },
 
@@ -62,13 +76,13 @@ const Contractions = () => {
       borderColor: 'gray',
       xaxis: {
         lines: {
-          show: true
-        }
+          show: true,
+        },
       },
       yaxis: {
         lines: {
-          show: true
-        }
+          show: true,
+        },
       },
     },
     colors: ['#000'],
@@ -78,41 +92,30 @@ const Contractions = () => {
     },
     yaxis: {
       title: {
-        text: 'Contractions'
+        text: 'Contractions',
       },
       min: 0,
-      max: 100,
+      max: 5,
+      tickAmount: 5,
     },
     fill: {
-      type: 'pattern',
-      colors: [function ({
-        value,
-        seriesIndex,
-        w
-      }) {
-
-        if (value > 30) {
-          return '#000'
-        } else {
-          return '#808080'
-        }
-      }],
+      colors: [
+        function ({ value, seriesIndex, w }) {
+          if (value > 30) {
+            return '#000';
+          } else {
+            return '#808080';
+          }
+        },
+      ],
       opacity: 1,
-      pattern: {
-        style: ['circles', 'circles']
-      }
     },
   };
 
   return (
     <>
       <h2 className="heading">Contraction Per 10 Minute</h2>
-      <ReactApexChart
-        type="bar"
-        options={options}
-        series={series}
-        height={400}
-      />
+      <ReactApexChart type="bar" options={options} series={series} height={400} />
     </>
   );
 };

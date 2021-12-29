@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import ReactApexChart from "react-apexcharts";
+import React, { useEffect, useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
 import { initialNullArray, xAxisLabels } from '../../utils/constants';
 
 const PulseRate = () => {
@@ -11,11 +11,11 @@ const PulseRate = () => {
     let msBpDataValue = [...msBpData];
     let mdBpDataValue = [...mdBpData];
     let pulseRateValue = [...pulseRateData];
-    const result = await localStorage.getItem("MyData") || "{}";
+    const result = (await localStorage.getItem('MyData')) || '{}';
     const checkData = JSON.parse(result);
-    
-    Object.keys(checkData).map(item => {
-      const selectedIndex = xAxisLabels.findIndex(label => item === label)
+
+    Object.keys(checkData).map((item) => {
+      const selectedIndex = xAxisLabels.findIndex((label) => item === label);
       msBpDataValue[selectedIndex] = checkData[item].MsBP;
       mdBpDataValue[selectedIndex] = checkData[item].MdBP;
       pulseRateValue[selectedIndex] = checkData[item].Mpulse;
@@ -25,18 +25,26 @@ const PulseRate = () => {
     setPulseRateData(pulseRateValue);
 
     let filteredArray = [];
-    filteredArray = msBpDataValue.filter(item => item !== null);
+    filteredArray = msBpDataValue.filter((item) => item !== null);
     if (filteredArray.length > 1) {
-      setCountArray(true)
+      setCountArray(true);
     }
-  }
+  };
 
-  // const annotationObj = {};
-  // xAxisLabels.map((item, index) => {
-  //   annotationObj[item] = {
-  //     msBpDataIndex: msBpData[index]
-  //   }
-  // });
+  const annotationObj = {};
+  xAxisLabels.map((item, index) => {
+    annotationObj[item] = {
+      msBpDataIndex: msBpData[index],
+      mdBpDataIndex: mdBpData[index],
+    };
+  });
+
+  const annotationObjData = {};
+  xAxisLabels.map((item, index) => {
+    annotationObjData[item] = {
+      mdBpDataIndex: mdBpData[index],
+    };
+  });
 
   useEffect(() => {
     getAllData();
@@ -51,19 +59,18 @@ const PulseRate = () => {
     {
       name: 'Pulse',
       type: 'line',
-      data: pulseRateData
+      data: pulseRateData,
     },
     {
-      name: 'High BP',
+      name: 'highBp',
       type: 'line',
-      data: msBpData
-    }, 
-    {
-      name: 'Low BP',
-      type: 'line',
-      data: mdBpData
+      data: msBpData,
     },
-    
+    {
+      name: 'lowBP',
+      type: 'line',
+      data: mdBpData,
+    },
   ];
 
   const optionsSet = {
@@ -72,60 +79,94 @@ const PulseRate = () => {
       stacked: false,
       zoom: {
         enabled: false,
-      }
+      },
     },
     stroke: {
       width: [0, 6, 6, 6],
-      curve: ['straight', 'straight', 'straight', 'straight']
+      curve: ['straight', 'straight', 'straight', 'straight'],
     },
     legend: {
       position: 'top',
       showForNullSeries: false,
       showForSingleSeries: false,
       onItemClick: {
-        toggleDataSeries: false
+        toggleDataSeries: false,
       },
       onItemHover: {
-        highlightDataSeries: false
+        highlightDataSeries: false,
       },
     },
     dataLabels: {
       enabled: true,
-      enabledOnSeries: [2, 3]
+      // enabledOnSeries: [2, 3]
     },
 
-    // annotations: {
-    //   points: Object.keys(annotationObj).map(item => {
-    //     return (
-    //       {
-    //         x: annotationObj[item].msBpDataIndex ? item : 0,
-    //         y: annotationObj[item].msBpDataIndex,
-    //         marker: {
-    //           size: 1
-    //         },
-    //         image: {
-    //           path: '/assets/images/positions/directionalarrow.png',
-    //           width: 25,
-    //           height: 40,
-    //           offsetY: 0,
-    //         }
-    //       }
-    //     )
-    //   }),
-      
-    // },
-   
+    annotations: {
+      points: Object.keys(annotationObj).map((item) => {
+        return {
+          x: annotationObj[item].mdBpDataIndex ? item : null,
+          y: annotationObj[item].mdBpDataIndex,
+          marker: {
+            size: 1,
+          },
+          image: {
+            path: '/assets/images/positions/downarrow.png',
+            width: 25,
+            height: 25,
+            offsetY: 0,
+            offsetX: 10,
+          },
+        };
+      }),
+    },
+
+    dataLabels: {
+      enabled: true,
+      enabledOnSeries: [2],
+      style: {
+        colors: ['#fff'],
+        fontSize: '22px',
+      },
+
+      background: {
+        enabled: true,
+        foreColor: '#000',
+        padding: 0,
+        borderRadius: 2,
+        borderWidth: 1,
+        borderColor: '#fff',
+        opacity: 0.9,
+        dropShadow: {
+          enabled: false,
+          top: 1,
+          left: 1,
+          blur: 1,
+          color: '#000',
+          opacity: 0.45,
+        },
+      },
+
+      formatter: function (val, { seriesIndex, dataPointIndex, w }) {
+        console.log('w.globals.seriesNames[2]', w.globals.seriesNames, val);
+        if (val === null) {
+          return '';
+        } else if (w.globals.seriesNames[2] === 'highBp') {
+          return '↑';
+        }
+      },
+    },
+
     grid: {
       borderColor: 'gray',
       xaxis: {
         lines: {
-          show: true
-        }
+          show: true,
+        },
       },
       yaxis: {
         lines: {
-          show: true
-        }
+          show: true,
+        },
       },
     },
     xaxis: {
@@ -145,29 +186,25 @@ const PulseRate = () => {
       },
     ],
     tooltip: {
-      enabledOnSeries: [1,2,3,4],
+      enabledOnSeries: [1, 2, 3, 4],
       enabled: isCountArray ? true : false,
       shared: true,
       intersect: false,
       y: {
         formatter: function (y, x) {
           if (y) {
-            return y.toFixed(0) + " points";
+            return y.toFixed(0) + ' points';
           }
           return y;
-        }
-      }
-    }
+        },
+      },
+    },
   };
 
   return (
     <div>
       <h2 className="heading">Maternal Condition</h2>
-      <ReactApexChart
-        options={optionsSet}
-        series={seriesSet}
-        height={400}
-      />
+      <ReactApexChart options={optionsSet} series={seriesSet} height={400} />
     </div>
   );
 };

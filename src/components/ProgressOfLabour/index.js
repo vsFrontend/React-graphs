@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { positions, initialNullArray, xAxisLabels } from '../../utils/constants';
 
 const ProgressOfLabour = () => {
-  const chartRef = useRef();
   const [cDilationData, setCDilationData] = useState(initialNullArray);
   const [length, setLength] = useState(initialNullArray);
   const [aboveBrim, setAboveBrimData] = useState(initialNullArray);
@@ -53,45 +52,8 @@ const ProgressOfLabour = () => {
     setHourAgoData(hourAgoArray);
   }
 
-  const checkDataa = () => {
-    for(let i = 1; i <= chartRef.current.chart.ctx.w.globals.series[0].length; i++){
-      
-      chartRef.current.chart.addPointAnnotation({
-          x: chartRef.current.chart.w.config.series[0].data[i - 1],
-          y: chartRef.current.chart.w.config.series[0].data[i - 1],
-          image: '/assets/images/positions/OA.png'
-      })
-    }
-  }
-
   useEffect(() => {
     getAllData();
-
-    chartRef.current.chart.render().then(() => {
-      for (let i = 1; i <= chartRef.current.chart.ctx.w.globals.series[1].length; i++) {
-        const datapoint = chartRef.current.chart.ctx.w.config.series[1].data[i];
-
-        console.log("datapoint", xAxisLabels[datapoint])
-    
-        const img1 =
-          "https://upload.wikimedia.org/wikipedia/commons/f/f2/Pinterest_Shiny_Icon.svg";
-    
-        const img2 =
-          "/assets/images/positions/cancel.png";
-    
-          chartRef.current.chart.addPointAnnotation({
-          x: xAxisLabels[datapoint] -1,
-          y: datapoint,
-          marker: {
-            size: 1
-          },
-          image: {
-            path:  img2,
-            offsetY: 3
-          }
-        });
-      }
-    });
   }, [actionLineData?.length]);
 
   const annotationObj = {};
@@ -147,6 +109,7 @@ const ProgressOfLabour = () => {
       colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#FF0000'],
       curve: ['straight', 'straight', 'straight', 'straight', 'straight', 'straight']
     },
+
     colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#FF0000'],
     
     legend: {
@@ -193,8 +156,6 @@ const ProgressOfLabour = () => {
         )
       })
     },
-
-    
     grid: {
       borderColor: 'gray',
       xaxis: {
@@ -258,19 +219,13 @@ const ProgressOfLabour = () => {
     }
   };
 
-
-  
   return (
     <div>
       <h2 className="heading">Progress of Labour</h2>
-      {/* {checkDataa()} */}
-      
-
       <ReactApexChart
         options={optionsSet}
         series={seriesSet}
         height={400}
-        ref={chartRef}
       />
     </div>
   )

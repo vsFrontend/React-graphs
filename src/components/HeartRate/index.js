@@ -1,45 +1,56 @@
-import React, { useEffect, useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import React, { useEffect, useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
 import { initialNullArray, xAxisLabels } from '../../utils/constants';
 
 const HeartRate = () => {
-
-  const [pulseRate, setPulseRate] = useState(initialNullArray);
+  const [pulseRate, setPulseRate] = useState();
   const [arrayCount, setArrayCount] = useState(false);
+  const [timeDataSet, setTimeData] = useState([]);
   const getAllData = async () => {
-    let pulseData = [...pulseRate];
+    let pulseData = [];
+    const timeData = [];
 
-    const result = await localStorage.getItem("MyData") || "{}";
+    const result = (await localStorage.getItem('MyData')) || '{}';
     const checkData = JSON.parse(result);
 
-    Object.keys(checkData).map(item => {
-      const selectedIndex = xAxisLabels.findIndex(label => item === label)
-      pulseData[selectedIndex] = checkData[item].Fhr;
-    });
-    setPulseRate(pulseData);
+    console.log('result', checkData);
 
-    let getCountData = [];
-    getCountData = pulseData?.filter(item => item !== null);
-    if (getCountData.length > 1){
-      setArrayCount(true)
-    }
-  }
+    Object.keys(checkData).map((item) => {
+      console.log('maop', checkData[item].Fhr);
+      pulseData.push(checkData[item].Fhr);
+      timeData.push(item);
+      // pulseData.push()
+    });
+
+    // Object.keys(checkData).map((item) => {
+    //   const selectedIndex = xAxisLabels.findIndex((label) => item === label);
+    //   pulseData[selectedIndex] = checkData[item].Fhr;
+    // });
+    setPulseRate(pulseData);
+    setTimeData(timeData);
+
+    // let getCountData = [];
+    // getCountData = pulseData?.filter((item) => item !== null);
+    // if (getCountData.length > 1) {
+    //   setArrayCount(true);
+    // }
+  };
 
   useEffect(() => {
     getAllData();
   }, []);
 
   const seriesSet = [
-    {
-      name: 'Chart',
-      type: 'line',
-      data: initialNullArray,
-    },
+    // {
+    //   name: 'Chart',
+    //   type: 'line',
+    //   data: initialNullArray,
+    // },
     {
       name: 'bpm',
       type: 'line',
-      data: pulseRate
-    }
+      data: pulseRate,
+    },
   ];
 
   const optionsSet = {
@@ -48,21 +59,21 @@ const HeartRate = () => {
       stacked: false,
       zoom: {
         enabled: false,
-      }
+      },
     },
     stroke: {
-      width: [0, 6],
-      curve: ['straight', 'straight']
+      width: [6, 6],
+      curve: ['straight', 'straight'],
     },
     legend: {
       position: 'top',
       showForNullSeries: false,
       showForSingleSeries: false,
       onItemClick: {
-        toggleDataSeries: false
+        toggleDataSeries: false,
       },
       onItemHover: {
-        highlightDataSeries: false
+        highlightDataSeries: false,
       },
     },
 
@@ -70,13 +81,13 @@ const HeartRate = () => {
       borderColor: 'gray',
       xaxis: {
         lines: {
-          show: true
-        }
+          show: true,
+        },
       },
       yaxis: {
         lines: {
-          show: true
-        }
+          show: true,
+        },
       },
     },
     xaxis: {
@@ -84,7 +95,7 @@ const HeartRate = () => {
         text: 'Time Intervals (24hr)',
       },
       type: 'categories',
-      categories: xAxisLabels,
+      categories: timeDataSet,
     },
     yaxis: [
       {
@@ -97,30 +108,26 @@ const HeartRate = () => {
     ],
 
     tooltip: {
-      enabled:  arrayCount ? true : false,
+      enabled: arrayCount ? true : false,
       shared: true,
       intersect: false,
       y: {
         formatter: function (y, x) {
           if (y) {
-            return y.toFixed(0) + " points";
+            return y.toFixed(0) + ' points';
           }
           return y;
-        }
-      }
-    }
+        },
+      },
+    },
   };
 
   return (
     <div>
       <h2 className="heading">Fetal Conditon</h2>
-      <ReactApexChart
-        options={optionsSet}
-        series={seriesSet}
-        height={400}
-      />
+      <ReactApexChart options={optionsSet} series={seriesSet} height={400} />
     </div>
-  )
+  );
 };
 
 export default HeartRate;

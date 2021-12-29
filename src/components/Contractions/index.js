@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-import { initialNullArray, xAxisLabels } from '../../utils/constants';
-
 const Contractions = () => {
-  const [barChartData, setBardChartData] = useState(initialNullArray);
+  const [barChartData, setBardChartData] = useState([]);
+  const [timeValue, setTimeValue] = useState([]);
 
   const getAllData = async () => {
-    let barChartDataValue = [...barChartData];
     const result = (await localStorage.getItem('MyData')) || '{}';
     const checkData = JSON.parse(result);
 
-    Object.keys(checkData).map((item) => {
-      const selectedIndex = xAxisLabels.findIndex((label) => item === label);
-      barChartDataValue[selectedIndex] = checkData[item].Pcfrequency;
-    });
+    let timeData = [];
+    let frequencyData = [];
 
-    setBardChartData(barChartDataValue);
+    Object.keys(checkData).map((item) => {
+      frequencyData.push(checkData[item].Pcfrequency);
+      timeData.push(item);
+    });
+    setBardChartData(frequencyData);
+    setTimeValue(timeData);
   };
 
   useEffect(() => {
@@ -24,9 +25,6 @@ const Contractions = () => {
   }, []);
 
   const series = [
-    // {
-    //   data: initialNullArray,
-    // },
     {
       name: 'Frequency',
       data: barChartData,
@@ -36,7 +34,6 @@ const Contractions = () => {
   const options = {
     chart: {
       type: 'bar',
-      // height: 350,
       width: '100%',
     },
     plotOptions: {
@@ -88,7 +85,7 @@ const Contractions = () => {
     colors: ['#000'],
 
     xaxis: {
-      categories: xAxisLabels,
+      categories: timeValue,
     },
     yaxis: {
       title: {

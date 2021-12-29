@@ -3,32 +3,41 @@ import ReactApexChart from 'react-apexcharts';
 import { initialNullArray, xAxisLabels } from '../../utils/constants';
 
 const PulseRate = () => {
-  const [msBpData, setMsBpData] = useState(initialNullArray);
-  const [mdBpData, setMdBpData] = useState(initialNullArray);
-  const [pulseRateData, setPulseRateData] = useState(initialNullArray);
+  const [msBpData, setMsBpData] = useState([]);
+  const [mdBpData, setMdBpData] = useState([]);
+  const [timeValue, setTimeValue] = useState([]);
+  const [pulseRateData, setPulseRateData] = useState([]);
   const [isCountArray, setCountArray] = useState(false);
   const getAllData = async () => {
-    let msBpDataValue = [...msBpData];
-    let mdBpDataValue = [...mdBpData];
+    let msBpDataValue = [];
+    let mdBpDataValue = [];
+    let timeDataArray = [];
     let pulseRateValue = [...pulseRateData];
     const result = (await localStorage.getItem('MyData')) || '{}';
     const checkData = JSON.parse(result);
 
     Object.keys(checkData).map((item) => {
-      const selectedIndex = xAxisLabels.findIndex((label) => item === label);
-      msBpDataValue[selectedIndex] = checkData[item].MsBP;
-      mdBpDataValue[selectedIndex] = checkData[item].MdBP;
-      pulseRateValue[selectedIndex] = checkData[item].Mpulse;
+      msBpDataValue.push(checkData[item].MsBP);
+      mdBpDataValue.push(checkData[item].MdBP);
+      timeDataArray.push(item);
     });
+
+    // Object.keys(checkData).map((item) => {
+    //   const selectedIndex = xAxisLabels.findIndex((label) => item === label);
+    //   msBpDataValue[selectedIndex] = checkData[item].MsBP;
+    //   mdBpDataValue[selectedIndex] = checkData[item].MdBP;
+    //   pulseRateValue[selectedIndex] = checkData[item].Mpulse;
+    // });
     setMsBpData(msBpDataValue);
     setMdBpData(mdBpDataValue);
     setPulseRateData(pulseRateValue);
+    setTimeValue(timeDataArray);
 
-    let filteredArray = [];
-    filteredArray = msBpDataValue.filter((item) => item !== null);
-    if (filteredArray.length > 1) {
-      setCountArray(true);
-    }
+    // let filteredArray = [];
+    // filteredArray = msBpDataValue.filter((item) => item !== null);
+    // if (filteredArray.length > 1) {
+    //   setCountArray(true);
+    // }
   };
 
   const annotationObj = {};
@@ -51,11 +60,11 @@ const PulseRate = () => {
   }, []);
 
   const seriesSet = [
-    {
-      name: 'Chart',
-      type: 'line',
-      data: initialNullArray,
-    },
+    // {
+    //   name: 'Chart',
+    //   type: 'line',
+    //   data: initialNullArray,
+    // },
     {
       name: 'Pulse',
       type: 'line',
@@ -147,7 +156,6 @@ const PulseRate = () => {
       },
 
       formatter: function (val, { seriesIndex, dataPointIndex, w }) {
-        console.log('w.globals.seriesNames[2]', w.globals.seriesNames, val);
         if (val === null) {
           return '';
         } else if (w.globals.seriesNames[2] === 'highBp') {
@@ -174,7 +182,7 @@ const PulseRate = () => {
         text: 'Time Intervals (24hr)',
       },
       type: 'categories',
-      categories: xAxisLabels,
+      categories: timeValue,
     },
     yaxis: [
       {

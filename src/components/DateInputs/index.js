@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 import { Col, Row, TimePicker, DatePicker } from 'antd';
-import moment from "moment";
+import moment from 'moment';
 
-const DateInputs = ({handleChange}) => {
+const DateInputs = ({ handleChange }) => {
   const format = 'HH:mm';
   return (
     <Row>
@@ -20,21 +20,15 @@ const DateInputs = ({handleChange}) => {
       <Col md={6}>
         <Row align="middle">
           <Col md={4}>
-            <div>Time </div></Col>
+            <div>Time </div>
+          </Col>
           <Col>
-            <TimePicker
-              onChange={e => handleChange("selectedTime", moment(e).format("HH:mm"))}
-              inputReadOnly
-              hourStep={1}
-              minuteStep={30}
-              format={format}
-              use12Hours={false}
-            />
+            <TimePicker onChange={(e) => handleChange('selectedTime', moment(e).format('HH:mm'))} inputReadOnly hourStep={1} format={format} use12Hours={false} />
           </Col>
         </Row>
       </Col>
     </Row>
-  )
-}
+  );
+};
 
-export default DateInputs
+export default DateInputs;

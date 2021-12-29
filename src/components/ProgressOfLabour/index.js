@@ -157,7 +157,7 @@ const ProgressOfLabour = () => {
       points: Object.keys(annotationObj).map(item => {
         return (
           {
-            x: annotationObj[item].aboveBrim ? item : 0,
+            x: annotationObj[item].aboveBrim ? item : null,
             y: annotationObj[item].aboveBrim,
             marker: {
               size: 1

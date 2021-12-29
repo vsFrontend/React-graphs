@@ -2,8 +2,6 @@ import React, {useEffect, useState} from "react";
 import ReactApexChart from "react-apexcharts";
 import { initialNullArray, xAxisLabels } from '../../utils/constants';
 
-
-
 const PulseRate = () => {
   const [msBpData, setMsBpData] = useState(initialNullArray);
   const [mdBpData, setMdBpData] = useState(initialNullArray);

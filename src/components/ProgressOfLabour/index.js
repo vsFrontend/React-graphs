@@ -260,9 +260,6 @@ const ProgressOfLabour = () => {
   return (
     <div>
       <h2 className="heading">Progress of Labour</h2>
-      {/* {checkDataa()} */}
-      
-
       <ReactApexChart
         options={optionsSet}
         series={seriesSet}

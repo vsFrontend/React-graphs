@@ -66,32 +66,6 @@ const ProgressOfLabour = () => {
 
   useEffect(() => {
     getAllData();
-
-    chartRef.current.chart.render().then(() => {
-      for (let i = 1; i <= chartRef.current.chart.ctx.w.globals.series[1].length; i++) {
-        const datapoint = chartRef.current.chart.ctx.w.config.series[1].data[i];
-
-        console.log("datapoint", xAxisLabels[datapoint])
-    
-        const img1 =
-          "https://upload.wikimedia.org/wikipedia/commons/f/f2/Pinterest_Shiny_Icon.svg";
-    
-        const img2 =
-          "/assets/images/positions/cancel.png";
-    
-          chartRef.current.chart.addPointAnnotation({
-          x: xAxisLabels[datapoint] -1,
-          y: datapoint,
-          marker: {
-            size: 1
-          },
-          image: {
-            path:  img2,
-            offsetY: 3
-          }
-        });
-      }
-    });
   }, [actionLineData?.length]);
 
   const annotationObj = {};
@@ -143,11 +117,38 @@ const ProgressOfLabour = () => {
     },
 
     stroke: {
-      width: [4, 6, 0, 4, 3, 3],
+      width: [4, 6, 0, 0, 3, 3],
       colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#FF0000'],
       curve: ['straight', 'straight', 'straight', 'straight', 'straight', 'straight']
     },
     colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#FF0000'],
+    dataLabels: {
+      enabled: true,
+      enabledOnSeries : [1],  
+      textAnchor: 'start',
+      offsetX: -2,
+      offsetY: 1,
+      style: {
+        colors: ['#000']
+      },
+      background: {
+        enabled: true,
+        foreColor: '#fff',
+        padding: 2,
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: '#fff',
+        opacity: 0.9,
+       
+      },
+      formatter: function (val, opt) {
+        if (val === null) {
+          return ''
+        }else {
+          return 'x'
+        }
+      },
+    },
     
     legend: {
       position: 'top',
@@ -173,7 +174,6 @@ const ProgressOfLabour = () => {
     },
     annotations: {
       points: Object.keys(annotationObj).map(item => {
-        console.log("item------------->", item)
         return (
           {
             x: annotationObj[item].aboveBrim ? item : 0,
@@ -191,7 +191,6 @@ const ProgressOfLabour = () => {
         )
       })
     },
-
     
     grid: {
       borderColor: 'gray',
@@ -242,7 +241,7 @@ const ProgressOfLabour = () => {
       }
   },
     tooltip: {
-      enabledOnSeries: [1, 2, 3],
+      enabledOnSeries: [0, 1, 2, 3],
       shared: false,
       intersect: true,
       y: {

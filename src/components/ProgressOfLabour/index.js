@@ -162,9 +162,12 @@ const ProgressOfLabour = () => {
       onItemHover: {
         highlightDataSeries: false
       },
+      markers: {
+        fillColors: ['#57AB27', '#57AB27', '#D9B91B', '#FFFFFF'],
+      },
       formatter: function (seriesName, opts) {
         if (seriesName === "Presenting Part") {
-          return [`<img style="height: 20px; width: 20px;" src="/assets/images/positions/OA.png" />`, seriesName,]
+          return [`<img style="height: 20px; width: 20px;" src="/assets/images/positions/OP.png" />`, seriesName]
         }
         else {
           return [seriesName]
@@ -173,7 +176,6 @@ const ProgressOfLabour = () => {
     },
     annotations: {
       points: Object.keys(annotationObj).map(item => {
-        console.log("item------------->", item)
         return (
           {
             x: annotationObj[item].aboveBrim ? item : 0,

@@ -33,12 +33,12 @@ const PulseRate = () => {
     }
   }
 
-  const annotationObj = {};
-  xAxisLabels.map((item, index) => {
-    annotationObj[item] = {
-      msBpDataIndex: msBpData[index]
-    }
-  });
+  // const annotationObj = {};
+  // xAxisLabels.map((item, index) => {
+  //   annotationObj[item] = {
+  //     msBpDataIndex: msBpData[index]
+  //   }
+  // });
 
   useEffect(() => {
     getAllData();
@@ -91,27 +91,31 @@ const PulseRate = () => {
         highlightDataSeries: false
       },
     },
-
-    annotations: {
-      points: Object.keys(annotationObj).map(item => {
-        return (
-          {
-            x: annotationObj[item].msBpDataIndex ? item : 0,
-            y: annotationObj[item].msBpDataIndex,
-            marker: {
-              size: 1
-            },
-            image: {
-              path: '/assets/images/positions/directionalarrow.png',
-              width: 25,
-              height: 40,
-              offsetY: 0,
-            }
-          }
-        )
-      }),
-      
+    dataLabels: {
+      enabled: true,
+      enabledOnSeries: [2, 3]
     },
+
+    // annotations: {
+    //   points: Object.keys(annotationObj).map(item => {
+    //     return (
+    //       {
+    //         x: annotationObj[item].msBpDataIndex ? item : 0,
+    //         y: annotationObj[item].msBpDataIndex,
+    //         marker: {
+    //           size: 1
+    //         },
+    //         image: {
+    //           path: '/assets/images/positions/directionalarrow.png',
+    //           width: 25,
+    //           height: 40,
+    //           offsetY: 0,
+    //         }
+    //       }
+    //     )
+    //   }),
+      
+    // },
    
     grid: {
       borderColor: 'gray',

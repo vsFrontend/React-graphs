@@ -96,10 +96,10 @@ const PulseRate = () => {
       points: Object.keys(annotationObj).map(item => {
         return (
           {
-            x: annotationObj[item].msBpDataIndex ? item : 0,
+            x: annotationObj[item].msBpDataIndex ? item : null,
             y: annotationObj[item].msBpDataIndex,
             marker: {
-              size: 1
+              size: 0
             },
             image: {
               path: '/assets/images/positions/directionalarrow.png',

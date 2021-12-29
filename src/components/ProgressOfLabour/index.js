@@ -105,18 +105,36 @@ const ProgressOfLabour = () => {
     },
 
     stroke: {
-      width: [4, 6, 0, 4, 3, 3],
+      width: [4, 6, 0, 0, 3, 3],
       colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#FF0000'],
       curve: ['straight', 'straight', 'straight', 'straight', 'straight', 'straight']
     },
 
     colors: ['#57AB27', '#57AB27', '#D9B91B', '#0A17B8', '#000000', '#FF0000'],
-    
+    dataLabels: {
+      enabled: true,
+      enabledOnSeries: [1],
+      offsetX: -2,
+      offsetY: 1,
+      style: {
+        colors: ['#fff']
+      },
+      background: {
+        enabled: true,
+        foreColor: '#000',
+      },
+      formatter: function (val, opt) {
+        if (val === null) {
+          return ''
+        } else {
+          return 'x'
+        }
+      },
+    },
     legend: {
       position: 'top',
       width: 0,
       height: 0,
-
       showForNullSeries: false,
       showForSingleSeries: false,
       onItemClick: {
@@ -191,8 +209,7 @@ const ProgressOfLabour = () => {
       strokeOpacity: 0.9,
       strokeDashArray: 0,
       fillOpacity: 1,
-     
-      shape: ["","square"],
+      shape: ["", "square"],
       radius: 0,
       offsetX: 0,
       offsetY: 0,
@@ -203,9 +220,9 @@ const ProgressOfLabour = () => {
         size: undefined,
         sizeOffset: 3
       }
-  },
+    },
     tooltip: {
-      enabledOnSeries: [1, 2, 3],
+      enabledOnSeries: [0, 1, 2, 3],
       shared: false,
       intersect: true,
       y: {

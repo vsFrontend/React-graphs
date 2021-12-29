@@ -114,8 +114,6 @@ const ProgressOfLabour = () => {
     dataLabels: {
       enabled: true,
       enabledOnSeries: [1],
-      offsetX: -2,
-      offsetY: 1,
       style: {
         colors: ['#fff']
       },
@@ -123,7 +121,7 @@ const ProgressOfLabour = () => {
         enabled: true,
         foreColor: '#000',
       },
-      formatter: function (val, opt) {
+      formatter: function (val) {
         if (val === null) {
           return ''
         } else {

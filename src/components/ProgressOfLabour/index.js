@@ -37,8 +37,6 @@ const ProgressOfLabour = () => {
     const cDilationFilterdData = cDilation.filter((dilation) => dilation >= 4 || dilation === null);
     let checkDilationIndex = cDilationFilterdData.findIndex((dilation) => dilation !== null && dilation >= 4);
 
-    console.log('checkDilationIndex', checkDilationIndex);
-
     const checkDilationIndexIncrease = checkDilationIndex + 1;
 
     if (checkDilationIndex !== -1) {
@@ -182,7 +180,7 @@ const ProgressOfLabour = () => {
             path: positions.find((singlePosition) => singlePosition.name === annotationObj[item].position)?.image,
             width: 25,
             height: 25,
-            offsetY: 10,
+            offsetY: 0,
           },
         };
       }),

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import ReactApexChart from 'react-apexcharts';
-import { initialNullArray, xAxisLabels } from '../../utils/constants';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, BarElement } from 'chart.js';
+import { Bar, Line } from 'react-chartjs-2';
+import { initialNullArray, positions, xAxisLabels } from '../../utils/constants';
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 
 const PulseRate = () => {
   const [msBpData, setMsBpData] = useState(initialNullArray);
@@ -49,6 +52,120 @@ const PulseRate = () => {
   useEffect(() => {
     getAllData();
   }, []);
+
+  const downArrowImage = new Image();
+  downArrowImage.src = '/assets/images/positions/down-arrow.png';
+  downArrowImage.height = 25;
+  downArrowImage.width = 25;
+
+  const img = new Image();
+  img.src = '/assets/images/positions/up-arrow.png';
+  img.height = 25;
+  img.width = 25;
+
+  const options = {
+    responsive: true,
+
+    plugins: {
+      labels: {
+        render: 'image',
+        textMargin: 10,
+        images: [
+          {
+            src: '/assets/images/positions/cancel.png',
+            width: 20,
+            height: 20,
+          },
+          null,
+          {
+            src: '/assets/images/positions/cancel.png',
+            width: 20,
+            height: 20,
+          },
+          null,
+        ],
+      },
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Maternal Condition',
+      },
+
+      annotation: {
+        annotations: {
+          pentagon: {
+            type: 'polygon',
+            xValue: 1,
+            yValue: 60,
+            sides: 5,
+            radius: 60,
+            backgroundColor: 'rgba(255, 99, 132, 0.25)',
+          },
+        },
+      },
+    },
+    scales: {
+      y: {
+        min: 0,
+      },
+    },
+  };
+
+  const data = {
+    labels: xAxisLabels,
+
+    datasets: [
+      {
+        label: '',
+        data: [400],
+        borderColor: 'white',
+        backgroundColor: 'white',
+        pointHoverRadius: 10,
+        pointRotation: 10,
+        scaleStartValue: 0,
+        hoverBackgroundColor: 'white',
+      },
+      {
+        label: 'highBp',
+        redraw: true,
+        data: msBpData,
+        borderColor: 'red',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        pointHoverRadius: 10,
+        pointRotation: 10,
+        scaleStartValue: 0,
+        hoverBackgroundColor: 'red',
+        pointBackgroundColor: 'black',
+        spanGaps: true,
+        pointStyle: img,
+      },
+      {
+        label: 'lowBP',
+        data: mdBpData,
+        borderColor: 'green',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        pointHoverRadius: 10,
+        pointRotation: 10,
+        scaleStartValue: 0,
+        hoverBackgroundColor: 'green',
+        spanGaps: true,
+        pointStyle: downArrowImage,
+      },
+      {
+        label: 'Pulse',
+        data: pulseRateData,
+        borderColor: 'pink',
+        backgroundColor: 'pink',
+        pointHoverRadius: 6,
+        pointRotation: 10,
+        scaleStartValue: 0,
+        hoverBackgroundColor: 'yellow',
+        spanGaps: true,
+      },
+    ],
+  };
 
   const seriesSet = [
     {
@@ -190,6 +307,7 @@ const PulseRate = () => {
       enabled: isCountArray ? true : false,
       shared: true,
       intersect: false,
+
       y: {
         formatter: function (y, x) {
           if (y) {
@@ -204,7 +322,8 @@ const PulseRate = () => {
   return (
     <div>
       <h2 className="heading">Maternal Condition</h2>
-      <ReactApexChart options={optionsSet} series={seriesSet} height={400} />
+      <Line options={options} data={data} height={80} />
+      {/* <ReactApexChart options={optionsSet} series={seriesSet} height={400} /> */}
     </div>
   );
 };

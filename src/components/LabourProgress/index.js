@@ -44,7 +44,7 @@ const LabourProgress = () => {
 
     if (checkDilationIndex !== -1) {
       actionLinePoints = new Array(checkDilationIndexIncrease || 1)?.fill(null);
-      let twoHourAgoIndex = checkDilationIndex + 4;
+      let twoHourAgoIndex = checkDilationIndex + 5;
       hourAgoArray = new Array(twoHourAgoIndex || 1).fill(null);
     }
     setCDilationData(cDilation);

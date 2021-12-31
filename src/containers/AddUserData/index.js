@@ -361,7 +361,7 @@ const AddUserData = () => {
         <Col md={6}>
           <Row>
             <Col md={10}>
-              <div>Pcduration: </div>
+              <div>Duration/sec: </div>
             </Col>
             <Col md={14}>
               <Select onChange={(e) => handleChange('Pcduration', parseInt(e))} value={userData.Pcduration} style={{ width: '100%' }} title="Pcduration">

@@ -59,8 +59,6 @@ const LabourProgress = () => {
     const cDilationFilterdData = cDilation.filter((dilation) => dilation >= 4 || dilation === null);
     let checkDilationIndex = cDilationFilterdData.findIndex((dilation) => dilation !== null && dilation >= 4);
 
-    console.log('checkDilationIndex', checkDilationIndex);
-
     const checkDilationIndexIncrease = checkDilationIndex + 1;
 
     if (checkDilationIndex !== -1) {
@@ -85,6 +83,11 @@ const LabourProgress = () => {
     plugins: {
       legend: {
         position: 'top',
+        labels: {
+          filter: function(item) {
+            return item.text !== undefined
+          }
+        }
       },
       title: {
         display: true,
@@ -108,8 +111,8 @@ const LabourProgress = () => {
   });
 
   const dilationPoint = new Image();
-  dilationPoint.width = 10;
-  dilationPoint.height = 10;  
+  dilationPoint.width = 7;
+  dilationPoint.height = 7;  
   dilationPoint.src = '/assets/images/positions/cancel.png';
 
   const data = {
@@ -121,10 +124,6 @@ const LabourProgress = () => {
         data: cDilationData,
         borderColor: 'purple',
         backgroundColor: 'purple',
-        pointHoverRadius: 10,
-        pointRotation: 10,
-        scaleStartValue: 0,
-        hoverBackgroundColor: 'green',
         spanGaps: true,
         pointStyle: dilationPoint
       },

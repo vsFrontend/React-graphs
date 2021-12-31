@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Radio, Select, Row, Col, Input, Button, notification } from 'antd';
 import { DateInputs, InputData } from '../../components';
-import { cDilationData, cLength, positions, aboveBrimsData, ociputData, Pcfrequency } from '../../utils/constants';
+import { cDilationData, cLength, positions, aboveBrimsData, ociputData, Pcfrequency, Pcduration } from '../../utils/constants';
 import './style.css';
 
 const { Option } = Select;
@@ -359,14 +359,20 @@ const AddUserData = () => {
         </Col>
 
         <Col md={6}>
-          <InputData
-            value={userData.Pcduration}
-            type="number"
-            onChange={(e) => handleChange('Pcduration', parseInt(e.target.value))}
-            subTitle="sec"
-            title="Duration"
-            placeholder="Duration"
-          />
+          <Row>
+            <Col md={10}>
+              <div>Pcduration: </div>
+            </Col>
+            <Col md={14}>
+              <Select onChange={(e) => handleChange('Pcduration', parseInt(e))} value={userData.Pcduration} style={{ width: '100%' }} title="Pcduration">
+                {Pcduration?.map((position, index) => (
+                  <Option key={index} value={position.number}>
+                    {position.number}
+                  </Option>
+                ))}
+              </Select>
+            </Col>
+          </Row>
         </Col>
       </Row>
 

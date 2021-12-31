@@ -323,7 +323,6 @@ const PulseRate = () => {
     <div>
       <h2 className="heading">Maternal Condition</h2>
       <Line options={options} data={data} height={80} />
-      {/* <ReactApexChart options={optionsSet} series={seriesSet} height={400} /> */}
     </div>
   );
 };

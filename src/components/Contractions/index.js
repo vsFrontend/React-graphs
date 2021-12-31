@@ -9,18 +9,46 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarEleme
 
 const Contractions = () => {
   const [barChartData, setBardChartData] = useState(initialNullArray);
+  const [durationValue, setDurationValue] = useState(initialNullArray);
+  const [colorData, setColorData] = useState(initialNullArray);
 
   const getAllData = async () => {
     let barChartDataValue = [...barChartData];
+    let durationData = [];
     const result = (await localStorage.getItem('MyData')) || '{}';
     const checkData = JSON.parse(result);
+    const convertArrayData = Object.values(checkData);
 
     Object.keys(checkData).map((item) => {
       const selectedIndex = xAxisLabels.findIndex((label) => item === label);
       barChartDataValue[selectedIndex] = checkData[item].Pcfrequency;
+      // setColorData[selectedIndex] =
+      durationData.push(checkData[item].Pcduration);
     });
 
+    let backgroundColor = [...colorData];
+
+    console.log('durationData', durationData);
+
+    // durationData.map(item => {
+
+    // durationData.map((item) => {
+    //   const selectedIndex = xAxisLabels.findIndex((label) => item === label);
+    //   backgroundColor[selectedIndex] = checkData[item].Pcduration;
+    // });
+
+    for (let colorValue = 0; colorValue < durationData.length; colorValue++) {
+      if (durationData[colorValue] < 19) {
+        backgroundColor.push('red');
+      }
+      if (durationData[colorValue] > 19) {
+        backgroundColor.push('yellow');
+      }
+    }
+
     setBardChartData(barChartDataValue);
+    setDurationValue(durationData);
+    setColorData(backgroundColor);
   };
 
   useEffect(() => {
@@ -39,32 +67,34 @@ const Contractions = () => {
 
   const data = {
     labels: xAxisLabels,
-
+    display: true,
     datasets: [
-      {
-        label: '',
-        data: [5],
-        borderColor: 'white',
-        backgroundColor: 'white',
-        pointHoverRadius: 10,
-        pointRotation: 10,
-        scaleStartValue: 0,
-        hoverBackgroundColor: 'white',
-      },
+      // {
+      //   label: '',
+      //   // redraw: true,
+      //   // data: durationValue,
+      //   display: false,
+      //   backgroundColor: 'white',
+      //   pointHoverRadius: 10,
+      //   pointRotation: 10,
+      //   scaleStartValue: 0,
+      //   hoverBackgroundColor: 'red',
+      //   pointBackgroundColor: 'black',
+      //   hoverBackgroundColor: 'black',
+      // },
       {
         label: 'Contraction Per 10 Minute',
         redraw: true,
         data: barChartData,
-        borderColor: 'red',
-        // backgroundColor: ['red', 'yellow', 'green', 'orange'],
-        backgroundColor: ['red', 'yellow', 'green', 'orange'],
+
+        backgroundColor: ['white', 'white', 'white', 'white', 'white', 'green', 'orange', 'red', 'green'],
         pointHoverRadius: 10,
         pointRotation: 10,
         scaleStartValue: 0,
         hoverBackgroundColor: 'red',
         pointBackgroundColor: 'black',
-        spanGaps: true,
         hoverBackgroundColor: 'black',
+        barPercentage: 1,
       },
     ],
   };
@@ -77,9 +107,29 @@ const Contractions = () => {
       },
       y: {
         stacked: true,
+        min: 0,
+        max: 5,
       },
     },
     // plugins: [barAvatar],
+
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+        },
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Contraction',
+        },
+        suggestedMin: 0,
+        suggestedMax: 5,
+      },
+    },
 
     plugins: {
       labels: {
@@ -106,24 +156,6 @@ const Contractions = () => {
       title: {
         display: true,
         text: 'Contraction Per 10 Minute',
-      },
-
-      annotation: {
-        annotations: {
-          pentagon: {
-            type: 'polygon',
-            xValue: 1,
-            yValue: 60,
-            sides: 5,
-            radius: 60,
-            backgroundColor: 'rgba(255, 99, 132, 0.25)',
-          },
-        },
-      },
-    },
-    scales: {
-      y: {
-        min: 0,
       },
     },
   };
@@ -211,6 +243,7 @@ const Contractions = () => {
     <>
       <h2 className="heading">Contraction Per 10 Minute</h2>
       <Bar options={options} data={data} height={60} />
+      {console.log('colorData', colorData)}
       {/* <ReactApexChart type="bar" options={options} series={series} height={400} /> */}
     </>
   );

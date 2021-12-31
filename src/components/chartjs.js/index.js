@@ -49,7 +49,7 @@ function ReactCharts() {
   return (
     <>
       <h2 style={{ margin: '30px', textAlign: 'center' }}>ReactCharts by chartjs</h2>
-      <div style={{ width: '90%', margin: 'auto' }}>
+      <div style={{ width: '80%', margin: 'auto' }}>
         <Line options={options} data={data} />
       </div>
     </>

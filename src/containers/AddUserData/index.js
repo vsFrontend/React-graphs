@@ -358,10 +358,6 @@ const AddUserData = () => {
           </Row>
         </Col>
 
-        {/* <Col md={6}>
-          <InputData value={userData.Pcfrequency} type="number" onChange={e => handleChange("Pcfrequency", parseInt(e.target.value))} subTitle="10 min" title="Frequency" placeholder="Frequency" />
-        </Col> */}
-
         <Col md={6}>
           <InputData
             value={userData.Pcduration}

@@ -1,28 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { positions, initialNullArray, xAxisLabels } from '../../utils/constants';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 
 const LabourProgress = () => {
   const [cDilationData, setCDilationData] = useState(initialNullArray);
@@ -84,10 +65,10 @@ const LabourProgress = () => {
       legend: {
         position: 'top',
         labels: {
-          filter: function(item) {
-            return item.text !== undefined
-          }
-        }
+          filter: function (item) {
+            return item.text !== undefined;
+          },
+        },
       },
       title: {
         display: true,
@@ -98,21 +79,21 @@ const LabourProgress = () => {
       y: {
         min: 0,
         max: 10,
-      }
-    }
+      },
+    },
   };
 
-  const positionPoints = position.map(positionImage => {
+  const positionPoints = position.map((positionImage) => {
     const yourImage = new Image();
     yourImage.width = 25;
-    yourImage.height = 25;  
+    yourImage.height = 25;
     yourImage.src = positions.find((singlePosition) => singlePosition.name === positionImage)?.image;
     return yourImage;
   });
 
   const dilationPoint = new Image();
   dilationPoint.width = 7;
-  dilationPoint.height = 7;  
+  dilationPoint.height = 7;
   dilationPoint.src = '/assets/images/positions/cancel.png';
 
   const data = {
@@ -125,7 +106,7 @@ const LabourProgress = () => {
         borderColor: 'purple',
         backgroundColor: 'purple',
         spanGaps: true,
-        pointStyle: dilationPoint
+        pointStyle: dilationPoint,
       },
       {
         label: 'Cervical Length',
@@ -141,36 +122,37 @@ const LabourProgress = () => {
         spanGaps: true,
         backgroundColor: 'green',
         borderColor: 'green',
-        pointStyle: positionPoints
+        pointStyle: positionPoints,
       },
       actionLine
         ? {
-          label: 'Alert Line',
-          type: 'line',
-          data: [...actionLineData, 4, 5, 6, 7, 8, 9, 10],
-          borderColor: 'black',
-          backgroundColor: 'black',
-        }
+            label: 'Alert Line',
+            type: 'line',
+            data: [...actionLineData, 4, 5, 6, 7, 8, 9, 10],
+            borderColor: 'black',
+            backgroundColor: 'black',
+          }
         : {},
       actionLine
         ? {
-          label: 'Action Line',
-          type: 'line',
-          data: [...hourAgoData, 4, 5, 6, 7, 8, 9, 10],
-          borderColor: 'red',
-          backgroundColor: 'red',
-        }
+            label: 'Action Line',
+            type: 'line',
+            data: [...hourAgoData, 4, 5, 6, 7, 8, 9, 10],
+            borderColor: 'red',
+            backgroundColor: 'red',
+          }
         : {},
     ],
   };
 
   return (
     <>
-      <div style={{ width: '100%', margin: 'auto' }} >
+      <div style={{ width: '100%', margin: 'auto' }}>
+        <h2 className="heading">Progress of Labour</h2>
         <Line options={options} data={data} height={80} />
       </div>
     </>
   );
-}
+};
 
 export default LabourProgress;

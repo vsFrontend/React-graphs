@@ -119,7 +119,7 @@ const PulseRate = () => {
     datasets: [
       {
         label: '',
-        data: [400],
+        data: [200],
         borderColor: 'white',
         backgroundColor: 'white',
         pointHoverRadius: 10,
@@ -135,6 +135,7 @@ const PulseRate = () => {
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
         pointHoverRadius: 10,
         pointRotation: 10,
+        fill: false,
         scaleStartValue: 0,
         hoverBackgroundColor: 'red',
         pointBackgroundColor: 'black',

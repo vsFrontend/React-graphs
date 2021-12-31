@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import ReactApexChart from 'react-apexcharts';
+import React, { useState, useEffect, useRef } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, BarElement } from 'chart.js';
 import { Bar, Line } from 'react-chartjs-2';
 
 import { initialNullArray, xAxisLabels } from '../../utils/constants';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
+let backgroundColor = [initialNullArray];
 
 const Contractions = () => {
+  const chartRef = useRef();
   const [barChartData, setBardChartData] = useState(initialNullArray);
   const [durationValue, setDurationValue] = useState(initialNullArray);
   const [colorData, setColorData] = useState(initialNullArray);
 
   const getAllData = async () => {
     let barChartDataValue = [...barChartData];
-    let durationData = [];
+    let durationData = [initialNullArray];
     const result = (await localStorage.getItem('MyData')) || '{}';
     const checkData = JSON.parse(result);
     const convertArrayData = Object.values(checkData);
@@ -22,33 +23,22 @@ const Contractions = () => {
     Object.keys(checkData).map((item) => {
       const selectedIndex = xAxisLabels.findIndex((label) => item === label);
       barChartDataValue[selectedIndex] = checkData[item].Pcfrequency;
-      // setColorData[selectedIndex] =
-      durationData.push(checkData[item].Pcduration);
+      setColorData[selectedIndex] = checkData[item].Pcduration;
+      if (checkData[item].Pcduration > 19) {
+        backgroundColor[selectedIndex] = 'gray';
+      }
+      if (checkData[item].Pcduration < 19) {
+        backgroundColor[selectedIndex] = '#424242';
+      }
+      if (checkData[item].Pcduration > 45) {
+        backgroundColor[selectedIndex] = 'black';
+      }
+      // durationData.push(checkData[item].Pcduration);
     });
-
-    let backgroundColor = [...colorData];
-
-    console.log('durationData', durationData);
-
-    // durationData.map(item => {
-
-    // durationData.map((item) => {
-    //   const selectedIndex = xAxisLabels.findIndex((label) => item === label);
-    //   backgroundColor[selectedIndex] = checkData[item].Pcduration;
-    // });
-
-    for (let colorValue = 0; colorValue < durationData.length; colorValue++) {
-      if (durationData[colorValue] < 19) {
-        backgroundColor.push('red');
-      }
-      if (durationData[colorValue] > 19) {
-        backgroundColor.push('yellow');
-      }
-    }
 
     setBardChartData(barChartDataValue);
     setDurationValue(durationData);
-    setColorData(backgroundColor);
+    // setColorData(backgroundColor);
   };
 
   useEffect(() => {
@@ -69,25 +59,12 @@ const Contractions = () => {
     labels: xAxisLabels,
     display: true,
     datasets: [
-      // {
-      //   label: '',
-      //   // redraw: true,
-      //   // data: durationValue,
-      //   display: false,
-      //   backgroundColor: 'white',
-      //   pointHoverRadius: 10,
-      //   pointRotation: 10,
-      //   scaleStartValue: 0,
-      //   hoverBackgroundColor: 'red',
-      //   pointBackgroundColor: 'black',
-      //   hoverBackgroundColor: 'black',
-      // },
       {
         label: 'Contraction Per 10 Minute',
         redraw: true,
         data: barChartData,
 
-        backgroundColor: ['white', 'white', 'white', 'white', 'white', 'green', 'orange', 'red', 'green'],
+        backgroundColor: backgroundColor,
         pointHoverRadius: 10,
         pointRotation: 10,
         scaleStartValue: 0,
@@ -242,9 +219,8 @@ const Contractions = () => {
   return (
     <>
       <h2 className="heading">Contraction Per 10 Minute</h2>
-      <Bar options={options} data={data} height={60} />
-      {console.log('colorData', colorData)}
-      {/* <ReactApexChart type="bar" options={options} series={series} height={400} /> */}
+      {/* {console.log('chart ref', chartRef.current.ctx)} */}
+      <Bar options={options} data={data} height={60} ref={chartRef} />
     </>
   );
 };

@@ -21,10 +21,10 @@ const Contractions = () => {
       barChartDataValue[selectedIndex] = checkData[item].Pcfrequency;
       const durationItem = checkData[item].Pcduration;
       if (durationItem < 20) {
-        backgroundColor[selectedIndex] = pattern.draw('dot', '#ffffff', '#000000');
+        backgroundColor[selectedIndex] = pattern.draw('dot', '#ffffff', '#000000', 10);
       }
       if (durationItem >= 20 && durationItem <= 40) {
-        backgroundColor[selectedIndex] = pattern.draw('diagonal-right-left', '#ffffff', '#000000');
+        backgroundColor[selectedIndex] = pattern.draw('diagonal-right-left', '#ffffff', '#000000', 10);
       }
       if (durationItem > 40) {
         backgroundColor[selectedIndex] = 'black';
@@ -58,27 +58,22 @@ const Contractions = () => {
       y: {
         title: {
           display: true,
-          text: 'Contraction',
+          text: 'Contractions',
         },
-        suggestedMin: 0,
-        suggestedMax: 5,
+        min: 0,
+        max: 5,
       },
     },
-
     plugins: {
       legend: {
         position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Contraction Per 10 Minute',
       },
     },
   };
 
   return (
     <>
-      <h2 className="heading">Contraction Per 10 Minute</h2>
+      <h2 className="heading">Contraction Per 10 Minutes</h2>
       <Bar options={options} data={data} height={60} ref={chartRef} />
     </>
   );

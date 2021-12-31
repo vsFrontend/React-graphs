@@ -58,10 +58,10 @@ const PulseRate = () => {
   downArrowImage.height = 25;
   downArrowImage.width = 25;
 
-  const img = new Image();
-  img.src = '/assets/images/positions/up-arrow.png';
-  img.height = 25;
-  img.width = 25;
+  const upArrowImage = new Image();
+  upArrowImage.src = '/assets/images/positions/up-arrow.png';
+  upArrowImage.height = 25;
+  upArrowImage.width = 25;
 
   const options = {
     responsive: true,
@@ -88,27 +88,11 @@ const PulseRate = () => {
       legend: {
         position: 'top',
       },
-      title: {
-        display: true,
-        text: 'Maternal Condition',
-      },
-
-      annotation: {
-        annotations: {
-          pentagon: {
-            type: 'polygon',
-            xValue: 1,
-            yValue: 60,
-            sides: 5,
-            radius: 60,
-            backgroundColor: 'rgba(255, 99, 132, 0.25)',
-          },
-        },
-      },
     },
     scales: {
       y: {
-        min: 0,
+        min: 60,
+        max: 180
       },
     },
   };
@@ -118,51 +102,26 @@ const PulseRate = () => {
 
     datasets: [
       {
-        label: '',
-        data: [200],
-        borderColor: 'white',
-        backgroundColor: 'white',
-        pointHoverRadius: 10,
-        pointRotation: 10,
-        scaleStartValue: 0,
-        hoverBackgroundColor: 'white',
-      },
-      {
         label: 'highBp',
-        redraw: true,
         data: msBpData,
-        borderColor: 'red',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        pointHoverRadius: 10,
-        pointRotation: 10,
-        fill: false,
-        scaleStartValue: 0,
-        hoverBackgroundColor: 'red',
-        pointBackgroundColor: 'black',
+        borderColor: 'black',
+        backgroundColor: 'black',
         spanGaps: true,
-        pointStyle: img,
+        pointStyle: upArrowImage,
       },
       {
         label: 'lowBP',
         data: mdBpData,
-        borderColor: 'green',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        pointHoverRadius: 10,
-        pointRotation: 10,
-        scaleStartValue: 0,
-        hoverBackgroundColor: 'green',
+        borderColor: 'black',
+        backgroundColor: 'black',
         spanGaps: true,
         pointStyle: downArrowImage,
       },
       {
         label: 'Pulse',
         data: pulseRateData,
-        borderColor: 'pink',
-        backgroundColor: 'pink',
-        pointHoverRadius: 6,
-        pointRotation: 10,
-        scaleStartValue: 0,
-        hoverBackgroundColor: 'yellow',
+        borderColor: 'black',
+        backgroundColor: 'black',
         spanGaps: true,
       },
     ],
@@ -245,7 +204,6 @@ const PulseRate = () => {
         colors: ['#fff'],
         fontSize: '22px',
       },
-
       background: {
         enabled: true,
         foreColor: '#000',
@@ -299,8 +257,8 @@ const PulseRate = () => {
         title: {
           text: 'Pulse and BP',
         },
-        min: 0,
-        max: 220,
+        min: 60,
+        max: 200,
       },
     ],
     tooltip: {

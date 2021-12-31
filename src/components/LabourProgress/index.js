@@ -70,10 +70,6 @@ const LabourProgress = () => {
           },
         },
       },
-      title: {
-        display: true,
-        text: 'Progress of Labour',
-      },
     },
     scales: {
       y: {

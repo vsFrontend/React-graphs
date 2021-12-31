@@ -33,11 +33,8 @@ const HeartRate = () => {
     },
     scales: {
       y: {
-        title: {
-          text: 'Pulse',
-        },
-        suggestedMin: 100,
-        suggestedMax: 200,
+        min: 80,
+        max: 200,
       },
     },
   };

@@ -92,8 +92,8 @@ const LabourProgress = () => {
   });
 
   const dilationPoint = new Image();
-  dilationPoint.width = 7;
-  dilationPoint.height = 7;
+  dilationPoint.width = 10;
+  dilationPoint.height = 10;
   dilationPoint.src = '/assets/images/positions/cancel.png';
 
   const data = {
@@ -103,8 +103,8 @@ const LabourProgress = () => {
         label: 'Cervical Dilation',
         type: 'line',
         data: cDilationData,
-        borderColor: 'purple',
-        backgroundColor: 'purple',
+        borderColor: 'gray',
+        backgroundColor: '#808080',
         spanGaps: true,
         pointStyle: dilationPoint,
       },
@@ -112,8 +112,8 @@ const LabourProgress = () => {
         label: 'Cervical Length',
         type: 'bar',
         data: length,
-        borderColor: 'yellow',
-        backgroundColor: 'yellow',
+        borderColor: '#BDC918',
+        backgroundColor: '#BDC918',
       },
       {
         label: 'Presenting Part',
@@ -131,6 +131,7 @@ const LabourProgress = () => {
             data: [...actionLineData, 4, 5, 6, 7, 8, 9, 10],
             borderColor: 'black',
             backgroundColor: 'black',
+            pointRadius: 0,
           }
         : {},
       actionLine
@@ -138,6 +139,7 @@ const LabourProgress = () => {
             label: 'Action Line',
             type: 'line',
             data: [...hourAgoData, 4, 5, 6, 7, 8, 9, 10],
+            pointRadius: 0,
             borderColor: 'red',
             backgroundColor: 'red',
           }

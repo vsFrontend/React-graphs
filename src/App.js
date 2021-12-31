@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { ProgressOfLabour, HeartRate, Contractions, PulseRate  } from "./components";
 import { AddUserData  } from "./containers";
 import "./App.css";
+import LabourProgress from "./components/LabourProgress";
 
 
 const ChartsRecord = () => {
@@ -19,6 +20,7 @@ const ChartsRecord = () => {
       <Link style={{fontSize: '18px', color: 'white', background: 'blue', padding: '7px', paddingLeft: '15px', paddingRight: '15px', borderRadius: '7px'}} title="Add Record" to="/add-data" >Add Data</Link>
       
       </div>
+      <LabourProgress />
     <PulseRate />
     <ProgressOfLabour />
     <Contractions />

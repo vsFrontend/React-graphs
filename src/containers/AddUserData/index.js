@@ -344,7 +344,7 @@ const AddUserData = () => {
                 <div>CDilation: </div>
               </Col>
               <Col md={14}>
-                <Form.Item style={{ marginTop: 25 }} name={'CDilation'} rules={[{ required: isCervicDataNull ? true : false, message: 'Please dilation value' }]}>
+                <Form.Item style={{ marginTop: 25 }} name={'CDilation'} rules={[{ required: isCervicDataNull ? true : false, message: 'Enter dilation.' }]}>
                   <Select onChange={(e) => handleChange('CDilation', e)} value={userData.CDilation} style={{ width: '100%' }} title="CDilation">
                     {cDilationData?.map((position, index) => (
                       <Option key={index} value={position.number}>
@@ -363,7 +363,7 @@ const AddUserData = () => {
                 <div>CLength: </div>
               </Col>
               <Col md={14}>
-                <Form.Item style={{ marginTop: 25 }} name={'PcLength'} rules={[{ required: isCervicDataNull ? true : false, message: 'Please enter length' }]}>
+                <Form.Item style={{ marginTop: 25 }} name={'PcLength'} rules={[{ required: isCervicDataNull ? true : false, message: 'Enter length.' }]}>
                   <Select onChange={(e) => handleChange('PcLength', e)} value={userData.PcLength} style={{ width: '100%' }} title="CLength">
                     {cLength?.map((position, index) => (
                       <Option key={index} value={position.number}>
@@ -430,7 +430,7 @@ const AddUserData = () => {
                 <div>Above brim: </div>
               </Col>
               <Col md={14}>
-                <Form.Item style={{ marginTop: 25 }} name={'Pfheadfifths'} rules={[{ required: isCervicDataNull ? true : false, message: 'Please above brim' }]}>
+                <Form.Item style={{ marginTop: 25 }} name={'Pfheadfifths'} rules={[{ required: isCervicDataNull ? true : false, message: 'Enter above brim.' }]}>
                   <Select onChange={(e) => handleChange('Pfheadfifths', e)} value={userData.Pfheadfifths} style={{ width: '100%' }} title="Pfheadfifths">
                     {aboveBrimsData?.map((position, index) => (
                       <Option key={index} value={position.number}>

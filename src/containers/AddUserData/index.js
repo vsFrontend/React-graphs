@@ -430,7 +430,7 @@ const AddUserData = () => {
                 <div>Above brim: </div>
               </Col>
               <Col md={14}>
-                <Form.Item style={{ marginTop: 25 }} name={'Pfheadfifths'} rules={[{ required: isCervicDataNull ? true : false, message: 'Please enter length' }]}>
+                <Form.Item style={{ marginTop: 25 }} name={'Pfheadfifths'} rules={[{ required: isCervicDataNull ? true : false, message: 'Please above brim' }]}>
                   <Select onChange={(e) => handleChange('Pfheadfifths', e)} value={userData.Pfheadfifths} style={{ width: '100%' }} title="Pfheadfifths">
                     {aboveBrimsData?.map((position, index) => (
                       <Option key={index} value={position.number}>

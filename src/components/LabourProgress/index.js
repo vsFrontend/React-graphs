@@ -44,7 +44,7 @@ const LabourProgress = () => {
 
     if (checkDilationIndex !== -1) {
       actionLinePoints = new Array(checkDilationIndexIncrease || 1)?.fill(null);
-      let twoHourAgoIndex = checkDilationIndex + 5;
+      let twoHourAgoIndex = checkDilationIndex + 4;
       hourAgoArray = new Array(twoHourAgoIndex || 1).fill(null);
     }
     setCDilationData(cDilation);
@@ -69,6 +69,10 @@ const LabourProgress = () => {
             return item.text !== undefined;
           },
         },
+      },
+      title: {
+        display: true,
+        text: 'Progress of Labour',
       },
     },
     scales: {
@@ -96,7 +100,7 @@ const LabourProgress = () => {
     labels: xAxisLabels,
     datasets: [
       {
-        label: 'Cervical Dilation',
+        label: `Cervical Dilation`,
         type: 'line',
         data: cDilationData,
         borderColor: 'gray',

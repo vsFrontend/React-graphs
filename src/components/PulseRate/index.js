@@ -85,7 +85,6 @@ const PulseRate = () => {
       },
       legend: {
         display: false,
-        position: 'top',
       },
     },
     scales: {

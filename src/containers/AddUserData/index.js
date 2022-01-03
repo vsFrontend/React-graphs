@@ -183,7 +183,6 @@ const AddUserData = () => {
   let isCervicDataNull = checkCervicObjLength() !== 0;
   return (
     <div className="form-container">
-      {console.log('checkCervicObjLength', checkCervicObjLength())}
       <Form onFinish={saveUserData}>
         <DateInputs handleChange={handleChange} />
         <Row align="middle" style={{ marginTop: 20 }}>

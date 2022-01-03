@@ -39,15 +39,15 @@ const LabourProgress = () => {
       setActionLine(true);
     }
 
-    const cDilationFilterdData = cDilation.filter((dilation) => dilation >= 4 || dilation === null);
+    const cDilationFilterdData = cDilation.filter((dilation) => dilation >= 4 || dilation === null || dilation <= 4);
     let checkDilationIndex = cDilationFilterdData.findIndex((dilation) => dilation !== null && dilation >= 4);
 
     const checkDilationIndexIncrease = checkDilationIndex + 1;
 
     if (checkDilationIndex !== -1) {
-      actionLinePoints = new Array(checkDilationIndexIncrease || 1)?.fill(null);
+      actionLinePoints = new Array(checkDilationIndexIncrease - 1)?.fill(null);
       let twoHourAgoIndex = checkDilationIndex + 5;
-      hourAgoArray = new Array(twoHourAgoIndex || 1).fill(null);
+      hourAgoArray = new Array(twoHourAgoIndex).fill(null);
     }
     setCDilationData(cDilation);
     setAboveBrimData(aboveBrimData);

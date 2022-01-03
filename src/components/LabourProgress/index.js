@@ -61,6 +61,11 @@ const LabourProgress = () => {
 
   const options = {
     responsive: true,
+    layout: {
+      padding: {
+          left: 7
+      }
+    },
     plugins: {
       legend: {
         display: false,
@@ -77,6 +82,11 @@ const LabourProgress = () => {
       },
     },
     scales: {
+      x: {
+        ticks: {
+          display: false
+        }
+      },
       y: {
         title: {
           display: true,
@@ -102,7 +112,7 @@ const LabourProgress = () => {
   dilationPoint.src = '/assets/images/positions/cancel.png';
 
   const data = {
-    // labels: xAxisLabels,
+    labels: xAxisLabels,
     datasets: [
       {
         label: `Cervical Dilation`,

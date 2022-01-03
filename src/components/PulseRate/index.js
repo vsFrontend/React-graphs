@@ -95,6 +95,11 @@ const PulseRate = () => {
       },
     },
     scales: {
+      x: {
+        ticks: {
+          display: false
+        }
+      },
       y: {
         title: {
           display: true,
@@ -107,7 +112,7 @@ const PulseRate = () => {
   };
 
   const data = {
-    // labels: xAxisLabels,
+    labels: xAxisLabels,
 
     datasets: [
       {

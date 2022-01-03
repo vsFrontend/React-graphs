@@ -39,7 +39,7 @@ const Contractions = () => {
   }, []);
 
   const data = {
-    // labels: xAxisLabels,
+    labels: xAxisLabels,
     display: true,
     datasets: [
       {
@@ -54,7 +54,17 @@ const Contractions = () => {
 
   const options = {
     responsive: true,
+    layout: {
+      padding: {
+          left: 14
+      }
+    },
     scales: {
+      x: {
+        ticks: {
+          display: false,
+        }
+      },
       y: {
         title: {
           display: true,
@@ -62,6 +72,9 @@ const Contractions = () => {
         },
         min: 0,
         max: 5,
+        ticks: {
+          stepSize: 1
+        },
       },
     },
     plugins: {

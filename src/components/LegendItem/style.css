@@ -1,0 +1,8 @@
+.legend-container {
+  display: flex;
+  align-items: center;
+}
+
+.legend-title {
+  font-weight: 700;
+}

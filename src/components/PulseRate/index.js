@@ -9,7 +9,6 @@ const PulseRate = () => {
   const [msBpData, setMsBpData] = useState(initialNullArray);
   const [mdBpData, setMdBpData] = useState(initialNullArray);
   const [pulseRateData, setPulseRateData] = useState(initialNullArray);
-  const [isCountArray, setCountArray] = useState(false);
   const getAllData = async () => {
     let msBpDataValue = [...msBpData];
     let mdBpDataValue = [...mdBpData];
@@ -26,12 +25,6 @@ const PulseRate = () => {
     setMsBpData(msBpDataValue);
     setMdBpData(mdBpDataValue);
     setPulseRateData(pulseRateValue);
-
-    let filteredArray = [];
-    filteredArray = msBpDataValue.filter((item) => item !== null);
-    if (filteredArray.length > 1) {
-      setCountArray(true);
-    }
   };
 
   const annotationObj = {};
@@ -65,11 +58,28 @@ const PulseRate = () => {
 
   const options = {
     responsive: true,
-    tooltips: {
-      mode: 'intersect',
+    interaction: {
+      mode: 'index',
+      intersect: false,
     },
 
     plugins: {
+      afterDraw: (chart) => {
+        var ctx = chart.chart.ctx;
+        var xAxis = chart.scales['x-axis-0'];
+        var yAxis = chart.scales['y-axis-0'];
+        xAxis.ticks.forEach((value, index) => {
+          var x = xAxis.getPixelForTick(index);
+          var yTop = yAxis.getPixelForValue(data[index]);
+          ctx.save();
+          ctx.strokeStyle = '#aaaaaa';
+          ctx.beginPath();
+          ctx.moveTo(x, yAxis.bottom);
+          ctx.lineTo(x, yTop);
+          ctx.stroke();
+          ctx.restore();
+        });
+      },
       labels: {
         display: false,
         render: 'image',
@@ -97,8 +107,8 @@ const PulseRate = () => {
     scales: {
       x: {
         ticks: {
-          display: false
-        }
+          display: false,
+        },
       },
       y: {
         title: {
@@ -122,7 +132,7 @@ const PulseRate = () => {
         backgroundColor: 'black',
         spanGaps: true,
         pointStyle: upArrowImage,
-        fill: '+1',
+        fill: true,
       },
       {
         label: 'lowBP',

@@ -61,8 +61,7 @@ const HeartRate = () => {
   };
 
   return (
-    <div>
-      {/* <h2 className="heading">Fetal Conditon</h2> */}
+    <div style={{ marginBottom: '10px' }}>
       <Line options={options} data={data} height={80} />
     </div>
   );

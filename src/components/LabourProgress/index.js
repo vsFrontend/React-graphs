@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { positions, initialNullArray, xAxisLabels } from '../../utils/constants';
+import { LegendItem } from '../../components';
+import { Col, Row } from 'antd';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 
@@ -61,10 +63,11 @@ const LabourProgress = () => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: true,
     layout: {
       padding: {
-          left: 7
-      }
+        left: 7,
+      },
     },
     plugins: {
       legend: {
@@ -82,16 +85,23 @@ const LabourProgress = () => {
       },
     },
     scales: {
+      offset: true,
+      alignToPixels: true,
+      maxTicksLimit: 10,
+
       x: {
         ticks: {
-          display: false
-        }
+          display: false,
+        },
+        drawTicks: true,
       },
+
       y: {
         title: {
           display: true,
           text: 'Cervical Dilations & Cervical Length (cm)',
         },
+
         min: 0,
         max: 10,
       },
@@ -165,7 +175,57 @@ const LabourProgress = () => {
   return (
     <>
       <div style={{ width: '100%', margin: 'auto' }}>
-        {/* <h2 className="heading">Progress of Labour</h2> */}
+        <div style={{ width: '80%', margin: 'auto', marginTop: 20 }}>
+          <Row gutter={[10, 20]}>
+            <Col md={4}>
+              <LegendItem title="Cervical length" color={'#808080'} />
+            </Col>
+            <Col md={4}>
+              <LegendItem title="Cervical Length" color={'#BDC918'} />
+            </Col>
+            <Col md={4}>
+              <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                <img style={{ height: '20px', width: '20px', marginRight: '7px' }} src="/assets/images/positions/OA.png" />
+                <div style={{ fontWeight: '800' }}>Presenting Part</div>
+              </div>
+            </Col>
+            <Col md={4}>
+              <LegendItem title="Alert Line" color={'black'} />
+            </Col>
+            <Col md={4}>
+              <LegendItem title="Action Line" color={'red'} />
+            </Col>
+          </Row>
+          <div style={{ marginTop: '7px' }}>
+            <Row gutter={[10, 20]}>
+              <Col md={4}>
+                <LegendItem title="highBp" color={'#000'} />
+              </Col>
+              <Col md={4}>
+                <LegendItem title="lowBP" color={'#000'} />
+              </Col>
+              <Col md={4}>
+                <LegendItem title="Pulse" color={'#000'} />
+              </Col>
+            </Row>
+          </div>
+
+          <div style={{ marginTop: '7px' }}>
+            <Row gutter={[10, 20]}>
+              <Col md={8}>
+                <LegendItem title="Contraction Per 10 Minutes" color={'#000'} />
+              </Col>
+            </Row>
+          </div>
+
+          <div style={{ marginTop: '7px', marginBottom: '7px' }}>
+            <Row gutter={[10, 20]}>
+              <Col md={8}>
+                <LegendItem title="Fetal Heart" color={'#000'} />
+              </Col>
+            </Row>
+          </div>
+        </div>
         <Line options={options} data={data} height={80} />
       </div>
     </>

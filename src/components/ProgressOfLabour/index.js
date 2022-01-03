@@ -147,6 +147,7 @@ const ProgressOfLabour = () => {
     },
     legend: {
       position: 'top',
+      display: false,
       width: 0,
       height: 0,
       showForNullSeries: false,
@@ -249,7 +250,7 @@ const ProgressOfLabour = () => {
 
   return (
     <div>
-      <h2 className="heading">Progress of Labour</h2>
+      {/* <h2 className="heading">Progress of Labour</h2> */}
       <ReactApexChart options={optionsSet} series={seriesSet} height={400} />
     </div>
   );

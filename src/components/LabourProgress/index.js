@@ -63,6 +63,7 @@ const LabourProgress = () => {
     responsive: true,
     plugins: {
       legend: {
+        display: false,
         position: 'top',
         labels: {
           filter: function (item) {
@@ -71,12 +72,16 @@ const LabourProgress = () => {
         },
       },
       title: {
-        display: true,
+        display: false,
         text: 'Progress of Labour',
       },
     },
     scales: {
       y: {
+        title: {
+          display: true,
+          text: 'Cervical Dilations & Cervical Length (cm)',
+        },
         min: 0,
         max: 10,
       },
@@ -97,7 +102,7 @@ const LabourProgress = () => {
   dilationPoint.src = '/assets/images/positions/cancel.png';
 
   const data = {
-    labels: xAxisLabels,
+    // labels: xAxisLabels,
     datasets: [
       {
         label: `Cervical Dilation`,
@@ -150,7 +155,7 @@ const LabourProgress = () => {
   return (
     <>
       <div style={{ width: '100%', margin: 'auto' }}>
-        <h2 className="heading">Progress of Labour</h2>
+        {/* <h2 className="heading">Progress of Labour</h2> */}
         <Line options={options} data={data} height={80} />
       </div>
     </>

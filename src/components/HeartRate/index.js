@@ -28,11 +28,19 @@ const HeartRate = () => {
     responsive: true,
     plugins: {
       legend: {
+        display: false,
         position: 'top',
+      },
+      title: {
+        display: false,
       },
     },
     scales: {
       y: {
+        title: {
+          display: true,
+          text: 'Fetal Heart Rate',
+        },
         min: 80,
         max: 200,
       },
@@ -54,7 +62,7 @@ const HeartRate = () => {
 
   return (
     <div>
-      <h2 className="heading">Fetal Conditon</h2>
+      {/* <h2 className="heading">Fetal Conditon</h2> */}
       <Line options={options} data={data} height={80} />
     </div>
   );

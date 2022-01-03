@@ -39,7 +39,7 @@ const Contractions = () => {
   }, []);
 
   const data = {
-    labels: xAxisLabels,
+    // labels: xAxisLabels,
     display: true,
     datasets: [
       {
@@ -66,6 +66,7 @@ const Contractions = () => {
     },
     plugins: {
       legend: {
+        display: false,
         position: 'top',
       },
     },
@@ -73,7 +74,7 @@ const Contractions = () => {
 
   return (
     <>
-      <h2 className="heading">Contraction Per 10 Minutes</h2>
+      {/* <h2 className="heading">Contraction Per 10 Minutes</h2> */}
       <Bar options={options} data={data} height={60} ref={chartRef} />
     </>
   );

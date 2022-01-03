@@ -71,6 +71,7 @@ const PulseRate = () => {
 
     plugins: {
       labels: {
+        display: false,
         render: 'image',
         textMargin: 10,
         images: [
@@ -89,11 +90,16 @@ const PulseRate = () => {
         ],
       },
       legend: {
+        display: false,
         position: 'top',
       },
     },
     scales: {
       y: {
+        title: {
+          display: true,
+          text: 'Pulse and Blood Pressure',
+        },
         min: 60,
         max: 180,
       },
@@ -101,7 +107,7 @@ const PulseRate = () => {
   };
 
   const data = {
-    labels: xAxisLabels,
+    // labels: xAxisLabels,
 
     datasets: [
       {
@@ -134,7 +140,7 @@ const PulseRate = () => {
 
   return (
     <div>
-      <h2 className="heading">Maternal Condition</h2>
+      {/* <h2 className="heading">Maternal Condition</h2> */}
       <Line options={options} data={data} height={80} />
     </div>
   );

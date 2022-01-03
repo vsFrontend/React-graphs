@@ -64,9 +64,10 @@ const LabourProgress = () => {
   const options = {
     responsive: true,
     maintainAspectRatio: true,
+
     layout: {
       padding: {
-        left: 7,
+        top: 10,
       },
     },
     plugins: {
@@ -85,6 +86,14 @@ const LabourProgress = () => {
       },
     },
     scales: {
+      r: {
+        ticks: {
+          backdropPadding: {
+            x: 20,
+            y: 20,
+          },
+        },
+      },
       offset: true,
       alignToPixels: true,
       maxTicksLimit: 10,
@@ -176,7 +185,7 @@ const LabourProgress = () => {
     <>
       <div style={{ width: '100%', margin: 'auto' }}>
         <div style={{ width: '80%', margin: 'auto', marginTop: 20 }}>
-          <Row gutter={[10, 20]}>
+          <Row justify="center" gutter={[10, 20]}>
             <Col md={4}>
               <LegendItem title="Cervical length" color={'#808080'} />
             </Col>
@@ -197,7 +206,7 @@ const LabourProgress = () => {
             </Col>
           </Row>
           <div style={{ marginTop: '7px' }}>
-            <Row gutter={[10, 20]}>
+            <Row justify="center" gutter={[10, 20]}>
               <Col md={4}>
                 <LegendItem title="highBp" color={'#000'} />
               </Col>
@@ -211,16 +220,16 @@ const LabourProgress = () => {
           </div>
 
           <div style={{ marginTop: '7px' }}>
-            <Row gutter={[10, 20]}>
-              <Col md={8}>
+            <Row justify="center" gutter={[10, 20]}>
+              <Col md={6}>
                 <LegendItem title="Contraction Per 10 Minutes" color={'#000'} />
               </Col>
             </Row>
           </div>
 
           <div style={{ marginTop: '7px', marginBottom: '7px' }}>
-            <Row gutter={[10, 20]}>
-              <Col md={8}>
+            <Row justify="center" gutter={[10, 20]}>
+              <Col md={4}>
                 <LegendItem title="Fetal Heart" color={'#000'} />
               </Col>
             </Row>

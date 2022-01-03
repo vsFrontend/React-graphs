@@ -4,7 +4,7 @@ import './style.css';
 const LegendItem = ({ title, color }) => {
   return (
     <div style={{ cursor: 'pointer' }} className="legend-container">
-      <div style={{ borderRadius: '3px', background: color, width: '30px', height: '15px', marginRight: '6px' }}></div>
+      <div style={{ background: color, width: 30, height: 10, marginRight: 6 }}></div>
       <div className="legend-title">{title}</div>
     </div>
   );

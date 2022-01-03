@@ -64,22 +64,6 @@ const PulseRate = () => {
     },
 
     plugins: {
-      afterDraw: (chart) => {
-        var ctx = chart.chart.ctx;
-        var xAxis = chart.scales['x-axis-0'];
-        var yAxis = chart.scales['y-axis-0'];
-        xAxis.ticks.forEach((value, index) => {
-          var x = xAxis.getPixelForTick(index);
-          var yTop = yAxis.getPixelForValue(data[index]);
-          ctx.save();
-          ctx.strokeStyle = '#aaaaaa';
-          ctx.beginPath();
-          ctx.moveTo(x, yAxis.bottom);
-          ctx.lineTo(x, yTop);
-          ctx.stroke();
-          ctx.restore();
-        });
-      },
       labels: {
         display: false,
         render: 'image',

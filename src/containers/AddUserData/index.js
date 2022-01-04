@@ -49,6 +49,7 @@ const AddUserData = () => {
     presenting: 'Occiput',
     min: 100,
     max: 180,
+    blood: '',
   });
 
   const handleChange = (inputName, inputValue) => {
@@ -157,6 +158,7 @@ const AddUserData = () => {
         otherNotes: '',
         CDilation: '',
         presenting: '',
+        blood: '',
         min: 100,
         max: 180,
       });
@@ -288,6 +290,9 @@ const AddUserData = () => {
           </Col>
           <Col md={4}>
             <InputData onChange={(e) => handleChange('MUketones', e.target.value)} subTitle="+" title="Ketones" placeholder="Ketones" />
+          </Col>
+          <Col md={4}>
+            <InputData onChange={(e) => handleChange('blood', e.target.value)} title="Blood" placeholder="Blood" />
           </Col>
         </Row>
 

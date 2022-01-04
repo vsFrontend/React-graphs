@@ -85,18 +85,10 @@ const LabourProgress = () => {
       },
     },
     scales: {
-      r: {
-        ticks: {
-          backdropPadding: {
-            x: 20,
-            y: 20,
-          },
-        },
+      'left-y-axis': {
+        display: false,
+        position: 'right',
       },
-      offset: true,
-      alignToPixels: true,
-      maxTicksLimit: 10,
-
       x: {
         ticks: {
           display: false,

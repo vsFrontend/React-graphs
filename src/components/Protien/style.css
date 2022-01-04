@@ -1,0 +1,13 @@
+.data-box {
+  width: 25.73px;
+  border-left: 1px solid lightgray;
+  display: flex;
+  border-top: 1px solid lightgray;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+}
+
+.data-box-last {
+  border-bottom: 1px solid lightgray;
+}

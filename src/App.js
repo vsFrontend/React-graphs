@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { ProgressOfLabour, HeartRate, Contractions, PulseRate } from './components';
+import { ProgressOfLabour, HeartRate, Contractions, PulseRate, Protien } from './components';
 import { AddUserData } from './containers';
 import './App.css';
 import LabourProgress from './components/LabourProgress';
@@ -41,6 +41,7 @@ const ChartsRecord = () => {
       <LabourProgress />
       <PulseRate />
       <Contractions />
+      <Protien />
 
       <HeartRate />
     </div>

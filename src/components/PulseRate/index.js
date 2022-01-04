@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, BarElement } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Bar, Line, Chart } from 'react-chartjs-2';
 import { initialNullArray, positions, xAxisLabels } from '../../utils/constants';
 
@@ -66,7 +67,7 @@ const PulseRate = () => {
 
     plugins: {
       labels: {
-        display: false,
+        display: true,
         render: 'image',
         textMargin: 10,
         images: [

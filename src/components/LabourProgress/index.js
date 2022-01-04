@@ -217,6 +217,35 @@ const LabourProgress = () => {
               </Col>
             </Row>
           </div>
+          <div style={{ marginTop: '7px' }}>
+            <Row gutter={[10, 20]}>
+              <Col md={6}>
+                <LegendItem title="Urine Volume" color={'green'} />
+              </Col>
+            </Row>
+          </div>
+          <div style={{ marginTop: '7px' }}>
+            <Row gutter={[10, 20]}>
+              <Col md={6}>
+                <LegendItem title="Protien" color={'blue'} />
+              </Col>
+            </Row>
+          </div>
+
+          <div style={{ marginTop: '7px' }}>
+            <Row gutter={[10, 20]}>
+              <Col md={6}>
+                <LegendItem title="Ketones" color={'orange'} />
+              </Col>
+            </Row>
+          </div>
+          <div style={{ marginTop: '7px' }}>
+            <Row gutter={[10, 20]}>
+              <Col md={6}>
+                <LegendItem title="Blood" color={'red'} />
+              </Col>
+            </Row>
+          </div>
 
           <div style={{ marginTop: '7px', marginBottom: '7px' }}>
             <Row gutter={[10, 20]}>

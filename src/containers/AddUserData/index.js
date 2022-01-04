@@ -25,9 +25,9 @@ const AddUserData = () => {
     MsBP: null,
     MdBP: null,
     MRR: null,
-    MUvolume: 0,
-    MUprotein: '',
-    MUktones: '',
+    MUvolume: null,
+    MUprotein: null,
+    MUktones: null,
     Fhr: null,
     Fhrpattren: '',
     Fhrvariability: '',
@@ -49,7 +49,7 @@ const AddUserData = () => {
     presenting: 'Occiput',
     min: 100,
     max: 180,
-    blood: '',
+    blood: null,
   });
 
   const handleChange = (inputName, inputValue) => {
@@ -289,10 +289,10 @@ const AddUserData = () => {
             <InputData value={userData.MUprotein} onChange={(e) => handleChange('MUprotein', e.target.value)} subTitle="+" title="Protien" placeholder="Protien" />
           </Col>
           <Col md={4}>
-            <InputData onChange={(e) => handleChange('MUketones', e.target.value)} subTitle="+" title="Ketones" placeholder="Ketones" />
+            <InputData onChange={(e) => handleChange('MUketones', parseInt(e.target.value))} subTitle="+" title="Ketones" placeholder="Ketones" />
           </Col>
           <Col md={4}>
-            <InputData onChange={(e) => handleChange('blood', e.target.value)} title="Blood" placeholder="Blood" />
+            <InputData onChange={(e) => handleChange('blood', parseInt(e.target.value))} title="Blood" placeholder="Blood" />
           </Col>
         </Row>
 

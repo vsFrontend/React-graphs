@@ -39,8 +39,7 @@ const LabourProgress = () => {
       setActionLine(true);
     }
 
-    const cDilationFilterdData = cDilation.filter((dilation) => dilation >= 4 || dilation === null || dilation <= 4);
-    let checkDilationIndex = cDilationFilterdData.findIndex((dilation) => dilation !== null && dilation >= 4);
+    let checkDilationIndex = cDilation.findIndex((dilation) => dilation !== null && dilation >= 4);
 
     const checkDilationIndexIncrease = checkDilationIndex + 1;
 

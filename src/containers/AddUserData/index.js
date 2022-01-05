@@ -162,7 +162,7 @@ const AddUserData = () => {
         min: 100,
         max: 180,
       });
-      navigate('/');
+      window.location.href = '/';
     } catch (error) {
       console.log(error);
     }

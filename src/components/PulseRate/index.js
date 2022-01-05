@@ -15,25 +15,30 @@ ChartJS.register({
   Legend,
   afterDraw: (chart) => {
     if (chart.id === 1) {
-      const highBpPoints = chart?._metasets?.[0]?.data.filter(({ skip }) => !skip).map(({x, y}) => {
-        return {
-          x,
-          y1: y
-        }
-      });
-      const lowBpPoints = chart?._metasets?.[1]?.data.filter(({ skip }) => !skip).map(({x, y}) => {
-        return {
-          x,
-          y2: y
-        }
-      });
+      const highBpPoints = chart?._metasets?.[0]?.data
+        .filter(({ skip }) => !skip)
+        .map(({ x, y }) => {
+          return {
+            x,
+            y1: y,
+          };
+        });
+      const lowBpPoints = chart?._metasets?.[1]?.data
+        .filter(({ skip }) => !skip)
+        .map(({ x, y }) => {
+          return {
+            x,
+            y2: y,
+          };
+        });
+
       const syncedPoints = highBpPoints.map((item, i) => Object.assign({}, item, lowBpPoints[i]));
       const ctx = chart.ctx;
       syncedPoints.map(({ x, y1, y2 }) => {
         ctx.beginPath();
         ctx.lineTo(x, y1);
         ctx.lineTo(x, y2);
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 3.5;
         ctx.stroke();
         ctx.restore();
       });
@@ -85,12 +90,12 @@ const PulseRate = () => {
 
   const downArrowImage = new Image();
   downArrowImage.src = '/assets/images/positions/down-arrow.png';
-  downArrowImage.height = 17;
+  downArrowImage.height = 10;
   downArrowImage.width = 12;
 
   const upArrowImage = new Image();
   upArrowImage.src = '/assets/images/positions/up-arrow.png';
-  upArrowImage.height = 17;
+  upArrowImage.height = 10;
   upArrowImage.width = 12;
 
   const options = {
@@ -157,21 +162,19 @@ const PulseRate = () => {
       {
         label: 'highBp',
         data: msBpData,
-        borderColor: 'black',
+
         backgroundColor: 'black',
         spanGaps: true,
         pointStyle: upArrowImage,
-
-        fill: '+1',
+        type: 'scatter',
       },
       {
         label: 'lowBP',
         data: mdBpData,
-        borderColor: 'black',
         backgroundColor: 'black',
         spanGaps: true,
         pointStyle: downArrowImage,
-        fill: true,
+        type: 'scatter',
       },
       {
         label: 'Pulse',
@@ -184,7 +187,7 @@ const PulseRate = () => {
   };
 
   return (
-    <div id='chart'>
+    <div id="chart">
       <Line options={options} data={data} height={80} />
     </div>
   );

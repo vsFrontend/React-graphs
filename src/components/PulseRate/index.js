@@ -1,14 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, BarElement } from 'chart.js';
-import { Bar, Line, Chart } from 'react-chartjs-2';
-import { initialNullArray, positions, xAxisLabels } from '../../utils/constants';
+import { Line } from 'react-chartjs-2';
+import { initialNullArray, xAxisLabels } from '../../utils/constants';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
+ChartJS.register({
+  id: 'linePlugin',
+  CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend,
+  afterDraw: chart => {
+    if (chart.id === 1) {
+      const highBpPoints = chart?._metasets?.[0]?.data.filter(({ skip }) => !skip).map(({x, y}) => {
+        return {
+          x,
+          y1: y  
+        }
+      });
+      const lowBpPoints = chart?._metasets?.[1]?.data.filter(({ skip }) => !skip).map(({x, y}) => {
+        return {
+          x,
+          y2: y  
+        }
+      });
+      const syncedPoints = highBpPoints.map((item, i) => Object.assign({}, item, lowBpPoints[i]));
+      const ctx = chart.ctx;
+      syncedPoints.map(({ x, y1, y2 }) => {
+        ctx.beginPath();
+        ctx.lineTo(x, y1);
+        ctx.lineTo(x, y2);
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.restore();
+      });
+    }
+  }
+});
 
 const PulseRate = () => {
   const [msBpData, setMsBpData] = useState(initialNullArray);
   const [mdBpData, setMdBpData] = useState(initialNullArray);
   const [pulseRateData, setPulseRateData] = useState(initialNullArray);
+  const chartRef = useRef();
 
   const getAllData = async () => {
     let msBpDataValue = [...msBpData];
@@ -49,12 +79,12 @@ const PulseRate = () => {
 
   const downArrowImage = new Image();
   downArrowImage.src = '/assets/images/positions/down-arrow.png';
-  downArrowImage.height = 15;
+  downArrowImage.height = 17;
   downArrowImage.width = 12;
 
   const upArrowImage = new Image();
   upArrowImage.src = '/assets/images/positions/up-arrow.png';
-  upArrowImage.height = 15;
+  upArrowImage.height = 17;
   upArrowImage.width = 12;
 
   const options = {
@@ -68,7 +98,6 @@ const PulseRate = () => {
         left: 4,
       },
     },
-
     plugins: {
       labels: {
         display: true,
@@ -118,7 +147,6 @@ const PulseRate = () => {
 
   const data = {
     labels: xAxisLabels,
-
     datasets: [
       {
         label: 'highBp',
@@ -150,8 +178,8 @@ const PulseRate = () => {
   };
 
   return (
-    <div>
-      <Line options={options} data={data} height={80} />
+    <div id='chart'>
+      <Line options={options} data={data} height={80} ref={chartRef} />
     </div>
   );
 };

@@ -5,21 +5,32 @@ import { initialNullArray, xAxisLabels } from '../../utils/constants';
 
 ChartJS.register({
   id: 'linePlugin',
-  CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend,
-  afterDraw: chart => {
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  afterDraw: (chart) => {
     if (chart.id === 1) {
-      const highBpPoints = chart?._metasets?.[0]?.data.filter(({ skip }) => !skip).map(({x, y}) => {
-        return {
-          x,
-          y1: y  
-        }
-      });
-      const lowBpPoints = chart?._metasets?.[1]?.data.filter(({ skip }) => !skip).map(({x, y}) => {
-        return {
-          x,
-          y2: y  
-        }
-      });
+      const highBpPoints = chart?._metasets?.[0]?.data
+        .filter(({ skip }) => !skip)
+        .map(({ x, y }) => {
+          return {
+            x,
+            y1: y,
+          };
+        });
+      const lowBpPoints = chart?._metasets?.[1]?.data
+        .filter(({ skip }) => !skip)
+        .map(({ x, y }) => {
+          return {
+            x,
+            y2: y,
+          };
+        });
       const syncedPoints = highBpPoints.map((item, i) => Object.assign({}, item, lowBpPoints[i]));
       const ctx = chart.ctx;
       syncedPoints.map(({ x, y1, y2 }) => {
@@ -31,7 +42,7 @@ ChartJS.register({
         ctx.restore();
       });
     }
-  }
+  },
 });
 
 const PulseRate = () => {
@@ -178,7 +189,7 @@ const PulseRate = () => {
   };
 
   return (
-    <div id='chart'>
+    <div id="chart">
       <Line options={options} data={data} height={80} ref={chartRef} />
     </div>
   );

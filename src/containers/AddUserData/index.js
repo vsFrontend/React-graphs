@@ -66,7 +66,6 @@ const AddUserData = () => {
   };
 
   const saveUserData = async () => {
-    console.log('Check onfinish');
     if (Object.values(cerviCalObject).filter((item) => item !== null).length !== 0) {
       if (userData.CDilation === null) {
         notification.warning({
@@ -105,11 +104,12 @@ const AddUserData = () => {
         return;
       }
 
-      if (myPrevData[`${userData.selectedDate} ${userData.selectedTime}`]) {
+      if (myPrevData[`${userData.selectedTime}`] !== undefined) {
         notification.warning({
           message: 'Alert',
           description: 'Data for this time already exists.',
         });
+
         return;
       }
 
@@ -286,13 +286,13 @@ const AddUserData = () => {
           </Col>
 
           <Col md={4}>
-            <InputData value={userData.MUprotein} onChange={(e) => handleChange('MUprotein', e.target.value)} subTitle="+" title="Protien" placeholder="Protien" />
+            <InputData type="number" value={userData.MUprotein} onChange={(e) => handleChange('MUprotein', e.target.value)} subTitle="+" title="Protien" placeholder="Protien" />
           </Col>
           <Col md={4}>
-            <InputData onChange={(e) => handleChange('MUketones', parseInt(e.target.value))} subTitle="+" title="Ketones" placeholder="Ketones" />
+            <InputData type="number" onChange={(e) => handleChange('MUketones', parseInt(e.target.value))} subTitle="+" title="Ketones" placeholder="Ketones" />
           </Col>
           <Col md={4}>
-            <InputData onChange={(e) => handleChange('blood', parseInt(e.target.value))} title="Blood" placeholder="Blood" />
+            <InputData type="number" onChange={(e) => handleChange('blood', parseInt(e.target.value))} title="Blood" placeholder="Blood" />
           </Col>
         </Row>
 

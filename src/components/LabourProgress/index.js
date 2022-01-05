@@ -134,6 +134,7 @@ const LabourProgress = () => {
         backgroundColor: '#808080',
         spanGaps: true,
         pointStyle: dilationPoint,
+        order: 1,
       },
       {
         label: 'Cervical Length',
@@ -141,6 +142,7 @@ const LabourProgress = () => {
         data: length,
         borderColor: '#BDC918',
         backgroundColor: '#BDC918',
+        order: 2,
       },
       {
         label: 'Presenting Part',
@@ -150,6 +152,7 @@ const LabourProgress = () => {
         backgroundColor: 'green',
         borderColor: 'green',
         pointStyle: positionPoints,
+        order: 0,
       },
       actionLine
         ? {
@@ -159,6 +162,7 @@ const LabourProgress = () => {
             borderColor: 'black',
             backgroundColor: 'black',
             pointRadius: 0,
+            order: 3,
           }
         : {},
       actionLine
@@ -169,6 +173,7 @@ const LabourProgress = () => {
             pointRadius: 0,
             borderColor: 'red',
             backgroundColor: 'red',
+            order: 4,
           }
         : {},
     ],
@@ -176,59 +181,57 @@ const LabourProgress = () => {
 
   return (
     <>
-      <div style={{ width: '100%', margin: 'auto' }}>
-        <div style={{ width: '80%', margin: 'auto', marginTop: 20 }}>
+      <div style={{ width: '80%', margin: 'auto', marginTop: 20 }}>
+        <Row gutter={[10, 20]}>
+          <Col md={4}>
+            <LegendItem title="Cervical length" color={'#808080'} />
+          </Col>
+          <Col md={4}>
+            <LegendItem title="Cervical Length" color={'#BDC918'} />
+          </Col>
+          <Col md={4}>
+            <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+              <img style={{ height: '20px', width: '20px', marginRight: '7px' }} src="/assets/images/positions/OA.png" />
+              <div style={{ fontWeight: '800' }}>Presenting Part</div>
+            </div>
+          </Col>
+          <Col md={4}>
+            <LegendItem title="Alert Line" color={'black'} />
+          </Col>
+          <Col md={4}>
+            <LegendItem title="Action Line" color={'red'} />
+          </Col>
+        </Row>
+        <div style={{ marginTop: '7px' }}>
           <Row gutter={[10, 20]}>
             <Col md={4}>
-              <LegendItem title="Cervical length" color={'#808080'} />
+              <LegendItem title="highBp" color={'#000'} />
             </Col>
             <Col md={4}>
-              <LegendItem title="Cervical Length" color={'#BDC918'} />
+              <LegendItem title="lowBP" color={'#000'} />
             </Col>
             <Col md={4}>
-              <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-                <img style={{ height: '20px', width: '20px', marginRight: '7px' }} src="/assets/images/positions/OA.png" />
-                <div style={{ fontWeight: '800' }}>Presenting Part</div>
-              </div>
-            </Col>
-            <Col md={4}>
-              <LegendItem title="Alert Line" color={'black'} />
-            </Col>
-            <Col md={4}>
-              <LegendItem title="Action Line" color={'red'} />
+              <LegendItem title="Pulse" color={'#000'} />
             </Col>
           </Row>
-          <div style={{ marginTop: '7px' }}>
-            <Row gutter={[10, 20]}>
-              <Col md={4}>
-                <LegendItem title="highBp" color={'#000'} />
-              </Col>
-              <Col md={4}>
-                <LegendItem title="lowBP" color={'#000'} />
-              </Col>
-              <Col md={4}>
-                <LegendItem title="Pulse" color={'#000'} />
-              </Col>
-            </Row>
-          </div>
-
-          <div style={{ marginTop: '7px' }}>
-            <Row gutter={[10, 20]}>
-              <Col md={6}>
-                <LegendItem title="Contraction Per 10 Minutes" color={'#000'} />
-              </Col>
-            </Row>
-          </div>
-          <div style={{ marginTop: '7px', marginBottom: '7px' }}>
-            <Row gutter={[10, 20]}>
-              <Col md={4}>
-                <LegendItem title="Fetal Heart" color={'#000'} />
-              </Col>
-            </Row>
-          </div>
         </div>
-        <Line options={options} data={data} height={80} />
+
+        <div style={{ marginTop: '7px' }}>
+          <Row gutter={[10, 20]}>
+            <Col md={6}>
+              <LegendItem title="Contraction Per 10 Minutes" color={'#000'} />
+            </Col>
+          </Row>
+        </div>
+        <div style={{ marginTop: '7px', marginBottom: '7px' }}>
+          <Row gutter={[10, 20]}>
+            <Col md={4}>
+              <LegendItem title="Fetal Heart" color={'#000'} />
+            </Col>
+          </Row>
+        </div>
       </div>
+      <Line options={options} data={data} height={80} />
     </>
   );
 };

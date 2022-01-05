@@ -43,7 +43,6 @@ const Contractions = () => {
     display: true,
     datasets: [
       {
-        type: 'bar',
         label: 'Contraction Per 10 Minutes',
         redraw: true,
         data: barChartData,
@@ -107,7 +106,7 @@ const Contractions = () => {
     <>
       <div style={{ width: '100%', margin: 'auto' }}>
         {/* <h2 className="heading">Contraction Per 10 Minutes</h2> */}
-        <Line options={options} data={data} height={80} ref={chartRef} />
+        <Bar options={options} data={data} height={80} ref={chartRef} />
       </div>
     </>
   );

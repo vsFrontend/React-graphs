@@ -1,11 +1,21 @@
 .data-box {
-  width: 25.73px;
+  width: 1.985vw;
   border-left: 1px solid lightgray;
   display: flex;
   border-top: 1px solid lightgray;
   justify-content: center;
   align-items: center;
   height: 30px;
+}
+
+.table-heading {
+  margin-right: 13px;
+  width: 40px;
+  font-size: 10px;
+  margin-top: 10px;
+}
+.data-box:last-child {
+  border-right: 1px solid lightgray;
 }
 
 .data-box-last {

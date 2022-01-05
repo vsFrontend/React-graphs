@@ -64,6 +64,11 @@ const PulseRate = () => {
       mode: 'index',
       intersect: false,
     },
+    layout: {
+      padding: {
+        left: 4,
+      },
+    },
 
     plugins: {
       labels: {
@@ -90,14 +95,8 @@ const PulseRate = () => {
       },
     },
     scales: {
-      xAxes: [
-        {
-          ticks: {
-            autoSkip: false,
-          },
-        },
-      ],
       x: {
+        fontSize: 4,
         ticks: {
           display: false,
         },
@@ -109,6 +108,11 @@ const PulseRate = () => {
         },
         min: 60,
         max: 180,
+        ticks: {
+          font: {
+            size: 10,
+          },
+        },
       },
     },
   };

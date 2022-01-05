@@ -8,6 +8,7 @@ const Protien = () => {
   const [volData, setVolumeData] = useState(initialNullArray);
   const [ketonesData, setKetonesData] = useState(initialNullArray);
   const [bloodData, setBloodData] = useState(initialNullArray);
+  const [checkDataState, setCheckDataState] = useState();
 
   const getAllData = async () => {
     let protienValue = [...protienData];
@@ -17,10 +18,9 @@ const Protien = () => {
     const result = (await localStorage.getItem('MyData')) || '{}';
     const checkData = JSON.parse(result);
 
-    console.log('checkData', checkData);
-
     Object.keys(checkData).map((item) => {
       const selectedIndex = xAxisLabels.findIndex((label) => item === label);
+      console.log('selected index', selectedIndex);
       protienValue[selectedIndex] = checkData[item].MUprotein;
       volumeValue[selectedIndex] = checkData[item].MUvolume;
       ketonesValue[selectedIndex] = checkData[item].MUketones;
@@ -31,70 +31,47 @@ const Protien = () => {
     setVolumeData(volumeValue);
     setKetonesData(ketonesValue);
     setBloodData(bloodValue);
+    setCheckDataState(checkData);
   };
 
   useEffect(() => {
     getAllData();
   }, []);
   return (
-    <div style={{ width: '91.3%', margin: 'auto' }}>
+    <div style={{ width: '99.3%', margin: 'auto' }}>
       <div style={{ display: 'flex' }}>
+        <div className="table-heading">UrinVol</div>
         {protienData.map((item, i) => {
           return (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              {item === null ? (
-                <span className="data-box"></span>
-              ) : (
-                <span style={{ color: 'green' }} className="data-box">
-                  {item}
-                </span>
-              )}
+            <div className="box-container" style={{ display: 'flex', alignItems: 'center' }}>
+              {item === null ? <span className="data-box"></span> : <span className="data-box gray-back">{item}</span>}
             </div>
           );
         })}
       </div>
       <div style={{ display: 'flex' }}>
+        <div className="table-heading">Protien</div>
         {volData.map((item, i) => {
           return (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              {item === null ? (
-                <span className="data-box"></span>
-              ) : (
-                <span style={{ color: 'blue' }} className="data-box">
-                  {item}
-                </span>
-              )}
-            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>{item === null ? <span className="data-box"></span> : <span className="data-box gray-back">{item}</span>}</div>
           );
         })}
       </div>
 
       <div style={{ display: 'flex' }}>
+        <div className="table-heading">Ketones</div>
         {ketonesData.map((item, i) => {
           return (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              {item === null ? (
-                <span className="data-box"></span>
-              ) : (
-                <span style={{ color: 'orange' }} className="data-box">
-                  {item}
-                </span>
-              )}
-            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>{item === null ? <span className="data-box"></span> : <span className="data-box gray-back">{item}</span>}</div>
           );
         })}
       </div>
       <div style={{ display: 'flex' }}>
+        <div className="table-heading">Blood</div>
         {bloodData.map((item, i) => {
           return (
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              {item === null ? (
-                <span className="data-box data-box-last"></span>
-              ) : (
-                <span style={{ color: 'red' }} className="data-box data-box-last">
-                  {item}
-                </span>
-              )}
+              {item === null ? <span className="data-box data-box-last"></span> : <span className="data-box data-box-last gray-back">{item}</span>}
             </div>
           );
         })}

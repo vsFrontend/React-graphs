@@ -56,14 +56,14 @@ const Contractions = () => {
     responsive: true,
     layout: {
       padding: {
-          left: 14
-      }
+        left: 12,
+      },
     },
     scales: {
       x: {
         ticks: {
           display: false,
-        }
+        },
       },
       y: {
         title: {
@@ -73,7 +73,7 @@ const Contractions = () => {
         min: 0,
         max: 5,
         ticks: {
-          stepSize: 1
+          stepSize: 1,
         },
       },
     },
@@ -87,8 +87,10 @@ const Contractions = () => {
 
   return (
     <>
-      {/* <h2 className="heading">Contraction Per 10 Minutes</h2> */}
-      <Bar options={options} data={data} height={60} ref={chartRef} />
+      <div style={{ width: '100%', margin: 'auto' }}>
+        {/* <h2 className="heading">Contraction Per 10 Minutes</h2> */}
+        <Bar options={options} data={data} height={60} ref={chartRef} />
+      </div>
     </>
   );
 };

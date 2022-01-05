@@ -5,8 +5,15 @@ import { initialNullArray, xAxisLabels } from '../../utils/constants';
 
 ChartJS.register({
   id: 'linePlugin',
-  CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend,
-  afterDraw: chart => {
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  afterDraw: (chart) => {
     if (chart.id === 1) {
       const highBpPoints = chart?._metasets?.[0]?.data.filter(({ skip }) => !skip).map(({x, y}) => {
         return {
@@ -31,7 +38,7 @@ ChartJS.register({
         ctx.restore();
       });
     }
-  }
+  },
 });
 
 const PulseRate = () => {

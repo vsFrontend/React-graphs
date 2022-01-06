@@ -65,6 +65,9 @@ const HeartRate = () => {
           display: true,
           text: 'Fetal Heart Rate',
         },
+        ticks: {
+          stepSize: 10,
+        },
         min: 80,
         max: 200,
       },

@@ -35,8 +35,8 @@ const Protien = () => {
     getAllData();
   }, []);
   return (
-    <div style={{ width: '99.3%', margin: 'auto' }}>
-      <div style={{ display: 'flex' }}>
+    <div style={{ width: '99.3%', margin: 'auto', marginBottom: 5 }}>
+      <div style={{ display: 'flex', width: '100%' }}>
         <div className="table-heading">UrinVol</div>
         {volData.map((item, i) => {
           return (

@@ -11,7 +11,7 @@ const ChartsRecord = () => {
     window.location.reload();
   };
   return (
-    <div style={{ paddingBottom: '10px' }}>
+    <div style={{ paddingBottom: 20 }}>
       <div style={{ width: '80%', paddingTop: '20px', margin: 'auto', display: 'flex', justifyContent: 'space-between' }}>
         <button
           onClick={cleaerData}

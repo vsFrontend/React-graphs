@@ -132,6 +132,7 @@ const PulseRate = () => {
       },
       legend: {
         display: true,
+        onClick: () => {},
       },
     },
     scales: {
@@ -149,8 +150,9 @@ const PulseRate = () => {
         min: 60,
         max: 180,
         ticks: {
+          stepSize: 10,
           font: {
-            size: 10,
+            size: 12,
           },
         },
       },
@@ -161,7 +163,7 @@ const PulseRate = () => {
     labels: xAxisLabels,
     datasets: [
       {
-        label: 'highBP',
+        label: 'Systolic BP',
         data: msBpData,
 
         backgroundColor: 'black',
@@ -170,7 +172,7 @@ const PulseRate = () => {
         borderColor: 'transparent',
       },
       {
-        label: 'lowBP',
+        label: 'Diastolic BP',
         data: mdBpData,
         backgroundColor: 'black',
         spanGaps: true,

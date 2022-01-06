@@ -1,19 +1,17 @@
 .data-box {
-  width: 1.985vw;
-  border-left: 1px solid lightgray;
+  border-left: 0.1px solid lightgray;
   display: flex;
-  border-top: 1px solid lightgray;
+  border-top: 0.1px solid lightgray;
+
   justify-content: center;
   align-items: center;
   height: 30px;
-  padding-left: 1px;
-  padding-right: 1px;
-  overflow: hidden;
+  width: 1.987vw;
 }
 
 .table-heading {
   margin-right: 13px;
-  width: 40px;
+  width: 37px;
   font-size: 10px;
   margin-top: 7px;
 }

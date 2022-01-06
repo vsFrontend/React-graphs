@@ -164,7 +164,15 @@ const LabourProgress = () => {
             pointRadius: 0,
             order: 3,
           }
-        : {},
+        : {
+            label: 'Alert Line',
+            type: 'line',
+            data: [null],
+            borderColor: 'black',
+            backgroundColor: 'black',
+            pointRadius: 0,
+            order: 3,
+          },
       actionLine
         ? {
             label: 'Action Line',
@@ -175,7 +183,15 @@ const LabourProgress = () => {
             backgroundColor: 'red',
             order: 4,
           }
-        : {},
+        : {
+            label: 'Action Line',
+            type: 'line',
+            data: [null],
+            pointRadius: 0,
+            borderColor: 'red',
+            backgroundColor: 'red',
+            order: 4,
+          },
     ],
   };
 

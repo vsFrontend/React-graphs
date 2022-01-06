@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { ProgressOfLabour, HeartRate, Contractions, PulseRate, Protien } from './components';
+import { HeartRate, Contractions, PulseRate, Protien, OxytonicData, Temprature } from './components';
 import { AddUserData } from './containers';
 import './App.css';
 import LabourProgress from './components/LabourProgress';
@@ -38,12 +38,15 @@ const ChartsRecord = () => {
           Add Data
         </Link>
       </div>
-      <LabourProgress />
-      <PulseRate />
-      <Contractions />
-      <Protien />
-
       <HeartRate />
+      <LabourProgress />
+      <Contractions />
+      <OxytonicData />
+      <div style={{ marginBottom: 10, marginTop: 10 }}>
+        <Temprature />
+      </div>
+      <Protien />
+      <PulseRate />
     </div>
   );
 };

@@ -130,14 +130,14 @@ const PulseRate = () => {
         ],
       },
       legend: {
-        display: false,
+        display: true,
       },
     },
     scales: {
       x: {
         fontSize: 4,
         ticks: {
-          display: false,
+          display: true,
         },
       },
       y: {

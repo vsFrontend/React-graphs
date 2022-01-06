@@ -20,7 +20,7 @@ const AddUserData = () => {
     Upalpation: '',
     Usfh: '',
     Umultiple: false,
-    Mtemp: 0,
+    Mtemp: null,
     Mpulse: null,
     MsBP: null,
     MdBP: null,

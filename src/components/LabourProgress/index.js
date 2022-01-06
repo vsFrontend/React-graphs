@@ -73,7 +73,7 @@ const LabourProgress = () => {
     },
     plugins: {
       legend: {
-        display: false,
+        display: true,
         position: 'top',
         labels: {
           filter: function (item) {
@@ -153,6 +153,7 @@ const LabourProgress = () => {
         borderColor: 'green',
         pointStyle: positionPoints,
         order: 0,
+        type: 'scatter',
       },
       actionLine
         ? {
@@ -181,56 +182,7 @@ const LabourProgress = () => {
 
   return (
     <>
-      <div style={{ width: '80%', margin: 'auto', marginTop: 20 }}>
-        <Row gutter={[10, 20]}>
-          <Col md={4}>
-            <LegendItem title="Cervical length" color={'#808080'} />
-          </Col>
-          <Col md={4}>
-            <LegendItem title="Cervical Length" color={'#BDC918'} />
-          </Col>
-          <Col md={4}>
-            <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-              <img style={{ height: '20px', width: '20px', marginRight: '7px' }} src="/assets/images/positions/OA.png" />
-              <div style={{ fontWeight: '800' }}>Presenting Part</div>
-            </div>
-          </Col>
-          <Col md={4}>
-            <LegendItem title="Alert Line" color={'black'} />
-          </Col>
-          <Col md={4}>
-            <LegendItem title="Action Line" color={'red'} />
-          </Col>
-        </Row>
-        <div style={{ marginTop: '7px' }}>
-          <Row gutter={[10, 20]}>
-            <Col md={4}>
-              <LegendItem title="highBP" color={'#000'} />
-            </Col>
-            <Col md={4}>
-              <LegendItem title="lowBP" color={'#000'} />
-            </Col>
-            <Col md={4}>
-              <LegendItem title="Pulse" color={'#000'} />
-            </Col>
-          </Row>
-        </div>
-
-        <div style={{ marginTop: '7px' }}>
-          <Row gutter={[10, 20]}>
-            <Col md={6}>
-              <LegendItem title="Contraction Per 10 Minutes" color={'#000'} />
-            </Col>
-          </Row>
-        </div>
-        <div style={{ marginTop: '7px', marginBottom: '7px' }}>
-          <Row gutter={[10, 20]}>
-            <Col md={4}>
-              <LegendItem title="Fetal Heart" color={'#000'} />
-            </Col>
-          </Row>
-        </div>
-      </div>
+      <div style={{ width: '80%', margin: 'auto', marginTop: 20 }}></div>
       <Line options={options} data={data} height={80} />
     </>
   );

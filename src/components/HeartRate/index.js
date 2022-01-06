@@ -29,7 +29,7 @@ const HeartRate = () => {
 
     plugins: {
       legend: {
-        display: false,
+        display: true,
         position: 'top',
       },
       title: {
@@ -41,7 +41,7 @@ const HeartRate = () => {
         {
           stacked: true,
           gridLines: {
-            display: true,
+            display: false,
             color: 'rgba(255,99,132,0.2)',
           },
         },
@@ -49,11 +49,17 @@ const HeartRate = () => {
       xAxes: [
         {
           gridLines: {
-            display: true,
+            display: false,
             color: 'rgba(255,99,132,0.2)',
           },
         },
       ],
+      x: {
+        ticks: {
+          display: false,
+        },
+        drawTicks: true,
+      },
       y: {
         title: {
           display: true,
@@ -79,7 +85,7 @@ const HeartRate = () => {
   };
 
   return (
-    <div style={{ marginBottom: '10px' }}>
+    <div>
       <Line options={options} data={data} height={80} />
     </div>
   );

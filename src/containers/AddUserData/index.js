@@ -20,7 +20,7 @@ const AddUserData = () => {
     Upalpation: '',
     Usfh: '',
     Umultiple: false,
-    Mtemp: 0,
+    Mtemp: null,
     Mpulse: null,
     MsBP: null,
     MdBP: null,
@@ -162,7 +162,7 @@ const AddUserData = () => {
         min: 100,
         max: 180,
       });
-      navigate('/');
+      window.location.href = '/';
     } catch (error) {
       console.log(error);
     }

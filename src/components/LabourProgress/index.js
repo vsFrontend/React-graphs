@@ -150,10 +150,9 @@ const LabourProgress = () => {
         data: aboveBrim,
         spanGaps: true,
         backgroundColor: 'green',
-        borderColor: 'green',
+        borderColor: 'transparent',
         pointStyle: positionPoints,
         order: 0,
-        type: 'scatter',
       },
       actionLine
         ? {

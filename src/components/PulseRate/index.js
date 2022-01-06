@@ -14,7 +14,8 @@ ChartJS.register({
   Tooltip,
   Legend,
   afterDraw: (chart) => {
-    if (chart.id === 1) {
+    console.log('chart', chart.id);
+    if (chart.id === 3) {
       const highBpPoints = chart?._metasets?.[0]?.data
         .filter(({ skip }) => !skip)
         .map(({ x, y }) => {
@@ -166,7 +167,7 @@ const PulseRate = () => {
         backgroundColor: 'black',
         spanGaps: true,
         pointStyle: upArrowImage,
-        type: 'scatter',
+        borderColor: 'transparent',
       },
       {
         label: 'lowBP',
@@ -174,7 +175,7 @@ const PulseRate = () => {
         backgroundColor: 'black',
         spanGaps: true,
         pointStyle: downArrowImage,
-        type: 'scatter',
+        borderColor: 'transparent',
       },
       {
         label: 'Pulse',

@@ -14,7 +14,6 @@ ChartJS.register({
   Tooltip,
   Legend,
   afterDraw: (chart) => {
-    console.log('chart', chart.id);
     if (chart.id === 3) {
       const highBpPoints = chart?._metasets?.[0]?.data
         .filter(({ skip }) => !skip)

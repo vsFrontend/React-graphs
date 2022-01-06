@@ -127,6 +127,17 @@ const LabourProgress = () => {
     labels: xAxisLabels,
     datasets: [
       {
+        label: ``,
+        type: 'line',
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        borderColor: 'transparent',
+        backgroundColor: 'transparent',
+        spanGaps: true,
+        order: 0,
+        borderRadius: 0,
+        pointRadius: 0,
+      },
+      {
         label: `Cervical Dilation`,
         type: 'line',
         data: cDilationData,
@@ -198,6 +209,7 @@ const LabourProgress = () => {
   return (
     <>
       <div style={{ width: '80%', margin: 'auto', marginTop: 20 }}></div>
+      {console.log('aboveBrim', aboveBrim)}
       <Line options={options} data={data} height={80} />
     </>
   );

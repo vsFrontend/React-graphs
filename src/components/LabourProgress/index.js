@@ -205,7 +205,7 @@ const LabourProgress = () => {
         <div style={{ marginTop: '7px' }}>
           <Row gutter={[10, 20]}>
             <Col md={4}>
-              <LegendItem title="highBp" color={'#000'} />
+              <LegendItem title="highBP" color={'#000'} />
             </Col>
             <Col md={4}>
               <LegendItem title="lowBP" color={'#000'} />

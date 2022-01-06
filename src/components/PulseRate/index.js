@@ -160,7 +160,7 @@ const PulseRate = () => {
     labels: xAxisLabels,
     datasets: [
       {
-        label: 'highBp',
+        label: 'highBP',
         data: msBpData,
 
         backgroundColor: 'black',

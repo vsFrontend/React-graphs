@@ -28,9 +28,9 @@ const OxytonicData = () => {
     getAllData();
   }, []);
   return (
-    <div style={{ width: '99.3%', margin: 'auto' }}>
+    <>
       <div style={{ display: 'flex' }}>
-        <div className="table-heading">Oxytocin UL</div>
+        <div className="table-heading">Oxytocin</div>
         {contractionData.map((item, i) => {
           return (
             <div className="box-container" style={{ display: 'flex', alignItems: 'center' }}>
@@ -42,7 +42,7 @@ const OxytonicData = () => {
       </div>
 
       <div style={{ display: 'flex' }}>
-        <div className="table-heading">Drops/min</div>
+        <div className="table-heading">Drops</div>
         {dropMinData.map((item, i) => {
           return (
             <div className="box-container" style={{ display: 'flex', alignItems: 'center' }}>
@@ -58,7 +58,7 @@ const OxytonicData = () => {
           );
         })}
       </div>
-    </div>
+    </>
   );
 };
 

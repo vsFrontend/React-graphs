@@ -10,7 +10,7 @@
 }
 
 .table-heading {
-  margin-right: 13px;
+  margin-right: 17px;
   width: 37px;
   font-size: 10px;
   margin-top: 7px;
@@ -25,7 +25,7 @@
 
 @media only screen and (min-width: 1439px) {
   .data-box {
-    width: 2.0111vw;
+    width: 2.0211vw;
   }
 }
 

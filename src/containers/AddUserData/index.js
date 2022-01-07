@@ -197,7 +197,7 @@ const AddUserData = () => {
               <Option value="notnormal">Excessive anxiety</Option>
               <Option value="serve">Severe, continuous pain</Option>
               <Option value="dehydration">Dehydration</Option>
-              <Option value="dehydration">Marked pallor of the face and mucous membranes</Option>
+              <Option value="Marked">Marked pallor of the face and mucous membranes</Option>
             </Select>
           </Col>
         </Row>

@@ -209,7 +209,6 @@ const LabourProgress = () => {
   return (
     <>
       <div style={{ width: '80%', margin: 'auto', marginTop: 20 }}></div>
-      {console.log('aboveBrim', aboveBrim)}
       <Line options={options} data={data} height={80} />
     </>
   );

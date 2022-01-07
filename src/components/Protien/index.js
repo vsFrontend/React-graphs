@@ -36,6 +36,8 @@ const Protien = () => {
   }, []);
   return (
     <div style={{ width: '99.3%', margin: 'auto', marginBottom: 5 }}>
+      {console.log('initialNullArray', initialNullArray.length)}
+      {console.log('xAxisLabels', xAxisLabels.length)}
       <div style={{ display: 'flex', width: '100%' }}>
         <div className="table-heading">UrinVol</div>
         {volData.map((item, i) => {

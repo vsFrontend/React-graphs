@@ -147,6 +147,8 @@ export const initialNullArray = [
   null,
   null,
   null,
+  null,
+  null,
 ];
 export const xAxisLabels = [
   '00:00',

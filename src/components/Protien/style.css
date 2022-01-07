@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   height: 30px;
-  width: 1.987vw;
+  width: 1.907vw;
 }
 
 .table-heading {
@@ -25,7 +25,7 @@
 
 @media only screen and (min-width: 1439px) {
   .data-box {
-    width: 2.0211vw;
+    width: 1.937vw;
   }
 }
 

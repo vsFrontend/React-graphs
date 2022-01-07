@@ -22,7 +22,7 @@ const Temprature = () => {
   }, []);
 
   return (
-    <div style={{ width: '99.3%', margin: 'auto' }}>
+    <>
       <div style={{ display: 'flex' }}>
         <div className="table-heading">Temp C</div>
         {tempratureData.map((item, i) => {
@@ -34,7 +34,7 @@ const Temprature = () => {
           );
         })}
       </div>
-    </div>
+    </>
   );
 };
 

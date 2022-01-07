@@ -144,7 +144,7 @@ const AddUserData = () => {
         Fhrpattren: '',
         Fhrvariability: '',
         Fliquior: '',
-        PcLength: 0,
+        PcLength: null,
         Pcfrequency: '',
         Pcduration: '',
         Fengaged: false,
